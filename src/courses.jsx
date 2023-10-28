@@ -1,9 +1,8 @@
-import React, { useState, useEffect } from "react";
-import TextField from "@mui/material/TextField";
-import Button from "@mui/material/Button";
-import Card from "@mui/material/Card";
-import Typography from "@mui/material/Typography";
+import { Button, Card, Typography } from "@mui/material";
+import { useEffect, useState } from "react";
 import { useNavigate } from "react-router-dom";
+import EditIcon from "@mui/icons-material/Edit";
+import IconButton from "@mui/material/IconButton";
 
 function Courses() {
   const [courses, setCourses] = useState([]);
@@ -15,7 +14,7 @@ function Courses() {
     function callback1(res) {
       res.json().then(callback2);
     }
-    fetch("http://localhost:3000/admin/courses", {
+    fetch("http://localhost:3000/admin/courses/", {
       method: "GET",
       headers: {
         Authorization: "Bearer " + localStorage.getItem("token"),
@@ -25,75 +24,67 @@ function Courses() {
 
   return (
     <div
-      style={{ display: "flex", flexWrap: "wrap", justifyContent: "center" }}
+      style={{ display: "flex", flexWrap: "wrap", justifyContent: "center", gap: 20 }}
     >
       {courses.map((course) => {
-        return <Course key={course.id} course={course} />;
+        return <Course course={course} />;
       })}
     </div>
   );
 }
 
-function Course({course}) {
-      const navigate = useNavigate();
+export function Course({ course }) {
+  const navigate = useNavigate();
+
   return (
     <Card
       style={{
-        margin: "10px",
-        width: 400,
+        margin: 10,
+        width: 350,
         minHeight: 200,
-        // padding: 10,
-        borderRadius: 10,
+        borderRadius: 15,
       }}
-      variant="outlined"
     >
+      <img
+        src={course.imageLink}
+        style={{ width: 400, marginBottom: -67 }}
+      ></img>
       <div
         style={{
-          // padding: 10,
           display: "flex",
-          flexDirection: "row",
-          justifyContent: "space-between",
+          flexDirection: "column",
+          padding: 10,
         }}
       >
         <div
           style={{
-            display: "flex",
-            flexDirection: "column",
-            padding: 10,
+            padding: "5px", // Adjust padding as needed
+            marginTop: "65",
           }}
         >
-          <Typography textAlign={"left"} variant="h5" fontFamily="monospace">
+          <IconButton
+            variant="contained"
+            aria-label="edit"
+            color="primary"
+            size="larger"
+            style={{backgroundColor: "#FFFFFF"}}
+            onClick={() => {
+              navigate("/course/" + course._id);
+            }}
+          >
+            <EditIcon />
+          </IconButton>
+        </div>
+        <div style={{
+          marginTop: "15px",
+        }}>
+          <Typography textAlign={"center"} variant="h5">
             {course.title}
           </Typography>
-          <Typography
-            textAlign={"left"}
-            variant="subtitle1"
-            fontFamily="monospace"
-          >
+          <Typography textAlign={"center"} variant="subtitle1">
             {course.description}
           </Typography>
-          <div
-            style={{ display: "flex", justifyContent: "center", marginTop: 20 }}
-          >
-            <Button
-              variant="contained"
-              size="large"
-              onClick={() => {
-                navigate("/course/" + course._id);
-              }}
-            >
-              Edit
-            </Button>
-          </div>
         </div>
-        <img
-          src={course.imageLink}
-          style={{
-            width: 220,
-            height: 200,
-            alignContent: "right",
-          }}
-        ></img>
       </div>
     </Card>
   );

@@ -68,9 +68,9 @@ router.post('/signup', (req, res) => {
     res.json({ courses });
   });
   
-  router.get('/course/:courseId', authenticateJwt, async (req, res) => {
-    const courseId = req.params.courseId;
-    const course = await Course.findById(courseId);
+  router.get('/course/:courseid', authenticateJwt, async (req, res) => {
+    const courseid = req.params.courseid;
+    const course = await Course.findById(courseid);
     res.json({ course });
   });
 

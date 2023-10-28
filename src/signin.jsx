@@ -2,6 +2,8 @@ import { Card, Typography } from "@mui/material";
 import Button from "@mui/material/Button";
 import TextField from "@mui/material/TextField";
 import { useState } from "react";
+import { Toaster, toast } from "alert";
+import { useNavigate } from "react-router-dom";
 
 function signin() {
   const [username, setUsername] = useState("");
@@ -80,6 +82,7 @@ function signin() {
                   })}
                 );
                 alert("Sign In Successful!");
+                // toast.success("Sign In Successful!");
               }
             }}
           >

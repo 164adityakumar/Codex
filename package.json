@@ -12,11 +12,15 @@
   "dependencies": {
     "@emotion/react": "^11.11.1",
     "@emotion/styled": "^11.11.0",
-    "@mui/material": "^5.14.13",
+    "@mui/icons-material": "^5.14.15",
+    "@mui/material": "^5.14.15",
+    "alert": "^6.0.1",
     "axios": "^1.5.1",
     "get-google-fonts": "^1.2.2",
+    "minidenticons": "^4.2.0",
     "react": "^18.2.0",
     "react-dom": "^18.2.0",
+    "react-loader-spinner": "^5.4.5",
     "react-router-dom": "^6.16.0",
     "recoil": "^0.7.7"
   },
