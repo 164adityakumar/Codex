@@ -6,6 +6,10 @@ import { minidenticon } from "minidenticons";
 import { useMemo } from "react";
 import { Chip } from "@mui/material";
 import Avatar from "@mui/material/Avatar";
+import { useRecoilState } from "recoil";
+import { userTypeState } from "./usertype";
+import { ThemeProvider } from "@mui/material/styles";
+import { theme } from "./Pallete";
 
 const MinidenticonImg = ({ username, saturation, lightness, ...props }) => {
   const svgURI = useMemo(
@@ -17,9 +21,9 @@ const MinidenticonImg = ({ username, saturation, lightness, ...props }) => {
   // return (<img src={svgURI} alt={username} {...props} />)
   return (
     <Chip
-    style={{
-      marginRight: "10px",
-    }}
+      style={{
+        marginRight: "10px",
+      }}
       avatar={<Avatar alt={username} src={svgURI} {...props} />}
       label={username}
       variant="outlined"
@@ -30,10 +34,11 @@ const MinidenticonImg = ({ username, saturation, lightness, ...props }) => {
 function Appbar() {
   const navigate = useNavigate();
   const [userEmail, setUserEmail] = useState(null);
-
+  const [userType] = useRecoilState(userTypeState);
   useEffect(() => {
     console.log(localStorage.getItem("token"));
-    fetch("http://localhost:3000/admin/me", {
+    const meEndpoint = userType === "user" ? "user/me" : "admin/me";
+    fetch(`http://localhost:3000/${meEndpoint}`, {
       method: "GET",
       headers: {
         Authorization: "Bearer " + localStorage.getItem("token"),
@@ -44,7 +49,7 @@ function Appbar() {
         setUserEmail(data.username);
         console.log(data.username);
       });
-  }, []);
+  }, [userType, userEmail]);
 
   if (userEmail) {
     return (
@@ -54,11 +59,12 @@ function Appbar() {
           justifyContent: "space-between",
           alignItems: "center",
           padding: "7px",
-          backgroundColor: "#FFFFFF",
+          backgroundColor: "#EDF2F6",
           // position: "static",
           // position: "-webkit-sticky",
           position: "sticky",
           top: 0,
+          borderBottom: "solid 5px ##ff6d7f",
         }}
       >
         <div
@@ -72,7 +78,7 @@ function Appbar() {
             fontFamily={"monospace"}
             fontWeight={"600"}
           >
-            edX
+            Inkspace
           </Typography>
         </div>
         <div
@@ -141,7 +147,8 @@ function Appbar() {
           justifyContent: "space-between",
           alignItems: "center",
           padding: "7px",
-          backgroundColor: "#F8FEFF",
+          backgroundColor: "#EDF2F6",
+          borderBottom: "solid 5px ##ff6d7f",
         }}
       >
         <div
@@ -155,7 +162,7 @@ function Appbar() {
             fontFamily={"monospace"}
             fontWeight={"600"}
           >
-            edX
+            Inkspace
           </Typography>
         </div>
         <div
@@ -165,32 +172,45 @@ function Appbar() {
             marginRight: "10px",
           }}
         >
-          <div>
-            <Button
-              variant="outlined"
-              size="larger"
-              color="inherit"
-              style={{ borderRadius: "20px", border: "solid 1px #00000077" }}
-              onClick={() => {
-                navigate("/signin");
-              }}
-            >
-              Sign In
-            </Button>
-          </div>
-          <div>
-            <Button
-              variant="outlined"
-              size="larger"
-              color="inherit"
-              style={{ borderRadius: "20px", border: "solid 1px #00000077" }}
-              onClick={() => {
-                navigate("/signup");
-              }}
-            >
-              Sign Up
-            </Button>
-          </div>
+          <ThemeProvider theme={theme}>
+            <div>
+              <Button
+                variant="outlined"
+                size="larger"
+                color="primary"
+                style={{
+                  borderRadius: "20px",
+                  border: "solid 1.5px ",
+                  fontWeight: "bold",
+                  fontSize: "14px",
+                }}
+                onClick={() => {
+                  navigate("/signin");
+                }}
+              >
+                Sign In
+              </Button>
+            </div>
+            <div>
+              <Button
+                variant="outlined"
+                size="larger"
+                color="secondary"
+                style={{
+                  borderRadius: "20px",
+                  border: "solid 1.5px ",
+                  // borderColor: "#206763",
+                  fontWeight: "bold",
+                  fontSize: "14px",
+                }}
+                onClick={() => {
+                  navigate("/signup");
+                }}
+              >
+                Sign Up
+              </Button>
+            </div>
+          </ThemeProvider>
         </div>
       </div>
     );

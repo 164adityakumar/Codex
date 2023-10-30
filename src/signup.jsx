@@ -1,13 +1,16 @@
-import { Card, Typography } from "@mui/material";
+import { Card, ToggleButtonGroup, Typography } from "@mui/material";
 import Button from "@mui/material/Button";
 import TextField from "@mui/material/TextField";
 import { useState } from "react";
-
-
+import { useRecoilState } from "recoil";
+import { userTypeState } from "./usertype";
+import ToggleButton from "@mui/material/ToggleButton";
+import { theme } from "./Pallete";
+import { ThemeProvider } from "@mui/material/styles";
 function signup() {
   const [username, setUsername] = useState("");
   const [password, setPassword] = useState("");
-
+  const [userType] = useRecoilState(userTypeState);
   return (
     <div>
       <div
@@ -19,7 +22,7 @@ function signup() {
         }}
       >
         <Typography variant="h6" color="initial" fontFamily={"monospace"}>
-          Welcome to edX CS50 by Aditya Kumar.
+          Welcome to Inkspace by Aditya Kumar.
           <br />
           Sign up below.
         </Typography>
@@ -31,6 +34,7 @@ function signup() {
           justifyContent: "center",
         }}
       >
+        <ThemeProvider theme={theme}>
         <Card
           variant={"outlined"}
           style={{
@@ -39,6 +43,7 @@ function signup() {
           }}
           fontFamily={"monospace"}
         >
+          <Toggle/>
           <TextField
             fullWidth
             label="Username"
@@ -63,11 +68,13 @@ function signup() {
           <Button
             size={"large"}
             variant="outlined"
+            color="secondary"
             onClick={() => {
-              if (username.length === 0 || password.length === 0) {
+              if(userType === "user"){if (username.length === 0 || password.length === 0) {
                 alert("Username or Password cannot be empty.");
               } else {
-                fetch("http://localhost:3000/admin/signup", {
+                const loginEndpoint = userType === "user" ? "user/signup" : "admin/signup";
+                fetch(`http://localhost:3000/${loginEndpoint}`, {
                   method: "POST",
                   headers: { "Content-Type": "application/json" },
                   body: JSON.stringify({
@@ -84,12 +91,35 @@ function signup() {
                 );
                 alert("Sign Up Successful!");
               }
-            }}
+            }
+              
+          
+              }}
           >
             Sign Up
           </Button>
         </Card>
+        </ThemeProvider>
       </div>
+    </div>
+  );
+}
+
+function Toggle() {
+  const [userType, setUserType] = useRecoilState(userTypeState);
+  return (
+    <div style={{ marginBottom: 15 }}>
+      <ToggleButtonGroup
+        color="secondary"
+        value={userType}
+        exclusive
+        onChange={(event, newUserType) => {
+          if (newUserType != null) setUserType(newUserType);
+        }}
+      >
+        <ToggleButton value="user">User</ToggleButton>
+        <ToggleButton value="admin">Admin</ToggleButton>
+      </ToggleButtonGroup>
     </div>
   );
 }
