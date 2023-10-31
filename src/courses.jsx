@@ -3,7 +3,8 @@ import { useEffect, useState } from "react";
 import { useNavigate } from "react-router-dom";
 import EditIcon from "@mui/icons-material/Edit";
 import IconButton from "@mui/material/IconButton";
-
+import { ThemeProvider } from "@emotion/react";
+import { theme } from "./Pallete";
 function Courses() {
   const [courses, setCourses] = useState([]);
 
@@ -24,7 +25,7 @@ function Courses() {
 
   return (
     <div
-      style={{ display: "flex", flexWrap: "wrap", justifyContent: "center", gap: 20 }}
+      style={{ display: "flex", flexWrap: "wrap", justifyContent: "center", gap: 20,backgroundColor:"#f2f2f2ce"}}
     >
       {courses.map((course) => {
         return <Course course={course} />;
@@ -47,7 +48,7 @@ export function Course({ course }) {
     >
       <img
         src={course.imageLink}
-        style={{ width: 400, marginBottom: -67 }}
+        style={{ maxwidth: 400 ,maxHeight:200, marginBottom: -67 }}
       ></img>
       <div
         style={{
@@ -62,10 +63,11 @@ export function Course({ course }) {
             marginTop: "65",
           }}
         >
+          <ThemeProvider theme={theme}>
           <IconButton
             variant="contained"
             aria-label="edit"
-            color="primary"
+            color="error"
             size="larger"
             style={{backgroundColor: "#FFFFFF"}}
             onClick={() => {
@@ -74,6 +76,7 @@ export function Course({ course }) {
           >
             <EditIcon />
           </IconButton>
+          </ThemeProvider>
         </div>
         <div style={{
           marginTop: "15px",

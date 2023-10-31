@@ -39,7 +39,7 @@ function Course() {
     );
   }
   return (
-    <div>
+    <div style={{ backgroundColor: "#f2f2f2ce" }}>
       <GrayTopper title={course.title} />
       <Grid container>
         <Grid item lg={8} md={12} sm={12}>

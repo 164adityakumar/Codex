@@ -37,8 +37,7 @@ function Signin() {
     }
   };
 
-  return (
-    <div>
+  return (<div >
       <div
         style={{
           marginTop: 150,
@@ -47,11 +46,13 @@ function Signin() {
           justifyContent: "center",
         }}
       >
-        <Typography variant="h6" color="initial" fontFamily={"monospace"}>
+        <ThemeProvider theme={theme}>
+        <Typography variant="h6" color="error" fontFamily={"monospace"}>
           Welcome back to Inkspace by Aditya Kumar.
           <br />
           Sign in below.
         </Typography>
+        </ThemeProvider>
       </div>
 
       <div
@@ -61,44 +62,45 @@ function Signin() {
         }}
       >
         <ThemeProvider theme={theme}>
-        <Card
-          variant={"outlined"}
-          style={{
-            width: 400,
-            padding: 20,
-          }}
-          fontFamily={"monospace"}
-        >
-          <Toggle />
-          <TextField
-            fullWidth
-            label="Username"
-            variant="filled"
-            onChange={(u) => {
-              setUsername(u.target.value);
+          <Card
+            variant={"contained"}
+            style={{
+              width: 400,
+              padding: 20,
+              backgroundColor: "#f1f5fece",
             }}
-          />
-          <br />
-          <br />
-          <TextField
-            fullWidth
-            label="Password"
-            variant="filled"
-            onChange={(p) => {
-              setPassword(p.target.value);
-            }}
-          />
-          <br />
-          <br />
-          <Button
-            size={"large"}
-            variant="outlined"
-            color="primary"
-            onClick={handleSignIn}
+            // fontFamily={"monospace"}
           >
-            Sign in
-          </Button>
-        </Card>
+            <Toggle />
+            <TextField
+              fullWidth
+              label="Username"
+              variant="filled"
+              onChange={(u) => {
+                setUsername(u.target.value);
+              }}
+            />
+            <br />
+            <br />
+            <TextField
+              fullWidth
+              label="Password"
+              variant="filled"
+              onChange={(p) => {
+                setPassword(p.target.value);
+              }}
+            />
+            <br />
+            <br />
+            <Button
+              size={"large"}
+              variant="outlined"
+              color="error"
+              onClick={handleSignIn}
+            >
+              Sign in
+            </Button>
+          </Card>
         </ThemeProvider>
       </div>
     </div>
@@ -109,7 +111,7 @@ function Toggle() {
   const [userType, setUserType] = useRecoilState(userTypeState);
   return ( <div style={{ marginBottom: 15 }}>
       <ToggleButtonGroup
-        color="primary"
+        color="error"
         value={userType}
         exclusive
         onChange={(event, newUserType) => {

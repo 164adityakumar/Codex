@@ -4,8 +4,21 @@ body {
     width: 100%;
     margin: 0;
     padding: 0;
-    background-color: #f1f5fe;
+    /* background-color:#122a3f; */
     /* background-image:linear-gradient(to right ,rgb(24, 44, 59) ,rgb(18, 119, 156),rgb(79, 171, 205),
         rgb(16, 111, 145)
     ); */
+    /* background-image: linear-gradient(to right, #1d4350, #a43931);
+    background-image: url("src/assets/573701.jpg");
+    background-repeat: no-repeat;
+    background-size: cover;
+    background-blend-mode:darken; */
+    /* background: radial-gradient(circle at top left, transparent 9%, #1a73e9 10%, #1a73e9 15%, transparent 16%), radial-gradient(circle at bottom left, transparent 9%, #1a73e9 10%, #1a73e9 15%, transparent 16%), radial-gradient(circle at top right, transparent 9%, #1a73e9 10%, #1a73e9 15%, transparent 16%), radial-gradient(circle at bottom right, transparent 9%, #1a73e9 10%, #1a73e9 15%, transparent 16%), radial-gradient(circle, transparent 25%, #ffd8dd 26%), linear-gradient(45deg, transparent 46%, #1a73e9 47%, #1a73e9 52%, transparent 53%), linear-gradient(135deg, transparent 46%, #1a73e9 47%, #1a73e9 52%, transparent 53%);
+        background-size: 5em 5em;
+        background-color: #ffd8dd;
+        opacity: 1 */
+        background-image: url('assets/stacked-waves-haikei.svg');
+            background-size: cover;
+            /* Adjust this as needed */
+            background-repeat: no-repeat;
 }
