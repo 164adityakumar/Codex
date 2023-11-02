@@ -4,6 +4,8 @@ import { useState } from "react";
 import Button from "@mui/material/Button";
 import Card from "@mui/material/Card";
 import Typography from "@mui/material/Typography";
+import { ThemeProvider } from "@emotion/react";
+import { theme } from "./Pallete";
 
 function addcourse() {
   const [title, setTitle] = useState("");
@@ -21,7 +23,7 @@ function addcourse() {
             justifyContent: "center",
           }}
         >
-          <Typography variant="h6" color="initial" fontFamily={"monospace"}>
+          <Typography variant="h6" color="primary" fontFamily={"monospace"}>
             Add your new course below.
           </Typography>
         </div>
@@ -79,10 +81,11 @@ function addcourse() {
               label="Price"
               variant="outlined"
             />
-
+            <ThemeProvider theme={theme}>
             <Button
               size={"large"}
               variant="contained"
+              color="primary"
               onClick={() => {
                 if (title.length === 0 || description.length === 0) {
                   alert("Course Title or Description cannot be empty.");
@@ -112,6 +115,7 @@ function addcourse() {
             >
               Add Course
             </Button>
+            </ThemeProvider>
           </Card>
         </div>
       </div>

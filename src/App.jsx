@@ -1,6 +1,3 @@
-import { useState } from "react";
-import reactLogo from "./assets/react.svg";
-import viteLogo from "/vite.svg";
 import "./App.css";
 import { BrowserRouter as Router, Routes, Route } from "react-router-dom";
 import Signup from "./signup.jsx";
@@ -9,6 +6,11 @@ import Appbar from "./Appbar.jsx";
 import Addcourse from "./addcourse.jsx";
 import Courses from "./courses.jsx";
 import Course from "./Course.jsx";
+// import DisplayCourses from "./DisplayCourse.jsx";
+// import MyCourses from "./PurchasedCourses";
+// import Admin_Appbar from "./Admin_Appbar.jsx";
+// import User_Appbar from "./User_Appbar.jsx";
+
 import {
   RecoilRoot,
   atom,
@@ -30,6 +32,10 @@ function App() {
             <Route path="/courses" element={<Courses />} />
             <Route path="/signup" element={<Signup />} />
             <Route path="/signin" element={<Signin />} />
+            {/* <Route path="/admin" element={<Admin_Appbar />} /> */}
+            {/* <Route path="/user" element={<User_Appbar />} /> */}
+            {/* <Route path="/Explore" element={<DisplayCourses />} /> */}
+            {/* <Route path="/MyCourses" element={<MyCourses />} /> */}
           </Routes>
         </Router>
         </RecoilRoot>

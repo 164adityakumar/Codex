@@ -25,7 +25,7 @@ function Courses() {
 
   return (
     <div
-      style={{ display: "flex", flexWrap: "wrap", justifyContent: "center", gap: 20,backgroundColor:"#f2f2f2ce"}}
+      style={{ display: "flex", flexWrap: "wrap", justifyContent: "center", gap: 20,backgroundColor:"#f2f2f2"}}
     >
       {courses.map((course) => {
         return <Course course={course} />;

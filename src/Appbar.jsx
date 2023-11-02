@@ -17,45 +17,45 @@ const MinidenticonImg = ({ username, saturation, lightness, ...props }) => {
       encodeURIComponent(minidenticon(username, saturation, lightness)),
     [username, saturation, lightness]
   );
- 
-//   const [userType] = useRecoilState(userTypeState);
-//   useEffect(() => {
-//   if(userType==="user"||userType===null) 
-//   {}
-//   else
-//  {}
-//   }, [userType]);
+
+  //   const [userType] = useRecoilState(userTypeState);
+  //   useEffect(() => {
+  //   if(userType==="user"||userType===null)
+  //   {}
+  //   else
+  //  {}
+  //   }, [userType]);
   // return (<img src={svgURI} alt={username} {...props} />)
   return (
     <ThemeProvider theme={theme}>
-    <Chip
-      style={{
-        marginRight: "10px",
-        fontWeight: "bold",
-        // paddingInline: "5px",
-        // paddingTop: "5px",
-        // paddingBottom: "5px",
-        fontFamily:"Josefin Sans",
-        border: "solid 1.7px #1a73e9",
-        // fontSize:"13px"
-      }}
-      avatar={<Avatar alt={username} src={svgURI} {...props} />}
-      label={username}
-      variant="contained"
-      size="large"
-      color="secondary"
-      
-    />
+      <Chip
+        style={{
+          marginRight: "10px",
+          fontWeight: "bold",
+          // paddingInline: "5px",
+          // paddingTop: "5px",
+          // paddingBottom: "5px",
+          fontFamily: "Josefin Sans",
+          border: "solid 1.7px #1a73e9",
+          // fontSize:"13px"
+        }}
+        avatar={<Avatar alt={username} src={svgURI} {...props} />}
+        label={username}
+        variant="contained"
+        size="large"
+        color="secondary"
+      />
     </ThemeProvider>
   );
 };
 function Appbar() {
+  const usertypetoken = localStorage.getItem("UserType");
   const navigate = useNavigate();
   const [userEmail, setUserEmail] = useState(null);
-  const [userType] = useRecoilState(userTypeState);
+  // const [userType] = useRecoilState(userTypeState);
   useEffect(() => {
     console.log(localStorage.getItem("token"));
-    const meEndpoint = userType === "user" ? "user/me" : "admin/me";
+    const meEndpoint = usertypetoken === "user" ? "user/me" : "admin/me";
     fetch(`http://localhost:3000/${meEndpoint}`, {
       method: "GET",
       headers: {
@@ -67,96 +67,234 @@ function Appbar() {
         setUserEmail(data.username);
         console.log(data.username);
       });
-  }, [userType, userEmail]);
+  }, [userEmail]);
 
-  if (userEmail && userType === "admin") {
-    return (
-      <div
-        style={{
-          display: "flex",
-          justifyContent: "space-between",
-          alignItems: "center",
-          padding: "8px",
-          backgroundColor: "#0f1e2b",
-          // position: "static",
-          // position: "-webkit-sticky",
-          position: "sticky",
-          top: 0,
-          borderBottom: "solid 5px ##ff6d7f",
-        }}
-      >
-        <ThemeProvider theme={theme}>
-          <Typography
-            variant="h5"
-            color="primary"
-            fontWeight={"500"}
-            fontSize={"27px"}
-          >
-            Inkspace.
-          </Typography>
-
+  if (userEmail) {
+    if (usertypetoken === "admin") {
+      return (
+        <div
+          style={{
+            display: "flex",
+            justifyContent: "space-between",
+            alignItems: "center",
+            padding: "8px",
+            backgroundColor: "#0f1e2b",
+            // position: "static",
+            zIndex: 100,
+            // position: "-webkit-sticky",
+            position: "sticky",
+            top: 0,
+            borderBottom: "solid 5px ##ff6d7f",
+          }}
+        >
           <div
             style={{
               display: "flex",
               gap: "10px",
-              marginRight: "10px",
+              alignItems: "center", // Align items vertically
+              marginLeft: "3px",
             }}
           >
-            <div style={{ marginRight: 10 }}>
-              <Button
-                color="primary"
-                style={{ borderRadius: "20px" }}
-                onClick={() => {
-                  navigate("/addcourse");
-                }}
-              >
-                Add course
-              </Button>
-            </div>
-            <div style={{ marginRight: 10 }}>
-              <Button
-                color="primary"
-                style={{ borderRadius: "20px" }}
-                onClick={() => {
-                  navigate("/courses");
-                }}
-              >
-                Courses
-              </Button>
-            </div>
-            {/* <Typography fontFamily={"monospace"}>{userEmail}</Typography> */}
-            <MinidenticonImg
+            <img
               style={{
-                backgroundColor: "#eeeeee",
-                border: "solid 0px #0b438b",
-                  width:"25px",
-                  height:"23px"
-              
+                width: "50px", // Adjust as needed
+                height: "50px", // Adjust as needed
               }}
-              username={userEmail}
-              saturation="85"
-              lightness="40"
-              // width="150"
-              // height="150"
+              src="src/assets/png/logo-no-background.png"
+              alt="logo"
             />
-            <div>
-              <Button
-                variant="outlined"
-                style={{ borderRadius: "20px", border: "solid 1px " }}
-                color="error"
-                size="larger"
-                onClick={() => {
-                  localStorage.setItem("token", null);
-                  window.location = "/";
-                }}
+
+            <ThemeProvider theme={theme}>
+              <Typography
+                variant="h5"
+                color="primary"
+                style={{ fontWeight: 500, fontSize: "27px" }}
               >
-                Log Out
-              </Button>
-            </div>
+                Inkspace.
+              </Typography>
+            </ThemeProvider>
           </div>
-        </ThemeProvider>
-      </div>
-    );
+          <ThemeProvider theme={theme}>
+            <div
+              style={{
+                display: "flex",
+                gap: "10px",
+                marginRight: "10px",
+                alignItems: "center",
+              }}
+            >
+              <div style={{ marginRight: 10 }}>
+                <Button
+                  color="primary"
+                  size="large"
+                  style={{ borderRadius: "20px" }}
+                  onClick={() => {
+                    navigate("/addcourse");
+                  }}
+                >
+                  Add course
+                </Button>
+              </div>
+              <div style={{ marginRight: 10 }}>
+                <Button
+                  color="primary"
+                  size="large"
+                  style={{ borderRadius: "20px" }}
+                  onClick={() => {
+                    navigate("/courses");
+                  }}
+                >
+                  Courses
+                </Button>
+              </div>
+              {/* <Typography fontFamily={"monospace"}>{userEmail}</Typography> */}
+              <MinidenticonImg
+                style={{
+                  backgroundColor: "#eeeeee",
+                  border: "solid 0px #0b438b",
+                  width: "25px",
+                  height: "23px",
+                }}
+                username={userEmail}
+                saturation="85"
+                lightness="40"
+                // width="150"
+                // height="150"
+              />
+              <div>
+                <Button
+                  variant="outlined"
+                  style={{ borderRadius: "20px" }}
+                  color="error"
+                  size="larger"
+                  onClick={() => {
+                    localStorage.setItem("token", null);
+                    window.location = "/";
+                  }}
+                >
+                  Log Out
+                </Button>
+              </div>
+            </div>
+          </ThemeProvider>
+        </div>
+      );
+    } else {
+      return (
+        <div
+          style={{
+            display: "flex",
+            justifyContent: "space-between",
+            alignItems: "center",
+            padding: "8px",
+            backgroundColor: "#0f1e2b",
+            // position: "static",
+            // position: "-webkit-sticky",
+            position: "sticky",
+            top: 0,
+            zIndex: 100,
+            borderBottom: "solid 5px ##ff6d7f",
+          }}
+        >
+          <div
+          style={{
+            marginLeft: "3px",
+          }}
+        >
+          <div
+            style={{
+              display: "flex",
+              gap: "10px",
+              alignItems: "center", // Align items vertically
+            }}
+          >
+            <img
+              style={{
+                width: "50px", // Adjust as needed
+                height: "50px", // Adjust as needed
+              }}
+              src="src/assets/png/logo-no-background.png"
+              alt="logo"
+            />
+
+            <ThemeProvider theme={theme}>
+              <Typography
+                variant="h5"
+                color="primary"
+                style={{ fontWeight: 500, fontSize: "27px" }}
+              >
+                Inkspace.
+              </Typography>
+            </ThemeProvider>
+          </div>
+        </div>
+          <ThemeProvider theme={theme}>
+            <div
+              style={{
+                display: "flex",
+                gap: "10px",
+                marginRight: "10px",
+                alignItems: "center",
+              }}
+            >
+              <div style={{ marginRight: 10 }}>
+                <Button
+                  color="secondary"
+                  variant="contained"
+                  size="large"
+                  style={{ borderRadius: "20px" }}
+                  onClick={() => {
+                    navigate("/Explore");
+                  }}
+                >
+                  Explore
+                </Button>
+              </div>
+              <div style={{ marginRight: 10 }}>
+                <Button
+                  color="primary"
+                  size="large"
+                  style={{ borderRadius: "20px" }}
+                  onClick={() => {
+                    navigate("/Mycourses");
+                  }}
+                >
+                  My Courses
+                </Button>
+              </div>
+              {/* <Typography fontFamily={"monospace"}>{userEmail}</Typography> */}
+              <MinidenticonImg
+                style={{
+                  backgroundColor: "#eeeeee",
+                  border: "solid 0px #0b438b",
+                  width: "25px",
+                  height: "23px",
+                }}
+                username={userEmail}
+                saturation="85"
+                lightness="40"
+                // width="150"
+                // height="150"
+              />
+              <div>
+                <Button
+                  variant="outlined"
+                  style={{ borderRadius: "20px"}}
+                  color="error"
+                  size="larger"
+                  onClick={() => {
+                    localStorage.setItem("token", null);
+                    window.location = "/";
+                  }}
+                >
+                  Log Out
+                </Button>
+              </div>
+            </div>
+          </ThemeProvider>
+        </div>
+      );
+    }
   } else {
     return (
       <div
@@ -167,23 +305,43 @@ function Appbar() {
           padding: "8px",
           backgroundColor: "#0f1e2b",
           borderBottom: "solid 5px #ff6d7f",
+            zIndex: 100,
+            // position: "-webkit-sticky",
+            position: "sticky",
+            top: 0,
         }}
       >
         <div
           style={{
-            marginLeft: "10px",
+            marginLeft: "3px",
           }}
         >
-          <ThemeProvider theme={theme}>
-          <Typography
-            variant="h5"
-            color="primary"
-            fontWeight={"500"}
-            fontSize={"27px"}
+          <div
+            style={{
+              display: "flex",
+              gap: "10px",
+              alignItems: "center", // Align items vertically
+            }}
           >
-            Inkspace.
-          </Typography>
-          </ThemeProvider>
+            <img
+              style={{
+                width: "50px", // Adjust as needed
+                height: "50px", // Adjust as needed
+              }}
+              src="src/assets/png/logo-no-background.png"
+              alt="logo"
+            />
+
+            <ThemeProvider theme={theme}>
+              <Typography
+                variant="h5"
+                color="primary"
+                style={{ fontWeight: 500, fontSize: "27px" }}
+              >
+                Inkspace.
+              </Typography>
+            </ThemeProvider>
+          </div>
         </div>
         <div
           style={{
@@ -196,7 +354,7 @@ function Appbar() {
             <div>
               <Button
                 variant="text"
-                size="larger"
+                size="large"
                 color="primary"
                 style={{
                   borderRadius: "20px",
@@ -214,7 +372,7 @@ function Appbar() {
             <div>
               <Button
                 variant="contained"
-                size="larger"
+                size="large"
                 color="secondary"
                 style={{
                   borderRadius: "20px",

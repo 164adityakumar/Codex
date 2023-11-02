@@ -1,10 +1,9 @@
 import { createTheme } from "@mui/material/styles";
-import Sedgwick from "../src/assets/SedgwickAveDisplay-Regular.ttf";
 
 export const theme = createTheme({
   palette: {
     primary: {
-      main: "#428ae8",
+      main: "#488de9",
       // light: will be calculated from palette.primary.main,
       // dark: will be calculated from palette.primary.main,
       // contrastText: will be calculated to contrast with palette.primary.main
@@ -32,7 +31,7 @@ export const theme = createTheme({
       // fontFamily: "'Leckerli One', cursive",
     },
     card: {
-      fontFamily: "'Sedgwick Ave Display', cursive",
+      // fontFamily: "'Sedgwick Ave Display', cursive",
       fontFamily: "'Leckerli One', cursive",
       backgroundColor: "#0f1e2b",
     },

@@ -28,7 +28,8 @@ function Signin() {
       }).then((res) => {
         res.json().then(({ message, token }) => {
           localStorage.setItem("token", token);
-          console.log(message);
+          localStorage.setItem("UserType", userType);
+          // console.log(message);
           window.location = "/";
         });
       });
