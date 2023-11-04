@@ -10,12 +10,13 @@ import { ThemeProvider } from "@mui/material/styles";
 function signup() {
   const [username, setUsername] = useState("");
   const [password, setPassword] = useState("");
+  const [userhandle, setUserhandle] = useState("");
   const [userType] = useRecoilState(userTypeState);
   return (
     <div>
       <div
         style={{
-          marginTop: 150,
+          marginTop: 100,
           marginBottom: 10,
           display: "flex",
           justifyContent: "center",
@@ -47,6 +48,17 @@ function signup() {
             <Toggle />
             <TextField
               fullWidth
+              label="Userhandle"
+              variant="filled"
+              // sx={{ input:{color:""}}}
+              onChange={(h) => {
+                setUserhandle(h.target.value);
+              }}
+            />
+            <br />
+            <br />
+            <TextField
+              fullWidth
               label="Username"
               variant="filled"
               // sx={{ input:{color:""}}}
@@ -72,22 +84,25 @@ function signup() {
               variant="outlined"
               color="secondary"
               onClick={() => {
-                if (userType === "user") {
+                
                   if (username.length === 0 || password.length === 0) {
                     alert("Username or Password cannot be empty.");
                   } else {
                     const loginEndpoint =
                       userType === "user" ? "user/signup" : "admin/signup";
+                      console.log(loginEndpoint);
                     fetch(`http://localhost:3000/${loginEndpoint}`, {
                       method: "POST",
                       headers: { "Content-Type": "application/json" },
                       body: JSON.stringify({
+                        userhandle: userhandle,
                         username: username,
                         password: password,
                       }),
                     }).then((res) =>
                       res.json().then((data) => {
                         localStorage.setItem("token", data.token);
+                        localStorage.setItem("UserType", userType);
                         console.log(data.token);
 
                         window.location = "/";
@@ -95,7 +110,7 @@ function signup() {
                     );
                     alert("Sign Up Successful!");
                   }
-                }
+                
               }}
             >
               Sign Up

@@ -1,5 +1,5 @@
 const express = require('express');
-const { User, Course, Admin } = require("../db");
+const { User, Course, Admin,Tags} = require("../db");
 const jwt = require('jsonwebtoken');
 const { SECRET } = require("../middleware/auth")
 const { authenticateJwt } = require("../middleware/auth");
@@ -13,17 +13,17 @@ router.get("/me", authenticateJwt, async (req, res) => {
       return
     }
     res.json({
-        username: admin.username
+        userhandle: admin.userhandle
     })
 });
 
 router.post('/signup', (req, res) => {
-    const { username, password } = req.body;
+    const { userhandle,username, password } = req.body;
     function callback(admin) {
       if (admin) {
         res.status(403).json({ message: 'Admin already exists' });
       } else {
-        const obj = { username: username, password: password };
+        const obj = { userhandle:userhandle,username: username, password: password };
         const newAdmin = new Admin(obj);
         newAdmin.save();
 
@@ -48,19 +48,38 @@ router.post('/signup', (req, res) => {
   });
   
   router.post('/courses', authenticateJwt, async (req, res) => {
-    const course = new Course(req.body);
-    console.log(req.body);
-    await course.save();
-    res.json({ message: 'Course created successfully', courseId: course._id });
+   let course = new Course({
+    title: req.body.title,
+    description: req.body.description,  
+    imageLink: req.body.imageLink,
+    price: req.body.price,
+    published: req.body.published,
+    tags: req.body.tags,
+    author: req.user.username
   });
-  
-  router.put('/courses/:courseId', authenticateJwt, async (req, res) => {
-    const course = await Course.findByIdAndUpdate(req.params.courseId, req.body, { new: true });
-    if (course) {
-      res.json({ message: 'Course updated successfully' });
-    } else {
-      res.status(404).json({ message: 'Course not found' });
-    }
+    await course.save();
+
+for(let i=0; i<req.body.tags.length; i++){
+  let existingTag = await Tags.findOne({ tags: req.body.tags[i] });
+
+  if (existingTag) {
+    // If the tag already exists, update it with the new course ID
+    await Tags.findOneAndUpdate(
+      { tags: req.body.tags[i] },
+      { $push: { courses_with_tag_id: course._id } }
+    );
+  } else {
+    // If the tag doesn't exist, create a new one
+    let tag = new Tags({
+      tags: req.body.tags[i],
+      courses_with_tag_id: [course._id]
+    });
+
+    await tag.save();
+  }
+}
+
+res.json({ message: 'Course created successfully', courseId: course._id });
   });
   
   router.get('/courses', authenticateJwt, async (req, res) => {

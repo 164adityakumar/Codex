@@ -6,10 +6,10 @@ import Appbar from "./Appbar.jsx";
 import Addcourse from "./addcourse.jsx";
 import Courses from "./courses.jsx";
 import Course from "./Course.jsx";
-// import DisplayCourses from "./DisplayCourse.jsx";
-// import MyCourses from "./PurchasedCourses";
-// import Admin_Appbar from "./Admin_Appbar.jsx";
-// import User_Appbar from "./User_Appbar.jsx";
+import Explore from "./Explore.jsx";
+// import MyCourses from "./MyCourses.jsx";
+import DisplayCourse from "./DisplayCourse.jsx";
+
 
 import {
   RecoilRoot,
@@ -32,9 +32,8 @@ function App() {
             <Route path="/courses" element={<Courses />} />
             <Route path="/signup" element={<Signup />} />
             <Route path="/signin" element={<Signin />} />
-            {/* <Route path="/admin" element={<Admin_Appbar />} /> */}
-            {/* <Route path="/user" element={<User_Appbar />} /> */}
-            {/* <Route path="/Explore" element={<DisplayCourses />} /> */}
+            <Route path="/Explore" element={<Explore />} />
+            <Route path="/Explore/:courseid" element={<DisplayCourse />} />
             {/* <Route path="/MyCourses" element={<MyCourses />} /> */}
           </Routes>
         </Router>

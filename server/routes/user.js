@@ -1,6 +1,6 @@
 const express = require('express');
 const { authenticateJwt, SECRET } = require("../middleware/auth");
-const { User, Course, Admin } = require("../db");
+const { User, Course, Admin,Tags } = require("../db");
 const jwt = require('jsonwebtoken');
 const router = express.Router();
 
@@ -11,19 +11,19 @@ router.get("/me", authenticateJwt, async (req, res) => {
       return
     }
     res.json({
-        username: user.username
+        userhandle: user.userhandle
     })
 });
 
   router.post('/signup', async (req, res) => {
-    const { username, password } = req.body;
+    const { userhandle,username, password } = req.body;
     const user = await User.findOne({ username });
     if (user) {
       res.status(403).json({ message: 'User already exists' });
     } else {
-      const newUser = new User({ username, password });
+      const newUser = new User({userhandle, username, password });
       await newUser.save();
-      const token = jwt.sign({ username, role: 'user' }, SECRET, { expiresIn: '1h' });
+      const token = jwt.sign({ username, role: 'user' }, SECRET, { expiresIn: '2h' });
       res.json({ message: 'User created successfully', token });
     }
   });
@@ -32,13 +32,19 @@ router.get("/me", authenticateJwt, async (req, res) => {
     const { username, password } = req.body;
     const user = await User.findOne({ username, password });
     if (user) {
-      const token = jwt.sign({ username, role: 'user' }, SECRET, { expiresIn: '1h' });
+      const token = jwt.sign({ username, role: 'user' }, SECRET, { expiresIn: '2h' });
       res.json({ message: 'Logged in successfully', token });
     } else {
       res.status(403).json({ message: 'Invalid username or password' });
     }
   });
   
+router.get('/tags', authenticateJwt, async (req, res) => {
+  let tags = await Tags.find().select('tags -_id');
+  tags = tags.map(tagObj => tagObj.tags);
+  console.log(tags);
+  res.json({ tags });
+})
   router.get('/courses', authenticateJwt, async (req, res) => {
     const courses = await Course.find({published: true});
     res.json({ courses });

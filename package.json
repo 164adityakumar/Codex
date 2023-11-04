@@ -14,6 +14,8 @@
     "@emotion/styled": "^11.11.0",
     "@mui/icons-material": "^5.14.15",
     "@mui/material": "^5.14.15",
+    "@mui/x-data-grid": "^6.17.0",
+    "@mui/x-data-grid-generator": "^6.17.0",
     "alert": "^6.0.1",
     "axios": "^1.5.1",
     "get-google-fonts": "^1.2.2",

@@ -6,8 +6,6 @@ import { minidenticon } from "minidenticons";
 import { useMemo } from "react";
 import { Chip } from "@mui/material";
 import Avatar from "@mui/material/Avatar";
-import { useRecoilState } from "recoil";
-import { userTypeState } from "./usertype";
 import { ThemeProvider } from "@mui/material/styles";
 import { theme } from "./Pallete";
 const MinidenticonImg = ({ username, saturation, lightness, ...props }) => {
@@ -18,8 +16,7 @@ const MinidenticonImg = ({ username, saturation, lightness, ...props }) => {
     [username, saturation, lightness]
   );
 
-  //   const [userType] = useRecoilState(userTypeState);
-  //   useEffect(() => {
+
   //   if(userType==="user"||userType===null)
   //   {}
   //   else
@@ -51,7 +48,7 @@ const MinidenticonImg = ({ username, saturation, lightness, ...props }) => {
 function Appbar() {
   const usertypetoken = localStorage.getItem("UserType");
   const navigate = useNavigate();
-  const [userEmail, setUserEmail] = useState(null);
+  const [UserHandle, setUserHandle] = useState(null);
   // const [userType] = useRecoilState(userTypeState);
   useEffect(() => {
     console.log(localStorage.getItem("token"));
@@ -64,13 +61,14 @@ function Appbar() {
     })
       .then((res) => res.json())
       .then((data) => {
-        setUserEmail(data.username);
-        console.log(data.username);
+        setUserHandle(data.userhandle);
+        console.log(data.userhandle);
       });
-  }, [userEmail]);
-
-  if (userEmail) {
+  }, [UserHandle]);
+  
+  if (UserHandle) {
     if (usertypetoken === "admin") {
+      console.log(UserHandle);
       return (
         <div
           style={{
@@ -110,7 +108,7 @@ function Appbar() {
                 color="primary"
                 style={{ fontWeight: 500, fontSize: "27px" }}
               >
-                Inkspace.
+                Codex_
               </Typography>
             </ThemeProvider>
           </div>
@@ -147,7 +145,7 @@ function Appbar() {
                   Courses
                 </Button>
               </div>
-              {/* <Typography fontFamily={"monospace"}>{userEmail}</Typography> */}
+              {/* <Typography fontFamily={"monospace"}>{UserHandle}</Typography> */}
               <MinidenticonImg
                 style={{
                   backgroundColor: "#eeeeee",
@@ -155,7 +153,7 @@ function Appbar() {
                   width: "25px",
                   height: "23px",
                 }}
-                username={userEmail}
+                username={UserHandle}
                 saturation="85"
                 lightness="40"
                 // width="150"
@@ -169,6 +167,7 @@ function Appbar() {
                   size="larger"
                   onClick={() => {
                     localStorage.setItem("token", null);
+                    localStorage.setItem("UserType", null);
                     window.location = "/";
                   }}
                 >
@@ -191,6 +190,7 @@ function Appbar() {
             // position: "static",
             // position: "-webkit-sticky",
             position: "sticky",
+            scrollBehavior: "smooth",
             top: 0,
             zIndex: 100,
             borderBottom: "solid 5px ##ff6d7f",
@@ -223,7 +223,7 @@ function Appbar() {
                 color="primary"
                 style={{ fontWeight: 500, fontSize: "27px" }}
               >
-                Inkspace.
+                Codex_
               </Typography>
             </ThemeProvider>
           </div>
@@ -256,13 +256,13 @@ function Appbar() {
                   size="large"
                   style={{ borderRadius: "20px" }}
                   onClick={() => {
-                    navigate("/Mycourses");
+                    navigate("/MyCourses");
                   }}
                 >
                   My Courses
                 </Button>
               </div>
-              {/* <Typography fontFamily={"monospace"}>{userEmail}</Typography> */}
+              {/* <Typography fontFamily={"monospace"}>{UserHandle}</Typography> */}
               <MinidenticonImg
                 style={{
                   backgroundColor: "#eeeeee",
@@ -270,7 +270,7 @@ function Appbar() {
                   width: "25px",
                   height: "23px",
                 }}
-                username={userEmail}
+                username={UserHandle}
                 saturation="85"
                 lightness="40"
                 // width="150"
@@ -284,6 +284,7 @@ function Appbar() {
                   size="larger"
                   onClick={() => {
                     localStorage.setItem("token", null);
+                    localStorage.setItem("UserType", null);
                     window.location = "/";
                   }}
                 >
@@ -305,10 +306,10 @@ function Appbar() {
           padding: "8px",
           backgroundColor: "#0f1e2b",
           borderBottom: "solid 5px #ff6d7f",
-            zIndex: 100,
-            // position: "-webkit-sticky",
-            position: "sticky",
-            top: 0,
+          zIndex: 100,
+          // position: "-webkit-sticky",
+          position: "sticky",
+          top: 0,
         }}
       >
         <div
@@ -338,7 +339,7 @@ function Appbar() {
                 color="primary"
                 style={{ fontWeight: 500, fontSize: "27px" }}
               >
-                Inkspace.
+                Codex_
               </Typography>
             </ThemeProvider>
           </div>
@@ -376,7 +377,7 @@ function Appbar() {
                 color="secondary"
                 style={{
                   borderRadius: "20px",
-                  // border: "solid 2.5px #ff6d7f",
+                  border: "solid 2.5px #ff6d7f",
                   fontWeight: "bold",
                   fontSize: "14px",
                 }}

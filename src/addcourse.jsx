@@ -6,12 +6,14 @@ import Card from "@mui/material/Card";
 import Typography from "@mui/material/Typography";
 import { ThemeProvider } from "@emotion/react";
 import { theme } from "./Pallete";
-
+import Autocomplete from "@mui/material/Autocomplete";
 function addcourse() {
   const [title, setTitle] = useState("");
   const [description, setDescription] = useState("");
   const [image, setImage] = useState("");
   const [price, setPrice] = useState(0);
+  const [tags, setTags] = useState([]); //tags is an array of strings
+
   return (
     <>
       <div>
@@ -81,40 +83,66 @@ function addcourse() {
               label="Price"
               variant="outlined"
             />
+            <Autocomplete
+              multiple
+              id="tags-filled"
+              options={["st", "hk"]}
+              defaultValue={[]}
+              freeSolo
+              onChange={(event, value) => setTags(value)}
+              renderInput={(params) => (
+                // console.log(params),
+                <TextField
+                  {...params}
+                  variant="outlined"
+                  label="Tags"
+                  style={{ marginBottom: 10 }}
+                  placeholder="Favorites"
+                  onKeyDown={(event) => {
+                    if (event.key === "Enter") {
+                      event.preventDefault();
+                      setTags((oldTags) => [...oldTags, event.target.value]);
+                    }
+                  }}
+                />
+              )}
+            />
             <ThemeProvider theme={theme}>
-            <Button
-              size={"large"}
-              variant="contained"
-              color="primary"
-              onClick={() => {
-                if (title.length === 0 || description.length === 0) {
-                  alert("Course Title or Description cannot be empty.");
-                } else {
-                  fetch("http://localhost:3000/admin/courses", {
-                    method: "POST",
+              <Button
+                size={"large"}
+                variant="contained"
+                color="primary"
+                onClick={() => {
+                  if (title.length === 0 || description.length === 0) {
+                    alert("Course Title or Description cannot be empty.");
+                  } else {
+                    fetch("http://localhost:3000/admin/courses", {
+                      method: "POST",
 
-                    headers: {
-                      "Content-Type": "application/json",
-                      Authorization: "Bearer " + localStorage.getItem("token"), //this header is necessary to be senf using the header for the admin to be authenticated using the token stored in local storage until the admin signs out
-                    },
+                      headers: {
+                        "Content-Type": "application/json",
+                        Authorization:
+                          "Bearer " + localStorage.getItem("token"), //this header is necessary to be senf using the header for the admin to be authenticated using the token stored in local storage until the admin signs out
+                      },
 
-                    body: JSON.stringify({
-                      title: title,
-                      description: description,
-                      price: price,
-                      imageLink: image,
-                      published: true,
-                    }),
-                  }).then((res) =>
-                    res.json().then((data) => {
-                      alert("Course created Successfully!");
-                    })
-                  );
-                }
-              }}
-            >
-              Add Course
-            </Button>
+                      body: JSON.stringify({
+                        title: title,
+                        description: description,
+                        price: price,
+                        imageLink: image,
+                        published: true,
+                        tags: tags,
+                      }),
+                    }).then((res) =>
+                      res.json().then((data) => {
+                        alert("Course created Successfully!");
+                      })
+                    );
+                  }
+                }}
+              >
+                Add Course
+              </Button>
             </ThemeProvider>
           </Card>
         </div>

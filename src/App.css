@@ -1,9 +1,11 @@
-html,
+html ,
 body {
+    overflow: auto;
     height: 100%;
     width: 100%;
     margin: 0;
     padding: 0;
+    overscroll-behavior: none;
     /* background-color:#122a3f; */
     /* background-image:linear-gradient(to right ,rgb(24, 44, 59) ,rgb(18, 119, 156),rgb(79, 171, 205),
         rgb(16, 111, 145)

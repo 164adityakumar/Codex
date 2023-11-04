@@ -21,12 +21,15 @@ export const theme = createTheme({
   },
   typography: {
     h5: {
-      fontFamily: "'Sedgwick Ave Display', cursive",
-      fontFamily: "'Leckerli One', cursive",
+      // fontFamily: "'Sedgwick Ave Display', cursive",
+      // fontFamily:"monospace:"
+      fontFamily:"Righteous"
+      
     },
     button: {
-      fontFamily: "sans-serif",
+      fontFamily: "Josefin Sans",
       fontWeight: "bold",
+      lineHeight: 1.6,
       // fontSize: "1.2rem",
       // fontFamily: "'Leckerli One', cursive",
     },
