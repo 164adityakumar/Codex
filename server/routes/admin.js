@@ -81,7 +81,14 @@ for(let i=0; i<req.body.tags.length; i++){
 
 res.json({ message: 'Course created successfully', courseId: course._id });
   });
-  
+
+router.get("/tags", authenticateJwt, async (req, res) => {
+  let tags = await Tags.find().select("tags -_id");
+  tags = tags.map((tagObj) => tagObj.tags);
+  console.log(tags);
+  res.json({ tags });
+});
+
   router.get('/courses', authenticateJwt, async (req, res) => {
     const courses = await Course.find({});
     res.json({ courses });

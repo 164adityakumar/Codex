@@ -24,7 +24,7 @@ const courseSchema = new mongoose.Schema({
   });
 const tagsSchema = new mongoose.Schema({
     tags: String,
-    courses_with_tag_id:  [{ type: mongoose.Schema.Types.ObjectId, ref: 'Course' }]
+    courses_with_tag_id: [{ type: mongoose.Schema.Types.ObjectId, ref: 'Course' }]
   });
 
 

@@ -1,6 +1,6 @@
 import React from "react";
 import TextField from "@mui/material/TextField";
-import { useState } from "react";
+import { useState,useEffect,useRef} from "react";
 import Button from "@mui/material/Button";
 import Card from "@mui/material/Card";
 import Typography from "@mui/material/Typography";
@@ -13,7 +13,21 @@ function addcourse() {
   const [image, setImage] = useState("");
   const [price, setPrice] = useState(0);
   const [tags, setTags] = useState([]); //tags is an array of strings
-
+  const [optiontags, setOptionTags] = useState([]);
+  useEffect(() => {
+    fetch("http://localhost:3000/user/tags", {
+      method: "GET",
+      headers: {
+        Authorization: "Bearer " + localStorage.getItem("token"),
+      },
+    }).then((res) => {
+      res.json().then((data) => {
+        console.log(data.tags);
+      setOptionTags(data.tags);
+      });
+    });
+  }, []);
+  console.log(tags);
   return (
     <>
       <div>
@@ -86,7 +100,7 @@ function addcourse() {
             <Autocomplete
               multiple
               id="tags-filled"
-              options={["st", "hk"]}
+              options={optiontags}
               defaultValue={[]}
               freeSolo
               onChange={(event, value) => setTags(value)}
