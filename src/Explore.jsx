@@ -1,4 +1,13 @@
-import { Button, Card, CardActionArea, CardContent, CardMedia, Chip, Grid, Typography } from "@mui/material";
+import {
+  Button,
+  Card,
+  CardActionArea,
+  CardContent,
+  CardMedia,
+  Chip,
+  Grid,
+  Typography,
+} from "@mui/material";
 import { useEffect, useState } from "react";
 import { useNavigate } from "react-router-dom";
 import EditIcon from "@mui/icons-material/Edit";
@@ -8,10 +17,15 @@ import { theme } from "./Pallete";
 import { DataGrid } from "@mui/x-data-grid";
 import { atom, useRecoilState } from "recoil";
 import Box from "@mui/material/Box";
- import './Explore.css'; 
+import "./Explore.css";
+import { Autocomplete } from "@mui/material";
+import TextField from "@mui/material/TextField";
+import axios from "axios";
 // import { getRowId } from "@mui/x-data-grid";
 function Explore() {
   const [courses, setCourses] = useRecoilState(coursesState);
+  const [selectedTags] = useRecoilState(selectedTagsState);
+  const [filteredCourses, setFilteredCourses] = useState([]);
 
   useEffect(() => {
     function callback2(data) {
@@ -27,6 +41,20 @@ function Explore() {
       },
     }).then(callback1);
   }, []);
+
+  const fetchCoursesByTags = async (tags) => {
+    const response = await axios.get(
+      `http://localhost:3000/user/courses-by-tags?tags=${tags.join(",")}`
+    );
+    return response.data;
+  };
+  useEffect(() => {
+    if (selectedTags.length > 0) {
+      fetchCoursesByTags(selectedTags).then(setFilteredCourses);
+    } else {
+      setFilteredCourses(courses);
+    }
+  }, [selectedTags, courses]);
 
   return (
     <div
@@ -50,23 +78,9 @@ function Explore() {
           justifyContent: "center",
         }}
       >
-        {/* <Tags/> */}
-        {/* <Box
-          style={{
-            width: "100vw",
-            // marginTop: "20vh",
-            // marginLeft: "20vw",
-            // display:"flex",
 
-            justifyContent: "center",
-
-            // backgroundColor: "#edf2f638",
-            borderRadius: "0.1px",
-            borderTop: "solid 3px #ff6d7ed6 ",
-          }}
-        > */}
         <Grid container>
-          {courses.map((course) => {
+          {filteredCourses.map((course) => {
             return <Course course={course} />;
           })}
         </Grid>
@@ -146,12 +160,14 @@ export function Course({ course }) {
               <Typography textAlign={"left"} variant="body2" color={"GrayText"}>
                 <b>{course.author}</b>
               </Typography>
-              <div style={{
-                display: "flex",
-                justifyContent: "flex-end",
-                gap: "5px",
-                flexWrap: "wrap",
-              }}>
+              <div
+                style={{
+                  display: "flex",
+                  justifyContent: "flex-end",
+                  gap: "5px",
+                  flexWrap: "wrap",
+                }}
+              >
                 {tagsarray.map((tag) => {
                   // console.log(tag)
                   return <Tags tag={tag} />;
@@ -165,9 +181,8 @@ export function Course({ course }) {
   );
 }
 
-function Tags({tag})
-{ 
-  console.log(tag)
+function Tags({ tag }) {
+  console.log(tag);
 
   return (
     <div>
@@ -185,28 +200,46 @@ function Tags({tag})
     </div>
   );
 }
-function TagsBanner({ tag }) {
-  console.log(tag);
+function TagsBanner() {
+  // console.log(tag);
+  const [selectedTags, setSelectedTags] = useRecoilState(selectedTagsState);
+  const [bannerTags] = useRecoilState(BannertagsState);
+  const handleDelete = (tagToDelete) => () => {
+    setSelectedTags((tags) => tags.filter((tag) => tag !== tagToDelete));
+  };
 
   return (
     <div>
-      <Chip
-        label={tag}
-        size="large"
-        style={{
-          backgroundColor: "#ff6d7f",
-          color: "#000000",
-          fontSize: "15px",
-          fontFamily: "monospace",
-          fontWeight: "bold",
-        }}
-      />
+      {bannerTags.map((tag) => (
+        <ThemeProvider theme={theme}>
+        <Chip
+          style={{
+            color: "#ffffff",
+            fontSize: "15px",
+            fontFamily: "monospace",
+            fontWeight: "bold",
+            margin: "5px",
+          }}
+          key={tag}
+          label={tag}
+          color={selectedTags.includes(tag) ? "secondary" : "warning"}
+          clickable
+          onClick={() => {
+            if (selectedTags.includes(tag)) {
+              setSelectedTags(selectedTags.filter((t) => t !== tag));
+            } else {
+              setSelectedTags([...selectedTags, tag]);
+            }
+          }}
+          onDelete={selectedTags.includes(tag) ? handleDelete(tag) : undefined}
+        />
+        </ThemeProvider>
+      ))}
     </div>
   );
 }
-function Banner()
-{
-  const [Bannertags, setBannerTags] = useState([]);
+function Banner() {
+  const [bannerTags, setBannerTags] = useRecoilState(BannertagsState);
   useEffect(() => {
     fetch("http://localhost:3000/user/tags", {
       method: "GET",
@@ -232,12 +265,11 @@ function Banner()
           marginInline: "20px",
           marginTop: "20px",
           marginBottom: "20px",
-          height: "20vh",
+          minheight: "20vh",
           backgroundColor: "#2e3339b1",
           border: "solid 3px #1a73e9",
         }}
       >
-
         <div
           style={{
             display: "flex",
@@ -248,20 +280,32 @@ function Banner()
           }}
         >
           <div
-                className="blink"
-                style={{
-                  color: "#ff6d7f",
-                  fontSize: "25px",
-                  fontFamily: "monospace",
-                  fontWeight: "bold",
-                }}
-              >
-                {">_ "}
-              </div>
-          {Bannertags.map((tag) => {
-            // console.log(tag)
-            return <TagsBanner tag={tag} />;
-          })}
+            className="blink"
+            style={{
+              color: "#ff6d7f",
+              fontSize: "25px",
+              fontFamily: "monospace",
+              fontWeight: "bold",
+            }}
+          >
+            {">_ "}
+          </div>
+
+          <div
+            style={{
+              color: "#ff6d7f",
+              fontSize: "25px",
+              fontFamily: "monospace",
+              fontWeight: "bold",
+            }}
+          >
+            filter by tags
+          </div>
+          {/* {Bannertags.map((tag) => {
+            // console.log(tag) */}
+
+          <TagsBanner />
+          {/* })} */}
         </div>
       </Card>
     </div>
@@ -362,8 +406,6 @@ function Banner()
 //     { field: "price", headerName: "Price", width: 100 },
 //   ];
 
-
-
 // return (
 //   <Box
 //     style={{
@@ -388,4 +430,12 @@ const coursesState = atom({
   default: [],
 });
 
+const selectedTagsState = atom({
+  key: "selectedTags",
+  default: [],
+});
+const BannertagsState = atom({
+  key: "bannerTags",
+  default: [],
+});
 export default Explore;

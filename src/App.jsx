@@ -10,7 +10,6 @@ import Explore from "./Explore.jsx";
 // import MyCourses from "./MyCourses.jsx";
 import DisplayCourse from "./DisplayCourse.jsx";
 
-
 import {
   RecoilRoot,
   atom,

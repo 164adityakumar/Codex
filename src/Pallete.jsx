@@ -17,14 +17,15 @@ export const theme = createTheme({
     error: {
       main: "#ce7681",
     },
-
+    warning: {
+      main: "#ff6d7f",
+    },
   },
   typography: {
     h5: {
       // fontFamily: "'Sedgwick Ave Display', cursive",
       // fontFamily:"monospace:"
-      fontFamily:"Righteous"
-      
+      fontFamily: "Righteous",
     },
     button: {
       fontFamily: "Josefin Sans",
@@ -38,6 +39,5 @@ export const theme = createTheme({
       fontFamily: "'Leckerli One', cursive",
       backgroundColor: "#0f1e2b",
     },
-    
   },
 });
