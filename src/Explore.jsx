@@ -10,18 +10,12 @@ import {
 } from "@mui/material";
 import { useEffect, useState } from "react";
 import { useNavigate } from "react-router-dom";
-import EditIcon from "@mui/icons-material/Edit";
-import IconButton from "@mui/material/IconButton";
 import { ThemeProvider } from "@emotion/react";
 import { theme } from "./Pallete";
-import { DataGrid } from "@mui/x-data-grid";
 import { atom, useRecoilState } from "recoil";
-import Box from "@mui/material/Box";
 import "./Explore.css";
-import { Autocomplete } from "@mui/material";
-import TextField from "@mui/material/TextField";
 import axios from "axios";
-// import { getRowId } from "@mui/x-data-grid";
+
 function Explore() {
   const [courses, setCourses] = useRecoilState(coursesState);
   const [selectedTags] = useRecoilState(selectedTagsState);

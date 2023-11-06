@@ -18,12 +18,14 @@
     "@mui/x-data-grid-generator": "^6.17.0",
     "alert": "^6.0.1",
     "axios": "^1.5.1",
+    "firebase": "^10.5.2",
     "get-google-fonts": "^1.2.2",
     "minidenticons": "^4.2.0",
     "react": "^18.2.0",
     "react-dom": "^18.2.0",
     "react-loader-spinner": "^5.4.5",
     "react-router-dom": "^6.16.0",
+    "react-spinners": "^0.13.8",
     "recoil": "^0.7.7"
   },
   "devDependencies": {

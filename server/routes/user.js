@@ -61,6 +61,15 @@ router.get("/courses", authenticateJwt, async (req, res) => {
   res.json({ courses });
 });
 
+router.get("/courses/:courseId", authenticateJwt, async (req, res) => {
+  const course = await Course.findById(req.params.courseId);
+  if (course) {
+    res.json({ course });
+  } else {
+    res.status(404).json({ message: "Course not found" });
+  }
+});
+
 router.post("/courses/:courseId", authenticateJwt, async (req, res) => {
   const course = await Course.findById(req.params.courseId);
   console.log(course);

@@ -1,11 +1,13 @@
-import { useState, useEffect } from "react";
+import { useState, useEffect,useRef} from "react";
 import { useParams } from "react-router-dom";
 import { Card, Typography } from "@mui/material";
 import TextField from "@mui/material/TextField";
 import Button from "@mui/material/Button";
 import axios from "axios";
 import Grid from "@mui/material/Grid";
-
+import { Input } from "@mui/material";
+import { Loader } from "./Loader";
+import {atom,useRecoilState} from "recoil";
 
 function Course() {
   const [course, setCourse] = useState(null);
@@ -33,7 +35,7 @@ function Course() {
     return (
       <div>
         <Typography variant="body1" color="initial" fontFamily={"monospace"}>
-          Loading...
+          <Loader/>
         </Typography>
       </div>
     );
@@ -42,10 +44,10 @@ function Course() {
     <div style={{ backgroundColor: "#f2f2f2" }}>
       <GrayTopper title={course.title} />
       <Grid container>
-        <Grid item lg={8} md={12} sm={12}>
+        <Grid item lg={7} md={12} sm={12}>
           <Updatecourse course={course} setCourse={setCourse} />
         </Grid>
-        <Grid item lg={4} md={12} sm={12}>
+        <Grid item lg={5} md={12} sm={12}>
           <Coursettable course={course} />
         </Grid>
       </Grid>
@@ -78,7 +80,7 @@ function GrayTopper({ title }) {
             variant="h3"
             textAlign={"center"}
           >
-            {title}
+            Course Details
           </Typography>
         </div>
       </div>
@@ -102,7 +104,7 @@ function Coursettable(props) {
           width: 350,
           minHeight: 200,
           borderRadius: 20,
-          marginRight: 50,
+          // marginRight:-200 ,
           paddingBottom: 15,
           zIndex: 2,
         }}
@@ -127,10 +129,52 @@ function Updatecourse({course, setCourse}) {
   const [description, setDescription] = useState(course.description);
   const [image, setImage] = useState(course.imageLink);
   const [price, setPrice] = useState(course.price);
+    const videoNameRef = useRef(); // Add this line
+const [selectedFile, setSelectedFile] = useState(null);
+const [videos, setVideos] = useRecoilState(videoState);
+
+const handleFileChange = (event) => {
+  setSelectedFile(event.target.files[0]);
+}
+// console.log(vide);
+const handleVideoUpload = async () => {
+  if (!selectedFile) {
+    alert("Please select a file");
+    return;
+  }
+
+  const videoFile = selectedFile;
+  const videoName = videoNameRef.current.value;
+
+  const formData = new FormData();
+  formData.append("video", videoFile);
+  formData.append("name", videoName);
+
+  const response = await axios.post(
+    `http://localhost:3000/admin/course/${course._id}/upload`,
+    formData,
+    {
+      headers: {
+        "Content-Type": "multipart/form-data",
+        Authorization: "Bearer " + localStorage.getItem("token"),
+      },
+    }
+  );
+  setVideos([
+    ...videos,
+    { name: response.data.videoName, path: response.data.downloadURL },
+  ]);
+
+  console.log(response.data);
+};
+
   return (
     <>
       <div style={{ display: "flex", justifyContent: "center" }}>
-        <Card varint={"outlined"} style={{ maxWidth: 600, marginTop: 200 }}>
+        <Card
+          variant={"outlined"}
+          style={{ width: 400, marginTop: 200, marginLeft: 100 }}
+        >
           <div style={{ padding: 20 }}>
             <Typography variant="h6" color="initial" fontFamily={"monospace"}>
               Edit your course details below.
@@ -140,7 +184,8 @@ function Updatecourse({course, setCourse}) {
           <div
             style={{
               display: "flex",
-              justifyContent: "center",
+              // justifyContent: "center",
+              // flexDirection: "column",
             }}
           >
             <Card
@@ -237,9 +282,62 @@ function Updatecourse({course, setCourse}) {
             </Card>
           </div>
         </Card>
+        <div>
+          <Card
+            style={{
+              width: 300,
+              marginTop: 200,
+              display: "flex",
+              flexDirection: "column",
+              padding: 20,
+            }}
+          >
+            <TextField inputRef={videoNameRef} label="Video Name" />
+            <div>
+              <input type="file" onChange={handleFileChange} accept="video/*" />
+            </div>
+            <Button variant={"contained"} onClick={handleVideoUpload}>
+              Upload Video
+            </Button>
+            <VideoDisplay />
+          </Card>
+        </div>
       </div>
     </>
   );
 }
+const BASE_URL = 'http://localhost:3000'; // replace with the base URL of your server
 
+function VideoDisplay()
+{
+    const [videos] = useRecoilState( videoState);
+    const [selectedVideo, setSelectedVideo] = useRecoilState( selectedVideoState);
+const handleVideoSelection = (event) => {
+    setSelectedVideo(event.target.value);
+};
+  return  <div>
+    <select onChange={handleVideoSelection}>
+      {videos.map((video, index) => (
+        <option key={index} value={video.path}>
+          {video.name}
+        </option>
+      ))}
+    </select>
+    {selectedVideo && (
+    
+      <video width="320" height="240" controls>
+        <source src={`${selectedVideo}/preview`} type="video/mp4" />
+        </video>)
+    }
+  </div>
+}
+const selectedVideoState = atom({
+  key: "selectedVideoState",
+  default: null,
+});
+
+const videoState = atom({
+  key: "videoState",
+  default: [],
+});
 export default Course;

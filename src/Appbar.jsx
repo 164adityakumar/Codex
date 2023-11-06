@@ -8,6 +8,7 @@ import { Chip } from "@mui/material";
 import Avatar from "@mui/material/Avatar";
 import { ThemeProvider } from "@mui/material/styles";
 import { theme } from "./Pallete";
+import { assets } from "./assests";
 const MinidenticonImg = ({ username, saturation, lightness, ...props }) => {
   const svgURI = useMemo(
     () =>
@@ -98,7 +99,7 @@ function Appbar() {
                 width: "50px", // Adjust as needed
                 height: "50px", // Adjust as needed
               }}
-              src="src/assets/png/logo-no-background.png"
+              src={assets.logo}
               alt="logo"
             />
 
