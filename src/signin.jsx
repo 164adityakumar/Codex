@@ -49,7 +49,7 @@ function Signin() {
       >
         <ThemeProvider theme={theme}>
         <Typography variant="h6" color="error" fontFamily={"monospace"}>
-          Welcome back to Inkspace by Aditya Kumar.
+          Welcome back to Codex by Aditya Kumar.
           <br />
           Sign in below.
         </Typography>

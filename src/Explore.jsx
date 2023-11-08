@@ -57,7 +57,7 @@ function Explore() {
         flexDirection: "column",
         flexWrap: "wrap",
         justifyContent: "center",
-        gap: 10,
+        // gap: 5,
         // backgroundColor: "#f2f2f2",
         // backgroundColor:"#0f1e2b",
       }}
@@ -121,7 +121,7 @@ export function Course({ course }) {
             <Typography
               textAlign={"left"}
               style={{
-                marginBottom: "3px",
+                // marginBottom: "3px",
                 textAlign: "justify",
                 marginTop: "-10px",
                 marginBottom: "10px",
@@ -233,7 +233,7 @@ function TagsBanner() {
   );
 }
 function Banner() {
-  const [bannerTags, setBannerTags] = useRecoilState(BannertagsState);
+  const [, setBannerTags] = useRecoilState(BannertagsState);
   useEffect(() => {
     fetch("http://localhost:3000/user/tags", {
       method: "GET",

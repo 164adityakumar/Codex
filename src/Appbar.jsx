@@ -9,6 +9,8 @@ import Avatar from "@mui/material/Avatar";
 import { ThemeProvider } from "@mui/material/styles";
 import { theme } from "./Pallete";
 import { assets } from "./assests";
+import { useRecoilState } from "recoil";
+import { atom } from "recoil";
 const MinidenticonImg = ({ username, saturation, lightness, ...props }) => {
   const svgURI = useMemo(
     () =>
@@ -49,7 +51,7 @@ const MinidenticonImg = ({ username, saturation, lightness, ...props }) => {
 function Appbar() {
   const usertypetoken = localStorage.getItem("UserType");
   const navigate = useNavigate();
-  const [UserHandle, setUserHandle] = useState(null);
+  const [UserHandle, setUserHandle] = useRecoilState(UserHandleState);
   // const [userType] = useRecoilState(userTypeState);
   useEffect(() => {
     console.log(localStorage.getItem("token"));
@@ -396,4 +398,8 @@ function Appbar() {
   }
 }
 
+export const UserHandleState = atom({
+  key: "UserHandle",
+  default: null,
+});
 export default Appbar;

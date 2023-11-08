@@ -23,7 +23,7 @@ function signup() {
         }}
       >
         <Typography variant="h6" color="primary" fontFamily={"monospace"}>
-          Welcome to Inkspace by Aditya Kumar.
+          Welcome to Codex by Aditya Kumar.
           <br />
           Sign up below.
         </Typography>
@@ -84,33 +84,31 @@ function signup() {
               variant="outlined"
               color="secondary"
               onClick={() => {
-                
-                  if (username.length === 0 || password.length === 0) {
-                    alert("Username or Password cannot be empty.");
-                  } else {
-                    const loginEndpoint =
-                      userType === "user" ? "user/signup" : "admin/signup";
-                      console.log(loginEndpoint);
-                    fetch(`http://localhost:3000/${loginEndpoint}`, {
-                      method: "POST",
-                      headers: { "Content-Type": "application/json" },
-                      body: JSON.stringify({
-                        userhandle: userhandle,
-                        username: username,
-                        password: password,
-                      }),
-                    }).then((res) =>
-                      res.json().then((data) => {
-                        localStorage.setItem("token", data.token);
-                        localStorage.setItem("UserType", userType);
-                        console.log(data.token);
+                if (username.length === 0 || password.length === 0) {
+                  alert("Username or Password cannot be empty.");
+                } else {
+                  const loginEndpoint =
+                    userType === "user" ? "user/signup" : "admin/signup";
+                  console.log(loginEndpoint);
+                  fetch(`http://localhost:3000/${loginEndpoint}`, {
+                    method: "POST",
+                    headers: { "Content-Type": "application/json" },
+                    body: JSON.stringify({
+                      userhandle: userhandle,
+                      username: username,
+                      password: password,
+                    }),
+                  }).then((res) =>
+                    res.json().then((data) => {
+                      localStorage.setItem("token", data.token);
+                      localStorage.setItem("UserType", userType);
+                      console.log(data.token);
 
-                        window.location = "/";
-                      })
-                    );
-                    alert("Sign Up Successful!");
-                  }
-                
+                      window.location = "/";
+                    })
+                  );
+                  alert("Sign Up Successful!");
+                }
               }}
             >
               Sign Up

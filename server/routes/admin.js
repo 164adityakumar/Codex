@@ -52,7 +52,7 @@ router.post("/login", async (req, res) => {
     const token = jwt.sign({ username, role: "admin" }, SECRET, {
       expiresIn: "1h",
     });
-    res.json({ message: "Logged in successfully", token });
+    res.json({ message: "Logged in successfully", token,userhandle:admin.userhandle });
   } else {
     res.status(403).json({ message: "Invalid username or password" });
   }
@@ -66,7 +66,7 @@ router.post("/courses", authenticateJwt, async (req, res) => {
     price: req.body.price,
     published: req.body.published,
     tags: req.body.tags,
-    author: req.user.username,
+    author: req.user.userhandle,
   });
   await course.save();
 
@@ -148,14 +148,15 @@ router.get("/tags", authenticateJwt, async (req, res) => {
   res.json({ tags });
 });
 
-router.get("/courses", authenticateJwt, async (req, res) => {
-  const courses = await Course.find({});
+router.get("/courses/author/:userhandle", authenticateJwt, async (req, res) => {
+  const courses = await Course.find({ author: req.params.userhandle });
+  console.log(courses);
   res.json({ courses });
 });
 
 router.get("/course/:courseid", authenticateJwt, async (req, res) => {
   const courseid = req.params.courseid;
-  const course = await Course.findById(courseid);
+  const course = await Course.findById(courseid).populate("videos");
   res.json({ course });
 });
 
