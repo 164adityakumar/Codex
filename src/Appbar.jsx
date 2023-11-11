@@ -216,7 +216,7 @@ function Appbar() {
                 width: "50px", // Adjust as needed
                 height: "50px", // Adjust as needed
               }}
-              src="src/assets/png/logo-no-background.png"
+              src={assets.logo}
               alt="logo"
             />
 
@@ -332,7 +332,7 @@ function Appbar() {
                 width: "50px", // Adjust as needed
                 height: "50px", // Adjust as needed
               }}
-              src="src/assets/png/logo-no-background.png"
+              src={assets.logo}
               alt="logo"
             />
 

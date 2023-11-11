@@ -12,6 +12,7 @@ router.get("/me", authenticateJwt, async (req, res) => {
   }
   res.json({
     userhandle: user.userhandle,
+    purchasedCourses: user.purchasedCourses,
   });
 });
 
@@ -62,7 +63,7 @@ router.get("/courses", authenticateJwt, async (req, res) => {
 });
 
 router.get("/courses/:courseId", authenticateJwt, async (req, res) => {
-  const course = await Course.findById(req.params.courseId);
+  const course = await Course.findById(req.params.courseId).populate("videos");
   if (course) {
     res.json({ course });
   } else {

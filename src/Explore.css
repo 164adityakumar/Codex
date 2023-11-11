@@ -10,17 +10,26 @@
 
 .box {
     cursor: pointer;
-    transition: all 0.4s ease-in-out;
-    animation: fadeIn 1s ease-in-out;
-    margin-left: 13px;
+    transition: all 0.15s ease-in-out;
+    animation: fadeIn 0.1s ease-in-out;
+} 
+
+ .box:hover {
+    transform: scale(1.04);
+    }
+
+.courseCard {
+    cursor: pointer;
+
 }
 
-.box:hover {
-    transform: scale(1.02);
+.courseCard:hover {
+    /* transform: scale(1.02); */
+    box-shadow: 0 0 12px #5e8dca95;
     /* border:  solid #000; */
         /* Add this line */}
-    
-        @keyframes blink {
+
+@keyframes blink {
   0% { opacity: 1; }
   50% { opacity: 0; }
   100% { opacity: 1; }

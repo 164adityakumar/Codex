@@ -63,17 +63,16 @@ function Explore() {
       }}
     >
       <Banner />
-      <div
-        style={{
+      <div>
+
+        <Grid container style={{
           display: "flex",
           flexDirection: "row",
-          // flexWrap: "wrap",
-
+          flexWrap: "wrap",
+          width: "100%",
           justifyContent: "center",
-        }}
-      >
-
-        <Grid container>
+          justifyItems: "center",
+        }}>
           {filteredCourses.map((course) => {
             return <Course course={course} />;
           })}
@@ -94,7 +93,7 @@ export function Course({ course }) {
       <Card
         style={{
           margin: 40,
-          marginInline: 40,
+          // marginInline: 40,
           // marginRight: 60,
           width: 390,
           minHeight: 200,
@@ -105,6 +104,7 @@ export function Course({ course }) {
         onClick={() => {
           navigate("/Explore/" + course._id);
         }}
+        className="courseCard"
       >
         <CardActionArea>
           <CardMedia
@@ -201,10 +201,11 @@ function TagsBanner() {
   const handleDelete = (tagToDelete) => () => {
     setSelectedTags((tags) => tags.filter((tag) => tag !== tagToDelete));
   };
-
-  return (
+  //sort an array
+const sortedBannerTags = [...bannerTags].sort();
+return (
     <div>
-      {bannerTags.map((tag) => (
+      {sortedBannerTags.map((tag) => (
         <ThemeProvider theme={theme}>
         <Chip
           style={{

@@ -1,43 +1,39 @@
-import { useState, useEffect,useRef} from "react";
+import { useState, useEffect, useRef } from "react";
 import { useParams } from "react-router-dom";
 import { Card, InputLabel, Typography } from "@mui/material";
 import TextField from "@mui/material/TextField";
 import Button from "@mui/material/Button";
 import axios from "axios";
 import Grid from "@mui/material/Grid";
-import { Input} from "@mui/material";
+import { Input } from "@mui/material";
 import { Loader } from "./Loader";
-import {atom,useRecoilState} from "recoil";
+import { atom, useRecoilState } from "recoil";
 import Autocomplete from "@mui/material/Autocomplete";
-import {
-  Accordion,
-  AccordionSummary,
-  AccordionDetails,
-} from "@mui/material";
+import { Accordion, AccordionSummary, AccordionDetails } from "@mui/material";
 import ExpandMoreIcon from "@mui/icons-material/ExpandMore";
 
 function Course() {
   const [course, setCourse] = useState(null);
   const { courseid } = useParams();
-const [videos, setVideos] = useRecoilState(videoState);
- useEffect(() => {
-   axios
-     .get("http://localhost:3000/admin/course/" + courseid, {
-       method: "GET",
-       headers: {
-         Authorization: "Bearer " + localStorage.getItem("token"),
-       },
-     })
-     .then((res) => {
-       setCourse(res.data.course);
-       setVideos(res.data.course.videos); // Set the videos state
-     });
- }, []);
+  const [videos, setVideos] = useRecoilState(videoState);
+  useEffect(() => {
+    axios
+      .get("http://localhost:3000/admin/course/" + courseid, {
+        method: "GET",
+        headers: {
+          Authorization: "Bearer " + localStorage.getItem("token"),
+        },
+      })
+      .then((res) => {
+        setCourse(res.data.course);
+        setVideos(res.data.course.videos); // Set the videos state
+      });
+  }, []);
   if (!course) {
     return (
       <div>
         <Typography variant="body1" color="initial" fontFamily={"monospace"}>
-          <Loader/>
+          <Loader />
         </Typography>
       </div>
     );
@@ -46,13 +42,13 @@ const [videos, setVideos] = useRecoilState(videoState);
     <div style={{ backgroundColor: "#f2f2f2" }}>
       <GrayTopper title={course.title} />
       <Grid container>
-        <Grid item lg={4} md={6} sm={12}>
+        <Grid item lg={5} md={6} sm={12}>
           <Updatecourse course={course} setCourse={setCourse} />
         </Grid>
-        <Grid item lg={4} md={6} sm={12}>
+        <Grid item lg={3} md={6} sm={12}>
           <VideoDisplay course={course} />
         </Grid>
-        <Grid item lg={4} md={8} sm={12}>
+        <Grid item lg={4} md={12} sm={12}>
           <Coursettable course={course} />
         </Grid>
       </Grid>
@@ -92,7 +88,7 @@ function GrayTopper({ title }) {
   );
 }
 function Coursettable(props) {
-  const course=props.course;
+  const course = props.course;
   return (
     <div
       style={{
@@ -128,7 +124,7 @@ function Coursettable(props) {
   );
 }
 
-function Updatecourse({course, setCourse}) {
+function Updatecourse({ course, setCourse }) {
   const [title, setTitle] = useState(course.title);
   const [description, setDescription] = useState(course.description);
   const [image, setImage] = useState(course.imageLink);
@@ -137,8 +133,7 @@ function Updatecourse({course, setCourse}) {
 
   const [optiontags, setOptionTags] = useState([]);
 
-
- useEffect(() => {
+  useEffect(() => {
     fetch("http://localhost:3000/user/tags", {
       method: "GET",
       headers: {
@@ -147,7 +142,7 @@ function Updatecourse({course, setCourse}) {
     }).then((res) => {
       res.json().then((data) => {
         console.log(data.tags);
-      setOptionTags(data.tags);
+        setOptionTags(data.tags);
       });
     });
   }, []);
@@ -165,7 +160,7 @@ function Updatecourse({course, setCourse}) {
         <Card
           variant={"outlined"}
           style={{
-            width: 400,
+            width: 450,
             marginTop: 200,
             // marginLeft: 100,
             maxHeight: 500,
@@ -188,7 +183,7 @@ function Updatecourse({course, setCourse}) {
               variant={"outlined"}
               size={"large"}
               style={{
-                width: 400,
+                width: 450,
                 padding: 20,
               }}
               fontFamily={"monospace"}
@@ -301,64 +296,64 @@ function Updatecourse({course, setCourse}) {
             </Card>
           </div>
         </Card>
-        
       </div>
     </div>
   );
 }
 
-function VideoDisplay({course}) {
+function VideoDisplay({ course }) {
   const [selectedVideo, setSelectedVideo] = useRecoilState(selectedVideoState);
   const videoNameRef = useRef(); // Add this line
   const [selectedFile, setSelectedFile] = useState(null);
   const [videos, setVideos] = useRecoilState(videoState);
-const handleFileChange = (event) => {
-  setSelectedFile(event.target.files[0]);
-};
-// console.log(vide);
-const handleVideoUpload = async () => {
-  if (!selectedFile) {
-    alert("Please select a file");
-    return;
-  }
-
-  const videoFile = selectedFile;
-  const videoName = videoNameRef.current.value;
-
-  const formData = new FormData();
-  formData.append("video", videoFile);
-  formData.append("name", videoName);
-
-  const response = await axios.post(
-    `http://localhost:3000/admin/course/${course._id}/upload`,
-    formData,
-    {
-      headers: {
-        "Content-Type": "multipart/form-data",
-        Authorization: "Bearer " + localStorage.getItem("token"),
-      },
+  const handleFileChange = (event) => {
+    setSelectedFile(event.target.files[0]);
+  };
+  // console.log(vide);
+  const handleVideoUpload = async () => {
+    if (!selectedFile) {
+      alert("Please select a file");
+      return;
     }
-  );
-  setVideos([
-    ...videos,
-    { name: response.data.videoName, path: response.data.downloadURL },
-  ]);
 
-  console.log(response.data);
-};
+    const videoFile = selectedFile;
+    const videoName = videoNameRef.current.value;
+
+    const formData = new FormData();
+    formData.append("video", videoFile);
+    formData.append("name", videoName);
+
+    const response = await axios.post(
+      `http://localhost:3000/admin/course/${course._id}/upload`,
+      formData,
+      {
+        headers: {
+          "Content-Type": "multipart/form-data",
+          Authorization: "Bearer " + localStorage.getItem("token"),
+        },
+      }
+    );
+    setVideos([
+      ...videos,
+      { name: response.data.videoName, path: response.data.downloadURL },
+    ]);
+
+    console.log(response.data);
+  };
   const handleVideoSelection = (videoPath) => {
     setSelectedVideo(videoPath);
   };
 
   return (
-    <div style={{
-      display: "flex",
-      flexDirection: "column",
-      justifyContent: "center",
-      alignItems: "center",
-      // marginTop: 50,
-
-    }}>
+    <div
+      style={{
+        display: "flex",
+        flexDirection: "column",
+        justifyContent: "center",
+        alignItems: "center",
+        // marginTop: 50,
+      }}
+    >
       <div>
         <Card
           style={{
@@ -368,7 +363,7 @@ const handleVideoUpload = async () => {
             flexDirection: "column",
             padding: 20,
             maxHeight: 500,
-            overflowY: "scroll",
+            overflowY: "auto",
           }}
         >
           <TextField inputRef={videoNameRef} label="Video Name" />
@@ -408,30 +403,40 @@ const handleVideoUpload = async () => {
               </Button>
             </div>
           </div>
+          {videos.map(
+            (video, index) => (
+              console.log(video.path),
+              (
+                <Accordion
+                  variant={"outlined"}
+                  key={index}
+                  style={{
+                    border: "0.05px solid #0513245f",
+                    borderRadius: 2,
+                  }}
+                >
+                  <AccordionSummary
+                    expandIcon={<ExpandMoreIcon />}
+                    onClick={() => handleVideoSelection(video.path)}
+                  >
+                    <Typography>{video.name}</Typography>
+                  </AccordionSummary>
+                  <AccordionDetails>
+                    {selectedVideo === video.path && (
+                      <video style={{ width: "100%", height: "auto" }} controls>
+                        <source
+                          src={`${selectedVideo}/preview`}
+                          type="video/mp4"
+                        />
+                      </video>
+                    )}
+                  </AccordionDetails>
+                </Accordion>
+              )
+            )
+          )}
         </Card>
       </div>
-      {videos.map(
-        (video, index) => (
-          console.log(video.path),
-          (
-            <Accordion key={index}>
-              <AccordionSummary
-                expandIcon={<ExpandMoreIcon />}
-                onClick={() => handleVideoSelection(video.path)}
-              >
-                <Typography>{video.name}</Typography>
-              </AccordionSummary>
-              <AccordionDetails>
-                {selectedVideo === video.path && (
-                  <video width="320" height="200" controls>
-                    <source src={`${selectedVideo}/preview`} type="video/mp4" />
-                  </video>
-                )}
-              </AccordionDetails>
-            </Accordion>
-          )
-        )
-      )}
     </div>
   );
 }
