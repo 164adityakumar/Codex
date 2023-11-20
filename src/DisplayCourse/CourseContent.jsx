@@ -53,7 +53,7 @@ export function CourseContent() {
               sx={{
                 color: "#ffffff83",
                 fontWeight: "bold",
-                fontSize: "1.2rem",
+                fontSize: "1.1rem",
                 fontFamily: "monospace",
               }}
             />
@@ -63,7 +63,7 @@ export function CourseContent() {
               sx={{
                 color: "#ffffff83",
                 fontWeight: "bold",
-                fontSize: "1.2rem",
+                fontSize: "1.1rem",
                 fontFamily: "monospace",
               }}
             />
@@ -73,7 +73,7 @@ export function CourseContent() {
               sx={{
                 color: "#ffffff83",
                 fontWeight: "bold",
-                fontSize: "1.2rem",
+                fontSize: "1.1rem",
                 fontFamily: "monospace",
               }}
             />

@@ -20,6 +20,9 @@ export const theme = createTheme({
     warning: {
       main: "#ff6d7f",
     },
+    info: {
+      main: "#b24551",
+    },
   },
   typography: {
     h5: {

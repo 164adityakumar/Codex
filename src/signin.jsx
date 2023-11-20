@@ -6,7 +6,7 @@ import ToggleButton from "@mui/material/ToggleButton";
 import ToggleButtonGroup from "@mui/material/ToggleButtonGroup";
 import { useRecoilState } from "recoil";
 import { userTypeState } from "./usertype";
-import {theme} from "./Pallete"
+import { theme } from "./Pallete";
 import { ThemeProvider } from "@mui/material/styles";
 function Signin() {
   const [username, setUsername] = useState("");
@@ -38,21 +38,22 @@ function Signin() {
     }
   };
 
-  return (<div >
+  return (
+    <div>
       <div
         style={{
-          marginTop: 150,
+          marginTop: "20vh",
           marginBottom: 10,
           display: "flex",
           justifyContent: "center",
         }}
       >
         <ThemeProvider theme={theme}>
-        <Typography variant="h6" color="error" fontFamily={"monospace"}>
-          Welcome back to Codex by Aditya Kumar.
-          <br />
-          Sign in below.
-        </Typography>
+          <Typography variant="h6" color="error" fontFamily={"monospace"}>
+            Welcome back to Codex by Aditya Kumar.
+            <br />
+            Sign in below.
+          </Typography>
         </ThemeProvider>
       </div>
 
@@ -110,15 +111,15 @@ function Signin() {
 
 function Toggle() {
   const [userType, setUserType] = useRecoilState(userTypeState);
-  return ( <div style={{ marginBottom: 15 }}>
+  return (
+    <div style={{ marginBottom: 15 }}>
       <ToggleButtonGroup
         color="error"
         value={userType}
         exclusive
         onChange={(event, newUserType) => {
           console.log(newUserType);
-          if(newUserType!=null)
-          setUserType(newUserType);
+          if (newUserType != null) setUserType(newUserType);
         }}
       >
         <ToggleButton value="user">User</ToggleButton>

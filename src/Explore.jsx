@@ -95,7 +95,7 @@ export function Course({ course }) {
           margin: 40,
           // marginInline: 40,
           // marginRight: 60,
-          width: 390,
+          width: 350,
           minHeight: 200,
           maxHeight: 500,
           borderRadius: 15,
@@ -110,7 +110,7 @@ export function Course({ course }) {
           <CardMedia
             component="img"
             style={{
-              maxwidth: 400,
+              maxwidth: 250,
               maxHeight: 200,
               borderBottom: "solid 3px #ff6d7e9c",
             }}
@@ -210,14 +210,16 @@ return (
         <Chip
           style={{
             color: "#ffffff",
-            fontSize: "15px",
+            fontSize: "14px",
             fontFamily: "monospace",
             fontWeight: "bold",
             margin: "5px",
+            padding: "5px",
           }}
+          size="small"
           key={tag}
           label={tag}
-          color={selectedTags.includes(tag) ? "secondary" : "warning"}
+          color={selectedTags.includes(tag) ? "secondary" : "info"}
           clickable
           onClick={() => {
             if (selectedTags.includes(tag)) {

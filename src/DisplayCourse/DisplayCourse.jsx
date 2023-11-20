@@ -75,7 +75,7 @@ function Coursettable() {
         style={{
           margin: 10,
           width: "100%",
-          minHeight: 200,
+          // minHeight: 200,
           borderRadius: 20,
           // marginRight: 50,
           padding: 10,
@@ -92,7 +92,7 @@ function Coursettable() {
           <div>
             <img
               src={course.imageLink}
-              style={{ width: "30vw", borderRadius: 10 }}
+              style={{ width: "25vw", borderRadius: 10 }}
             ></img>
           </div>
           <div
@@ -108,7 +108,7 @@ function Coursettable() {
             }}
           >
             <Typography
-              variant="h5"
+              variant="h6"
               fontFamily={"monospace"}
               color={"#ff6d7e"}
               style={{ fontWeight: 600 }}

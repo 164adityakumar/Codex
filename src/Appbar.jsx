@@ -98,8 +98,8 @@ function Appbar() {
           >
             <img
               style={{
-                width: "50px", // Adjust as needed
-                height: "50px", // Adjust as needed
+                width: "40px", // Adjust as needed
+                height: "40px", // Adjust as needed
               }}
               src={assets.logo}
               alt="logo"
@@ -127,7 +127,7 @@ function Appbar() {
               <div style={{ marginRight: 10 }}>
                 <Button
                   color="primary"
-                  size="large"
+                  size="medium"
                   style={{ borderRadius: "20px" }}
                   onClick={() => {
                     navigate("/addcourse");
@@ -139,7 +139,7 @@ function Appbar() {
               <div style={{ marginRight: 10 }}>
                 <Button
                   color="primary"
-                  size="large"
+                  size="medium"
                   style={{ borderRadius: "20px" }}
                   onClick={() => {
                     navigate("/courses");
@@ -167,7 +167,7 @@ function Appbar() {
                   variant="outlined"
                   style={{ borderRadius: "20px" }}
                   color="error"
-                  size="larger"
+                  size="medium"
                   onClick={() => {
                     localStorage.setItem("token", null);
                     localStorage.setItem("UserType", null);
@@ -213,8 +213,8 @@ function Appbar() {
           >
             <img
               style={{
-                width: "50px", // Adjust as needed
-                height: "50px", // Adjust as needed
+                width: "40px", // Adjust as needed
+                height: "40px", // Adjust as needed
               }}
               src={assets.logo}
               alt="logo"
@@ -244,7 +244,7 @@ function Appbar() {
                 <Button
                   color="secondary"
                   variant="contained"
-                  size="large"
+                  size="medium"
                   style={{ borderRadius: "20px" }}
                   onClick={() => {
                     navigate("/Explore");
@@ -256,7 +256,7 @@ function Appbar() {
               <div style={{ marginRight: 10 }}>
                 <Button
                   color="primary"
-                  size="large"
+                  size="medium"
                   style={{ borderRadius: "20px" }}
                   onClick={() => {
                     navigate("/MyCourses");
@@ -284,7 +284,7 @@ function Appbar() {
                   variant="outlined"
                   style={{ borderRadius: "20px"}}
                   color="error"
-                  size="larger"
+                  size="medium"
                   onClick={() => {
                     localStorage.setItem("token", null);
                     localStorage.setItem("UserType", null);
@@ -329,8 +329,8 @@ function Appbar() {
           >
             <img
               style={{
-                width: "50px", // Adjust as needed
-                height: "50px", // Adjust as needed
+                width: "40px", // Adjust as needed
+                height: "40px", // Adjust as needed
               }}
               src={assets.logo}
               alt="logo"
@@ -358,7 +358,7 @@ function Appbar() {
             <div>
               <Button
                 variant="text"
-                size="large"
+                size="larger"
                 color="primary"
                 style={{
                   borderRadius: "20px",
@@ -376,7 +376,7 @@ function Appbar() {
             <div>
               <Button
                 variant="contained"
-                size="large"
+                size="larger"
                 color="secondary"
                 style={{
                   borderRadius: "20px",
