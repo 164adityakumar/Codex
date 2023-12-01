@@ -16,6 +16,8 @@
     "@mui/material": "^5.14.15",
     "@mui/x-data-grid": "^6.17.0",
     "@mui/x-data-grid-generator": "^6.17.0",
+    "@stripe/react-stripe-js": "^2.4.0",
+    "@stripe/stripe-js": "^2.2.0",
     "alert": "^6.0.1",
     "axios": "^1.5.1",
     "firebase": "^10.5.2",
