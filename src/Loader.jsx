@@ -1,11 +1,12 @@
 import { PropagateLoader } from "react-spinners";
 export function Loader() {
-  <div
+  return  <div
     style={{
       display: "flex",
       justifyContent: "center",
       alignItems: "center",
-      height: "100vh",
+      marginTop: "45vh",
+      // backgroundColor: "#172d40",
     }}
   >
     <PropagateLoader color="#ff6d7f" size={28} />

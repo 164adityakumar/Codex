@@ -17,7 +17,7 @@ import {
   useRecoilState,
   useRecoilValue,
 } from "recoil";
-
+import UserProfile from "./Profileuser.jsx";
 function App() {
   return (
     <>
@@ -37,6 +37,7 @@ function App() {
                 path="Explore/:courseid/Purchase"
                 element={<PaymentGateway />}
               />
+              <Route path="/Profile" element={<UserProfile />} />
               {/* <Route path="/MyCourses" element={<MyCourses />} /> */}
             </Routes>
           </Router>

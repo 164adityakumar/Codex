@@ -11,14 +11,18 @@ import { theme } from "./Pallete";
 import { assets } from "./assests";
 import { useRecoilState } from "recoil";
 import { atom } from "recoil";
-const MinidenticonImg = ({ username, saturation, lightness, ...props }) => {
+export const MinidenticonImg = ({
+  username,
+  saturation,
+  lightness,
+  ...props
+}) => {
   const svgURI = useMemo(
     () =>
       "data:image/svg+xml;utf8," +
       encodeURIComponent(minidenticon(username, saturation, lightness)),
     [username, saturation, lightness]
   );
-
 
   //   if(userType==="user"||userType===null)
   //   {}
@@ -33,16 +37,16 @@ const MinidenticonImg = ({ username, saturation, lightness, ...props }) => {
           marginRight: "10px",
           fontWeight: "bold",
           // paddingInline: "5px",
-          // paddingTop: "5px",
-          // paddingBottom: "5px",
+          // padding: "2px 5px 2px 5px",
           fontFamily: "Josefin Sans",
-          border: "solid 1.7px #1a73e9",
+          border: "solid 1.9px #8cbefa85",
+          backgroundColor: "#0073ffdc",
           // fontSize:"13px"
         }}
         avatar={<Avatar alt={username} src={svgURI} {...props} />}
         label={username}
         variant="contained"
-        size="large"
+        size="medium"
         color="secondary"
       />
     </ThemeProvider>
@@ -68,7 +72,7 @@ function Appbar() {
         console.log(data.userhandle);
       });
   }, [UserHandle]);
-  
+
   if (UserHandle) {
     if (usertypetoken === "admin") {
       console.log(UserHandle);
@@ -151,7 +155,7 @@ function Appbar() {
               {/* <Typography fontFamily={"monospace"}>{UserHandle}</Typography> */}
               <MinidenticonImg
                 style={{
-                  backgroundColor: "#eeeeee",
+                  backgroundColor: "#1a326a",
                   border: "solid 0px #0b438b",
                   width: "25px",
                   height: "23px",
@@ -200,37 +204,37 @@ function Appbar() {
           }}
         >
           <div
-          style={{
-            marginLeft: "3px",
-          }}
-        >
-          <div
             style={{
-              display: "flex",
-              gap: "10px",
-              alignItems: "center", // Align items vertically
+              marginLeft: "3px",
             }}
           >
-            <img
+            <div
               style={{
-                width: "40px", // Adjust as needed
-                height: "40px", // Adjust as needed
+                display: "flex",
+                gap: "10px",
+                alignItems: "center", // Align items vertically
               }}
-              src={assets.logo}
-              alt="logo"
-            />
+            >
+              <img
+                style={{
+                  width: "40px", // Adjust as needed
+                  height: "40px", // Adjust as needed
+                }}
+                src={assets.logo}
+                alt="logo"
+              />
 
-            <ThemeProvider theme={theme}>
-              <Typography
-                variant="h5"
-                color="primary"
-                style={{ fontWeight: 500, fontSize: "27px" }}
-              >
-                Codex_
-              </Typography>
-            </ThemeProvider>
+              <ThemeProvider theme={theme}>
+                <Typography
+                  variant="h5"
+                  color="primary"
+                  style={{ fontWeight: 500, fontSize: "27px" }}
+                >
+                  Codex_
+                </Typography>
+              </ThemeProvider>
+            </div>
           </div>
-        </div>
           <ThemeProvider theme={theme}>
             <div
               style={{
@@ -268,21 +272,25 @@ function Appbar() {
               {/* <Typography fontFamily={"monospace"}>{UserHandle}</Typography> */}
               <MinidenticonImg
                 style={{
-                  backgroundColor: "#eeeeee",
-                  border: "solid 0px #0b438b",
-                  width: "25px",
+                  backgroundColor: "#1a326a",
+                  // border: "solid 1.7px #5394e4ad",
+                  width: "24px",
                   height: "23px",
+                  // padding:"0.5px"
                 }}
                 username={UserHandle}
                 saturation="85"
                 lightness="40"
                 // width="150"
                 // height="150"
+                onClick={() => {
+                  navigate("/Profile");
+                }}
               />
               <div>
                 <Button
                   variant="outlined"
-                  style={{ borderRadius: "20px"}}
+                  style={{ borderRadius: "20px" }}
                   color="error"
                   size="medium"
                   onClick={() => {
