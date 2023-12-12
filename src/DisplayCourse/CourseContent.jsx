@@ -21,7 +21,6 @@ export function CourseContent() {
     <div>
       <Box
         sx={{
-          width: "65vw",
           border: "2px solid #488de9",
           borderRadius: "10px",
           backgroundColor: "#2e3339b1",

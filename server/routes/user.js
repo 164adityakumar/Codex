@@ -86,8 +86,11 @@ router.get("/courses", authenticateJwt, async (req, res) => {
 });
 
 router.get("/courses/:courseId", authenticateJwt, async (req, res) => {
-  const course = await Course.findById(req.params.courseId).populate("videos");
+  const data = await Course.findById(req.params.courseId).populate("videos");
+  const Author = await Admin.findOne({ userhandle: data.author });
+  const course = { ...data._doc, Author };
   if (course) {
+    console.log(course);
     res.json({ course });
   } else {
     res.status(404).json({ message: "Course not found" });

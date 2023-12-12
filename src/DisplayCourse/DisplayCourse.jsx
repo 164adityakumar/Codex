@@ -37,7 +37,7 @@ function Course() {
   return (
     <div>
       <Coursettable />
-      <div
+      <Grid container 
         style={{
           display: "flex",
           flexDirection: "row",
@@ -45,14 +45,14 @@ function Course() {
           flexWrap: "wrap",
           justifyContent: "center",
         }}
-      >
-        <div>
+>
+        <Grid lg="7.5" m={"11"} xs="11.5" >
           <CourseContent />
-        </div>
-        <div>
+        </Grid>
+        <Grid lg="4" m={"11"} xs="11.5">
           <Instructor />
-        </div>
-      </div>
+        </Grid>
+      </Grid>
     </div>
   );
 }
