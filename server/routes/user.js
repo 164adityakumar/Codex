@@ -13,6 +13,29 @@ router.get("/me", authenticateJwt, async (req, res) => {
   res.json({
     userhandle: user.userhandle,
     purchasedCourses: user.purchasedCourses,
+    username: user.username,
+    Links: user.Links,
+    bio: user.bio,
+  });
+});
+
+router.put("/me", authenticateJwt, async (req, res) => {
+  const { userhandle, username, bio, Links } = req.body;
+  const user = await User.findOne({ username: req.user.username });
+  if (!user) {
+    res.status(403).json({ msg: "User doesn't exist" });
+    return;
+  }
+  user.userhandle = userhandle;
+  user.username = username;
+  user.bio = bio;
+  user.Links = Links;
+  await user.save();
+  res.json({
+    userhandle: user.userhandle,
+    username: user.username,
+    bio: user.bio,
+    Links: user.Links,
   });
 });
 

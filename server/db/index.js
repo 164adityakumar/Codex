@@ -5,6 +5,8 @@ const userSchema = new mongoose.Schema({
   userhandle: String,
   username: { type: String },
   password: String,
+  bio: String,
+  Links: String,
   purchasedCourses: [{ type: mongoose.Schema.Types.ObjectId, ref: "Course" }],
 });
 
@@ -12,6 +14,8 @@ const adminSchema = new mongoose.Schema({
   userhandle: String,
   username: String,
   password: String,
+  bio: String,
+  Links: String,
 });
 
 const courseSchema = new mongoose.Schema({

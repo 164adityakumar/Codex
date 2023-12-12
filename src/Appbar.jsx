@@ -165,6 +165,9 @@ function Appbar() {
                 lightness="40"
                 // width="150"
                 // height="150"
+                onClick={() => {
+                  navigate("/ProfileAdmin");
+                }}
               />
               <div>
                 <Button

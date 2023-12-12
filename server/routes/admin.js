@@ -18,6 +18,29 @@ router.get("/me", authenticateJwt, async (req, res) => {
   }
   res.json({
     userhandle: admin.userhandle,
+    username: admin.username,
+    Links: admin.Links,
+    bio: admin.bio,
+  });
+});
+
+router.put("/me", authenticateJwt, async (req, res) => {
+  const { userhandle, username, bio, Links } = req.body;
+  const admin = await Admin.findOne({ username: req.user.username });
+  if (!admin) {
+    res.status(403).json({ msg: "User doesn't exist" });
+    return;
+  }
+  admin.userhandle = userhandle;
+  admin.username = username;
+  admin.bio = bio;
+  admin.Links = Links;
+  await admin.save();
+  res.json({
+    userhandle: admin.userhandle,
+    username: admin.username,
+    bio: admin.bio,
+    Links: admin.Links,
   });
 });
 
@@ -93,6 +116,18 @@ router.post("/courses", authenticateJwt, async (req, res) => {
   res.json({ message: "Course created successfully", courseId: course._id });
 });
 
+  router.put("/courses/:courseId", authenticateJwt, async (req, res) => {
+    const course = await Course.findByIdAndUpdate(
+      req.params.courseId,
+      req.body,
+      { new: true }
+    );
+    if (course) {
+      res.json({ message: "Course updated successfully" });
+    } else {
+      res.status(404).json({ message: "Course not found" });
+    }
+  });
 
 router.post(
   "/course/:courseid/upload",

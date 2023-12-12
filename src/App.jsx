@@ -18,6 +18,7 @@ import {
   useRecoilValue,
 } from "recoil";
 import UserProfile from "./Profileuser.jsx";
+import AdminProfile from "./Profileadmin.jsx";
 function App() {
   return (
     <>
@@ -39,6 +40,7 @@ function App() {
               />
               <Route path="/Profile" element={<UserProfile />} />
               {/* <Route path="/MyCourses" element={<MyCourses />} /> */}
+              <Route path="/ProfileAdmin" element={<AdminProfile />} />
             </Routes>
           </Router>
         </RecoilRoot>
