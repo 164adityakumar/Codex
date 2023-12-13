@@ -40,12 +40,12 @@ router.put("/me", authenticateJwt, async (req, res) => {
 });
 
 router.post("/signup", async (req, res) => {
-  const { userhandle, username, password } = req.body;
+  const { userhandle, username, password,Links } = req.body;
   const user = await User.findOne({ username });
   if (user) {
     res.status(403).json({ message: "User already exists" });
   } else {
-    const newUser = new User({ userhandle, username, password });
+    const newUser = new User({ userhandle, username, password ,Links});
     await newUser.save();
     const token = jwt.sign({ username, role: "user" }, SECRET, {
       expiresIn: "2h",

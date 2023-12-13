@@ -6,11 +6,16 @@ import Button from "@mui/material/Button";
 import axios from "axios";
 import Grid from "@mui/material/Grid";
 import { Input } from "@mui/material";
-import { Loader } from "./Loader";
+import { Loader } from "../Loader";
 import { atom, useRecoilState } from "recoil";
 import Autocomplete from "@mui/material/Autocomplete";
 import { Accordion, AccordionSummary, AccordionDetails } from "@mui/material";
 import ExpandMoreIcon from "@mui/icons-material/ExpandMore";
+import Dialog from "@mui/material/Dialog";
+import DialogActions from "@mui/material/DialogActions";
+import DialogContent from "@mui/material/DialogContent";
+import DialogContentText from "@mui/material/DialogContentText";
+import DialogTitle from "@mui/material/DialogTitle";
 
 function Course() {
   const [course, setCourse] = useState(null);
@@ -39,7 +44,7 @@ function Course() {
     );
   }
   return (
-    <div style={{ backgroundColor: "#f2f2f2" }}>
+    <div style={{ backgroundColor: "#fffeff9b" }}>
       <GrayTopper title={course.title} />
       <Grid container>
         <Grid item lg={5} md={6} sm={12}>
@@ -306,6 +311,7 @@ function VideoDisplay({ course }) {
   const videoNameRef = useRef(); // Add this line
   const [selectedFile, setSelectedFile] = useState(null);
   const [videos, setVideos] = useRecoilState(videoState);
+  const [open, setOpen] = useState(false);
   const handleFileChange = (event) => {
     setSelectedFile(event.target.files[0]);
   };
@@ -342,6 +348,37 @@ function VideoDisplay({ course }) {
   };
   const handleVideoSelection = (videoPath) => {
     setSelectedVideo(videoPath);
+  };
+
+  const handleVideoDelete = async (videoId) => {
+    try {
+      await axios.delete(
+        `http://localhost:3000/admin/course/${course._id}/video/${videoId}`,
+        {
+          headers: {
+            Authorization: "Bearer " + localStorage.getItem("token"),
+          },
+        }
+      );
+
+      setVideos(videos.filter((video) => video.id !== videoId));
+    } catch (error) {
+      console.error("Failed to delete video", error);
+    }
+  };
+
+  const handleClickOpen = (videoId) => {
+    setSelectedVideo(videoId);
+    setOpen(true);
+  };
+
+  const handleClose = () => {
+    setOpen(false);
+  };
+
+  const handleConfirmDelete = () => {
+    handleVideoDelete(selectedVideo);
+    setOpen(false);
   };
 
   return (
@@ -413,6 +450,8 @@ function VideoDisplay({ course }) {
                   style={{
                     border: "0.05px solid #0513245f",
                     borderRadius: 2,
+                    width: "100%",
+                    height: "10%",
                   }}
                 >
                   <AccordionSummary
@@ -430,6 +469,43 @@ function VideoDisplay({ course }) {
                         />
                       </video>
                     )}
+
+                    <Button
+                      variant="contained"
+                      color="error"
+                      onClick={() => handleClickOpen(video._id)}
+                    >
+                      Delete Video
+                    </Button>
+
+                    <Dialog
+                      open={open}
+                      onClose={handleClose}
+                      aria-labelledby="alert-dialog-title"
+                      aria-describedby="alert-dialog-description"
+                    >
+                      <DialogTitle id="alert-dialog-title">
+                        {"Delete Video"}
+                      </DialogTitle>
+                      <DialogContent>
+                        <DialogContentText id="alert-dialog-description">
+                          Are you sure you want to delete this video?
+                        </DialogContentText>
+                      </DialogContent>
+                      <DialogActions>
+                        <Button onClick={handleClose} color="primary">
+                          Cancel
+                        </Button>
+                        <Button
+                          onClick={handleConfirmDelete}
+                          color="error"
+                          variant="outlined"
+                          autoFocus
+                        >
+                          Delete
+                        </Button>
+                      </DialogActions>
+                    </Dialog>
                   </AccordionDetails>
                 </Accordion>
               )

@@ -11,23 +11,18 @@ function signup() {
   const [username, setUsername] = useState("");
   const [password, setPassword] = useState("");
   const [userhandle, setUserhandle] = useState("");
+  const [links, setLinks] = useState("");
   const [userType] = useRecoilState(userTypeState);
   return (
     <div>
       <div
         style={{
-          marginTop: 100,
+          marginTop: 40,
           marginBottom: 10,
           display: "flex",
           justifyContent: "center",
         }}
-      >
-        <Typography variant="h6" color="primary" fontFamily={"monospace"}>
-          Welcome to Codex by Aditya Kumar.
-          <br />
-          Sign up below.
-        </Typography>
-      </div>
+      ></div>
 
       <div
         style={{
@@ -49,6 +44,7 @@ function signup() {
             <TextField
               fullWidth
               label="Userhandle"
+              required={true}
               variant="filled"
               // sx={{ input:{color:""}}}
               onChange={(h) => {
@@ -59,7 +55,8 @@ function signup() {
             <br />
             <TextField
               fullWidth
-              label="Username"
+              label="Email"
+              required={true}
               variant="filled"
               // sx={{ input:{color:""}}}
               onChange={(u) => {
@@ -72,9 +69,22 @@ function signup() {
               fullWidth
               label="Password"
               variant="filled"
+              required={true}
               onChange={(p) => {
                 console.log(p);
                 setPassword(p.target.value);
+              }}
+            />
+            <br />
+            <br />
+            <TextField
+              fullWidth
+              label="Social Link"
+              variant="filled"
+              required={true}
+              onChange={(q) => {
+                console.log(q);
+                setLinks(q.target.value);
               }}
             />
             <br />
@@ -84,8 +94,8 @@ function signup() {
               variant="outlined"
               color="secondary"
               onClick={() => {
-                if (username.length === 0 || password.length === 0) {
-                  alert("Username or Password cannot be empty.");
+                if (username.length === 0 || password.length === 0 || userhandle.length === 0 || links.length === 0) {
+                  alert("All fields are required");
                 } else {
                   const loginEndpoint =
                     userType === "user" ? "user/signup" : "admin/signup";
@@ -97,6 +107,7 @@ function signup() {
                       userhandle: userhandle,
                       username: username,
                       password: password,
+                      Links: links,
                     }),
                   }).then((res) =>
                     res.json().then((data) => {

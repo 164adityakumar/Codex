@@ -4,13 +4,13 @@ import { useNavigate } from "react-router-dom";
 import EditIcon from "@mui/icons-material/Edit";
 import IconButton from "@mui/material/IconButton";
 import { ThemeProvider } from "@emotion/react";
-import { theme } from "./Pallete";
+import { theme } from "../Pallete";
 import { useRecoilState } from "recoil";
-import { userTypeState } from "./usertype";
-import { UserHandleState } from "./Appbar";
+import { userTypeState } from "../usertype";
+import { UserHandleState } from "../Appbar";
 function Courses() {
   const [courses, setCourses] = useState([]);
-  const [userhandle]=useRecoilState(UserHandleState);
+  const [userhandle] = useRecoilState(UserHandleState);
   console.log(userhandle);
   useEffect(() => {
     console.log("userhandle:", userhandle); // Log the userhandle
@@ -35,7 +35,12 @@ function Courses() {
   // console.log(courses);
   return (
     <div
-      style={{ display: "flex", flexWrap: "wrap", justifyContent: "center", gap: 20}}
+      style={{
+        display: "flex",
+        flexWrap: "wrap",
+        justifyContent: "center",
+        gap: 20,
+      }}
     >
       {courses.map((course) => {
         return <Course course={course} />;
@@ -100,9 +105,16 @@ export function Course({ course }) {
           <Typography textAlign={"left"} variant="h5">
             {course.title}
           </Typography>
-          <Typography textAlign={"left"} variant="subtitle1">
-            {course.description}
-          </Typography>
+          <div
+            style={{
+              overflow: "auto",
+              maxHeight: 100,
+            }}
+          >
+            <Typography textAlign={"left"} variant="subtitle1">
+              {course.description}
+            </Typography>
+          </div>
         </div>
       </div>
     </Card>

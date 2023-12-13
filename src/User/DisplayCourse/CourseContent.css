@@ -1,0 +1,6 @@
+.Tab{
+    color: aliceblue;
+}
+.blurred-content {
+    pointer-events: none;
+}

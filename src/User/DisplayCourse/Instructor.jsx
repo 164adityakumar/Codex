@@ -108,8 +108,11 @@ export function Instructor() {
           border: "2px solid #488de9",
           borderRadius: "10px",
           backgroundColor: "#25456cb0",
-          height: "100%",
+          maxHeight: "85vh",
           flexGrow: 1,
+          display: "flex",
+          flexDirection: "column",
+          marginBottom: 2,
         }}
       >
         <Box
@@ -167,9 +170,11 @@ export function Instructor() {
               <a href={Author.Links} target={Author.Links} style={{}}>
                 {getSocialMediaIcon(Author.Links)}
               </a>
-              <div style={{
-                padding: 5,
-              }}>
+              <div
+                style={{
+                  padding: 5,
+                }}
+              >
                 <Typography variant="subtitle1" color="primary">
                   {Author.username}
                 </Typography>
@@ -177,29 +182,43 @@ export function Instructor() {
             </div>
           </div>
         </Box>
-        <Box
+        <div
+          className="instruction"
           style={{
-            margin: 30,
-            marginLeft: 30,
-            alignContent: "space-evenly",
-            border: "solid 2px #488de9",
-            borderRadius: "20px",
-            backgroundColor: "#202b39af",
-            padding: 20,
+            display: "flex",
+            flexDirection: "column",
+            height: "50%",
             overflow: "auto",
           }}
         >
-          <Typography
-            variant="h6"
-            color="initial"
-            fontFamily={"monospace"}
+          <Box
             style={{
-              color: "#afc8ea",
+              // margin: 30,
+              // marginLeft: 30,
+              // flex: "1 0 auto",,
+              borderTop: "solid 2px #488de9",
+              // borderRadius: "20px",
+              backgroundColor: "#202b39af",
+              padding: 20,
+              overflow: "auto",
             }}
           >
-            {Author.bio}
-          </Typography>
-        </Box>
+            <div style={{
+            }}>
+              <Typography
+                variant="h6"
+                color="initial"
+                fontFamily={"monospace"}
+                fontStyle={"italic"}
+                style={{
+                  color: "#afc8ea",
+                }}
+              >
+                {Author.bio}
+              </Typography>
+            </div>
+          </Box>
+        </div>
       </Box>
     </div>
   );

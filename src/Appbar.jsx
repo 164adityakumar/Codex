@@ -11,6 +11,8 @@ import { theme } from "./Pallete";
 import { assets } from "./assests";
 import { useRecoilState } from "recoil";
 import { atom } from "recoil";
+import  Signin  from "./signin";
+
 export const MinidenticonImg = ({
   username,
   saturation,
@@ -57,6 +59,18 @@ function Appbar() {
   const navigate = useNavigate();
   const [UserHandle, setUserHandle] = useRecoilState(UserHandleState);
   // const [userType] = useRecoilState(userTypeState);
+
+  const [openSignIn, setOpenSignIn] = useRecoilState(OpenSigninState);
+
+  const handleOpenSignIn = () => {
+    setOpenSignIn(true);
+  };
+
+  const handleCloseSignIn = () => {
+    setOpenSignIn(false);
+  };
+
+
   useEffect(() => {
     console.log(localStorage.getItem("token"));
     const meEndpoint = usertypetoken === "user" ? "user/me" : "admin/me";
@@ -338,14 +352,16 @@ function Appbar() {
               alignItems: "center", // Align items vertically
             }}
           >
-            <img
-              style={{
-                width: "40px", // Adjust as needed
-                height: "40px", // Adjust as needed
-              }}
-              src={assets.logo}
-              alt="logo"
-            />
+            <a href="/">
+              <img
+                style={{
+                  width: "40px", // Adjust as needed
+                  height: "40px", // Adjust as needed
+                }}
+                src={assets.logo}
+                alt="logo"
+              />
+            </a>
 
             <ThemeProvider theme={theme}>
               <Typography
@@ -377,12 +393,11 @@ function Appbar() {
                   fontWeight: "bold",
                   fontSize: "15px",
                 }}
-                onClick={() => {
-                  navigate("/signin");
-                }}
+                onClick={handleOpenSignIn}
               >
                 Sign In
               </Button>
+              <Signin />
             </div>
             <div>
               <Button
@@ -412,5 +427,10 @@ function Appbar() {
 export const UserHandleState = atom({
   key: "UserHandle",
   default: null,
+});
+
+export const OpenSigninState = atom({
+  key: "OpenSignin",
+  default: false,
 });
 export default Appbar;

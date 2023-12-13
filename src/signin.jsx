@@ -8,10 +8,15 @@ import { useRecoilState } from "recoil";
 import { userTypeState } from "./usertype";
 import { theme } from "./Pallete";
 import { ThemeProvider } from "@mui/material/styles";
+import { Dialog, DialogTitle, DialogContent } from "@mui/material";
+import { OpenSigninState } from "./Appbar";
+
+
 function Signin() {
   const [username, setUsername] = useState("");
   const [password, setPassword] = useState("");
   const [userType] = useRecoilState(userTypeState);
+  const [open, setOpen] = useRecoilState(OpenSigninState);
 
   const handleSignIn = () => {
     if (username.length === 0 || password.length === 0) {
@@ -38,56 +43,64 @@ function Signin() {
     }
   };
 
+
+    const handleClose = () => {
+      setOpen(false);
+    };
+
   return (
     <div>
-      <div
-        style={{
-          marginTop: "20vh",
-          marginBottom: 10,
-          display: "flex",
-          justifyContent: "center",
-        }}
-      >
-        <ThemeProvider theme={theme}>
-          <Typography variant="h6" color="error" fontFamily={"monospace"}>
-            Welcome back to Codex by Aditya Kumar.
-            <br />
-            Sign in below.
+      <Dialog open={open} onClose={handleClose}>
+        <DialogTitle>
+          <Typography variant="h5" color="error" fontFamily={"Righteous"}>
+            Enter your credentials
           </Typography>
-        </ThemeProvider>
-      </div>
-
-      <div
-        style={{
-          display: "flex",
-          justifyContent: "center",
-        }}
-      >
-        <ThemeProvider theme={theme}>
-          <Card
-            variant={"contained"}
-            style={{
-              width: 400,
-              padding: 20,
-              backgroundColor: "#f1f5fece",
-            }}
-            // fontFamily={"monospace"}
-          >
+        </DialogTitle>
+        <DialogContent
+          style={{
+            width: 400,
+            // backgroundColor: "#488de9",
+            padding: 30,
+            // border: "5px solid #488de9",
+            borderRadius: 15,
+          }}
+        >
+          <ThemeProvider theme={theme}>
+            {/* <Card
+              variant={"contained"}
+              style={{
+                width: 400,
+                padding: 20,
+                // backgroundColor: "#F1F5FE",
+              }}
+            > */}
             <Toggle />
             <TextField
               fullWidth
-              label="Username"
+              label="Email"
+              required={true}
               variant="filled"
               onChange={(u) => {
                 setUsername(u.target.value);
+              }}
+              InputProps={{
+                style: {
+                  backgroundColor: "#FABCBC63",
+                },
               }}
             />
             <br />
             <br />
             <TextField
               fullWidth
+              required={true}
               label="Password"
               variant="filled"
+              InputProps={{
+                style: {
+                  backgroundColor: "#FABCBC63",
+                },
+              }}
               onChange={(p) => {
                 setPassword(p.target.value);
               }}
@@ -102,9 +115,10 @@ function Signin() {
             >
               Sign in
             </Button>
-          </Card>
-        </ThemeProvider>
-      </div>
+            {/* </Card> */}
+          </ThemeProvider>
+        </DialogContent>
+      </Dialog>
     </div>
   );
 }

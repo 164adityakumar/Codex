@@ -9,6 +9,8 @@ const firebaseStorage = require('./firebase');
 const multer = require('multer');
 const upload = multer({ storage: multer.memoryStorage() });
 const router = express.Router();
+const admin = require("firebase-admin");
+
 
 router.get("/me", authenticateJwt, async (req, res) => {
   const admin = await Admin.findOne({ username: req.user.username });
@@ -45,7 +47,7 @@ router.put("/me", authenticateJwt, async (req, res) => {
 });
 
 router.post("/signup", (req, res) => {
-  const { userhandle, username, password } = req.body;
+  const { userhandle, username, password ,Links} = req.body;
   function callback(admin) {
     if (admin) {
       res.status(403).json({ message: "Admin already exists" });
@@ -54,6 +56,7 @@ router.post("/signup", (req, res) => {
         userhandle: userhandle,
         username: username,
         password: password,
+        Links: Links,
       };
       const newAdmin = new Admin(obj);
       newAdmin.save();
@@ -82,6 +85,9 @@ router.post("/login", async (req, res) => {
 });
 
 router.post("/courses", authenticateJwt, async (req, res) => {
+
+    let author=await Admin.findOne({username:req.user.username})
+
   let course = new Course({
     title: req.body.title,
     description: req.body.description,
@@ -89,8 +95,11 @@ router.post("/courses", authenticateJwt, async (req, res) => {
     price: req.body.price,
     published: req.body.published,
     tags: req.body.tags,
-    author: req.user.userhandle,
+    author: author.userhandle,
   });
+
+  console.log(author
+    );
   await course.save();
 
   for (let i = 0; i < req.body.tags.length; i++) {
@@ -176,6 +185,33 @@ res.json({
   }
 );
 
+
+router.delete(
+  "/course/:courseid/video/:videoid",
+  authenticateJwt,
+  async (req, res) => {
+    const { courseid, videoid } = req.params;
+
+    const course = await Course.findById(courseid);
+    if (!course) {
+      return res.status(404).json({ message: "Course not found" });
+    }
+
+    const videoIndex = course.videos.findIndex(
+      (video) => video.toString() === videoid
+    );
+    if (videoIndex === -1) {
+      return res.status(404).json({ message: "Video not found in course" });
+    }
+
+    course.videos.splice(videoIndex, 1);
+    await course.save();
+
+    await Video.findByIdAndDelete(videoid);
+
+    res.json({ message: "Video deleted successfully" });
+  }
+);
 router.get("/tags", authenticateJwt, async (req, res) => {
   let tags = await Tags.find().select("tags -_id");
   tags = tags.map((tagObj) => tagObj.tags);

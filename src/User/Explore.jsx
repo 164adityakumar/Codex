@@ -6,21 +6,22 @@ import {
   CardMedia,
   Chip,
   Grid,
+  Paper,
   Typography,
 } from "@mui/material";
 import { useEffect, useState } from "react";
 import { useNavigate } from "react-router-dom";
 import { ThemeProvider } from "@emotion/react";
-import { theme } from "./Pallete";
+import { theme } from "../Pallete";
 import { atom, useRecoilState } from "recoil";
 import "./Explore.css";
 import axios from "axios";
+import { Box } from "@mui/system";
 
 function Explore() {
   const [courses, setCourses] = useRecoilState(coursesState);
   const [selectedTags] = useRecoilState(selectedTagsState);
   const [filteredCourses, setFilteredCourses] = useState([]);
-
   useEffect(() => {
     function callback2(data) {
       setCourses(data.courses);
@@ -64,15 +65,17 @@ function Explore() {
     >
       <Banner />
       <div>
-
-        <Grid container style={{
-          display: "flex",
-          flexDirection: "row",
-          flexWrap: "wrap",
-          width: "100%",
-          justifyContent: "center",
-          justifyItems: "center",
-        }}>
+        <Grid
+          container
+          style={{
+            display: "flex",
+            flexDirection: "row",
+            flexWrap: "wrap",
+            width: "100%",
+            justifyContent: "center",
+            justifyItems: "center",
+          }}
+        >
           {filteredCourses.map((course) => {
             return <Course course={course} />;
           })}
@@ -102,7 +105,8 @@ export function Course({ course }) {
           backgroundColor: "#2e3339b1",
         }}
         onClick={() => {
-          navigate("/Explore/" + course._id);
+          window.location = "/Explore/" + course._id;
+          //here i needed Window change because it was not working with navigate as IsPurchased was not getting updated in time
         }}
         className="courseCard"
       >
@@ -116,7 +120,24 @@ export function Course({ course }) {
             }}
             image={course.imageLink}
             alt="Thumbnail"
-          />
+          />{" "}
+          <Box
+            style={{
+              // marginTop: "-10px",
+              backgroundColor: "#F6F6F62F",
+              padding: "5px",
+            }}
+          >
+            <div>
+              <Typography
+                textAlign={"left"}
+                variant="body2"
+                color={"#272424C4"}
+              >
+                <b>{course.author}</b>
+              </Typography>
+            </div>
+          </Box>
           <CardContent>
             <Typography
               textAlign={"left"}
@@ -151,9 +172,9 @@ export function Course({ course }) {
                 gap: "15px",
               }}
             >
-              <Typography textAlign={"left"} variant="body2" color={"GrayText"}>
-                <b>{course.author}</b>
-              </Typography>
+              {/* <Typography textAlign={"left"} variant="body2" color={"GrayText"}>
+                <b>Rs {course.price}</b>
+              </Typography> */}
               <div
                 style={{
                   display: "flex",
@@ -202,34 +223,36 @@ function TagsBanner() {
     setSelectedTags((tags) => tags.filter((tag) => tag !== tagToDelete));
   };
   //sort an array
-const sortedBannerTags = [...bannerTags].sort();
-return (
+  const sortedBannerTags = [...bannerTags].sort();
+  return (
     <div>
       {sortedBannerTags.map((tag) => (
         <ThemeProvider theme={theme}>
-        <Chip
-          style={{
-            color: "#ffffff",
-            fontSize: "14px",
-            fontFamily: "monospace",
-            fontWeight: "bold",
-            margin: "5px",
-            padding: "5px",
-          }}
-          size="small"
-          key={tag}
-          label={tag}
-          color={selectedTags.includes(tag) ? "secondary" : "info"}
-          clickable
-          onClick={() => {
-            if (selectedTags.includes(tag)) {
-              setSelectedTags(selectedTags.filter((t) => t !== tag));
-            } else {
-              setSelectedTags([...selectedTags, tag]);
+          <Chip
+            style={{
+              color: "#ffffff",
+              fontSize: "14px",
+              fontFamily: "monospace",
+              fontWeight: "bold",
+              margin: "5px",
+              padding: "5px",
+            }}
+            size="small"
+            key={tag}
+            label={tag}
+            color={selectedTags.includes(tag) ? "secondary" : "info"}
+            clickable
+            onClick={() => {
+              if (selectedTags.includes(tag)) {
+                setSelectedTags(selectedTags.filter((t) => t !== tag));
+              } else {
+                setSelectedTags([...selectedTags, tag]);
+              }
+            }}
+            onDelete={
+              selectedTags.includes(tag) ? handleDelete(tag) : undefined
             }
-          }}
-          onDelete={selectedTags.includes(tag) ? handleDelete(tag) : undefined}
-        />
+          />
         </ThemeProvider>
       ))}
     </div>

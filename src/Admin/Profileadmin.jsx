@@ -1,4 +1,4 @@
-import  { useEffect, useState } from "react";
+import { useEffect, useState } from "react";
 import {
   Container,
   Typography,
@@ -13,17 +13,20 @@ import { Edit, Save } from "@mui/icons-material";
 import axios from "axios";
 import { minidenticon } from "minidenticons";
 import { useMemo } from "react";
-import { Loader } from "./Loader";
-import { Facebook, Twitter, Instagram, LinkedIn, GitHub, YouTube} from "@mui/icons-material";
-
-
-
-
+import { Loader } from "../Loader";
+import {
+  Facebook,
+  Twitter,
+  Instagram,
+  LinkedIn,
+  GitHub,
+  YouTube,
+} from "@mui/icons-material";
 
 function getSocialMediaIcon(link) {
-    if (!link) {
-      return null;
-    }
+  if (!link) {
+    return null;
+  }
   if (link.includes("facebook")) {
     return (
       <Facebook
@@ -89,61 +92,55 @@ function getSocialMediaIcon(link) {
   }
 }
 
-
-
-const MinidenticonImg = ({
-  username,
-  saturation,
-  lightness,
-  ...props
-}) => {
+const MinidenticonImg = ({ username, saturation, lightness, ...props }) => {
   const svgURI = useMemo(
     () =>
       "data:image/svg+xml;utf8," +
       encodeURIComponent(minidenticon(username, saturation, lightness)),
     [username, saturation, lightness]
   );
-  return (<>
-        <Avatar alt={username} src={svgURI} {...props} />
-        </>
+  return (
+    <>
+      <Avatar alt={username} src={svgURI} {...props} />
+    </>
   );
 };
-function UserProfile() {
+function AdminProfile() {
   const [isEditing, setIsEditing] = useState(false);
   const [user, setUser] = useState({});
- useEffect(() => {
-   console.log(localStorage.getItem("token"));
-   fetch(`http://localhost:3000/user/me`, {
-     method: "GET",
-     headers: {
-       Authorization: "Bearer " + localStorage.getItem("token"),
-     },
-   })
-     .then((res) => res.json())
-     .then((data) => {
-       setUser(data);
-       console.log(data);
-     });
- }, []);
-const handleEdit = () => {
-  setIsEditing(!isEditing);
-
-  if (isEditing) {
-    fetch(`http://localhost:3000/user/me`, {
-      method: "PUT",
+  useEffect(() => {
+    console.log(localStorage.getItem("token"));
+    fetch(`http://localhost:3000/admin/me`, {
+      method: "GET",
       headers: {
-        "Content-Type": "application/json",
         Authorization: "Bearer " + localStorage.getItem("token"),
       },
-      body: JSON.stringify(user),
     })
       .then((res) => res.json())
       .then((data) => {
         setUser(data);
         console.log(data);
       });
-  }
-};
+  }, []);
+  const handleEdit = () => {
+    setIsEditing(!isEditing);
+
+    if (isEditing) {
+      fetch(`http://localhost:3000/admin/me`, {
+        method: "PUT",
+        headers: {
+          "Content-Type": "application/json",
+          Authorization: "Bearer " + localStorage.getItem("token"),
+        },
+        body: JSON.stringify(user),
+      })
+        .then((res) => res.json())
+        .then((data) => {
+          setUser(data);
+          console.log(data);
+        });
+    }
+  };
 
   const handleChange = (event) => {
     setUser({
@@ -152,12 +149,12 @@ const handleEdit = () => {
     });
   };
 
-  if(user.userhandle==undefined){
-    return(
+  if (user.userhandle == undefined) {
+    return (
       <div>
-        <Loader/>   
+        <Loader />
       </div>
-    )
+    );
   }
   return (
     <Box
@@ -349,7 +346,7 @@ const handleEdit = () => {
                       target={user.Links}
                       rel="noopener noreferrer"
                     >
-                      {getSocialMediaIcon(user.Links)}
+                      {user && user.Links && getSocialMediaIcon(user.Links)}
                     </a>
                   </div>
                 </div>
@@ -375,8 +372,8 @@ const handleEdit = () => {
                     alignContent: "space-evenly",
                     backgroundColor: "#003b7b3a",
                     color: "#eeaab2",
-                    border: " 1.7px #124397bb",
-                    overflow:"auto",
+                    border: "solid 1.7px #124397bb",
+                    overflow: "auto",
                     borderRadius: "7px",
                   }}
                 >
@@ -409,4 +406,4 @@ const handleEdit = () => {
   );
 }
 
-export default UserProfile;
+export default AdminProfile;

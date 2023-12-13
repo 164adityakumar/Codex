@@ -13,7 +13,7 @@ import { Edit, Save } from "@mui/icons-material";
 import axios from "axios";
 import { minidenticon } from "minidenticons";
 import { useMemo } from "react";
-import { Loader } from "./Loader";
+import { Loader } from "../Loader";
 import {
   Facebook,
   Twitter,
@@ -22,11 +22,13 @@ import {
   GitHub,
   YouTube,
 } from "@mui/icons-material";
+import { useRecoilState } from "recoil";
+import { UserState } from "../User/MeState";
 
 function getSocialMediaIcon(link) {
-      if (!link) {
-        return null;
-      }
+  if (!link) {
+    return null;
+  }
   if (link.includes("facebook")) {
     return (
       <Facebook
@@ -105,28 +107,31 @@ const MinidenticonImg = ({ username, saturation, lightness, ...props }) => {
     </>
   );
 };
-function AdminProfile() {
+function UserProfile() {
   const [isEditing, setIsEditing] = useState(false);
-  const [user, setUser] = useState({});
-  useEffect(() => {
-    console.log(localStorage.getItem("token"));
-    fetch(`http://localhost:3000/admin/me`, {
-      method: "GET",
-      headers: {
-        Authorization: "Bearer " + localStorage.getItem("token"),
-      },
-    })
-      .then((res) => res.json())
-      .then((data) => {
-        setUser(data);
-        console.log(data);
-      });
-  }, []);
+  const [user, setUser] = useRecoilState(UserState);
+  
+     useEffect(() => {
+       console.log(localStorage.getItem("token"));
+       fetch(`http://localhost:3000/user/me`, {
+         method: "GET",
+         headers: {
+           Authorization: "Bearer " + localStorage.getItem("token"),
+         },
+       })
+         .then((res) => res.json())
+         .then((data) => {
+           setUser(data);
+           console.log(data);
+         });
+     }, []);
+     
+  console.log(user);
   const handleEdit = () => {
     setIsEditing(!isEditing);
 
     if (isEditing) {
-      fetch(`http://localhost:3000/admin/me`, {
+      fetch(`http://localhost:3000/user/me`, {
         method: "PUT",
         headers: {
           "Content-Type": "application/json",
@@ -148,6 +153,8 @@ function AdminProfile() {
       [event.target.name]: event.target.value,
     });
   };
+
+   console.log(user.userhandle);
 
   if (user.userhandle == undefined) {
     return (
@@ -346,7 +353,7 @@ function AdminProfile() {
                       target={user.Links}
                       rel="noopener noreferrer"
                     >
-                      {user && user.Links && getSocialMediaIcon(user.Links)}
+                      {getSocialMediaIcon(user.Links)}
                     </a>
                   </div>
                 </div>
@@ -372,7 +379,7 @@ function AdminProfile() {
                     alignContent: "space-evenly",
                     backgroundColor: "#003b7b3a",
                     color: "#eeaab2",
-                    border: "solid 1.7px #124397bb",
+                    border: " 1.7px #124397bb",
                     overflow: "auto",
                     borderRadius: "7px",
                   }}
@@ -406,4 +413,4 @@ function AdminProfile() {
   );
 }
 
-export default AdminProfile;
+export default UserProfile;

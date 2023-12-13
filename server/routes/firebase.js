@@ -22,3 +22,4 @@ const app = initializeApp(firebaseConfig);
 const storage = getStorage(app);
 
 module.exports = storage;
+
