@@ -19,7 +19,7 @@
     "@stripe/react-stripe-js": "^2.4.0",
     "@stripe/stripe-js": "^2.2.0",
     "alert": "^6.0.1",
-    "axios": "^1.5.1",
+    "axios": "^1.6.0",
     "firebase": "^10.5.2",
     "get-google-fonts": "^1.2.2",
     "jsonwebtoken": "^9.0.2",
@@ -39,6 +39,6 @@
     "eslint-plugin-react": "^7.32.2",
     "eslint-plugin-react-hooks": "^4.6.0",
     "eslint-plugin-react-refresh": "^0.4.3",
-    "vite": "^4.4.5"
+    "vite": "^4.4.12"
   }
 }
