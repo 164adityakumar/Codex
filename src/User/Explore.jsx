@@ -116,7 +116,7 @@ export function Course({ course }) {
             style={{
               maxwidth: 250,
               maxHeight: 200,
-              borderBottom: "solid 3px #ff6d7e9c",
+              // borderBottom: "solid 3px #ff6d7e9c",
             }}
             image={course.imageLink}
             alt="Thumbnail"
@@ -124,15 +124,19 @@ export function Course({ course }) {
           <Box
             style={{
               // marginTop: "-10px",
-              backgroundColor: "#F6F6F62F",
+              background: "#ffffff0",
               padding: "5px",
+              paddingLeft: "10px",
+              borderTop: "solid 3px #ff6d7e9c",
+              borderBottom: "solid 3px #ff6d7e9c",
             }}
           >
             <div>
               <Typography
                 textAlign={"left"}
                 variant="body2"
-                color={"#272424C4"}
+                color={"#ffffffc4"}
+                fontFamily={"Poppins"}
               >
                 <b>{course.author}</b>
               </Typography>

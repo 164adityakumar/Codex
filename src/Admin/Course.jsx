@@ -168,7 +168,7 @@ function Updatecourse({ course, setCourse }) {
             width: 450,
             marginTop: 200,
             // marginLeft: 100,
-            maxHeight: 500,
+            // maxHeight: 500,
           }}
         >
           <div style={{ padding: 20 }}>

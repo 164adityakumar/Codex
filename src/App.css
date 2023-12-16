@@ -19,13 +19,25 @@ body {
         background-size: 5em 5em;
         background-color: #ffd8dd;
         opacity: 1 */
-        background-image: url('assets/stacked-waves-haikei.svg');
-            background-size: cover;
-            /* Adjust this as needed */
-            background-repeat: no-repeat;
-            position: relative;
-                width: 100%;
-                height: 100%;
                 /* margin-left: auto;
                 margin-right: auto; */
+}
+@keyframes gradient {
+    0% {
+        background-position: 0% 50%;
+    }
+
+    50% {
+        background-position: 100% 50%;
+    }
+
+    100% {
+        background-position: 0% 50%;
+    }
+}
+
+html,body {
+    background: linear-gradient(270deg, #11315c, #2a121e);
+    background-size: 200% 200%;
+    animation: gradient 5s ease infinite;
 }

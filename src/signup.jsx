@@ -14,27 +14,47 @@ function signup() {
   const [links, setLinks] = useState("");
   const [userType] = useRecoilState(userTypeState);
   return (
-    <div>
+    <div
+      style={{
+        display: "flex",
+        justifyContent: "flex-end",
+        overflow: "hidden",
+      }}
+    >
       <div
         style={{
-          marginTop: 40,
-          marginBottom: 10,
-          display: "flex",
-          justifyContent: "center",
-        }}
-      ></div>
+          flex: "1 1 auto",
+          position: "relative", // Add this line
 
+          backgroundImage:
+            "url('https://swall.teahub.io/photos/small/10-101157_1920x1080-keep-calm-and-carry-on-wallpaper-3.jpg')",
+          backgroundColor: (t) =>
+            t.palette.mode === "dark"
+              ? t.palette.grey[50]
+              : t.palette.grey[900],
+          backgroundSize: "cover",
+backgroundPosition: "center",
+marginLeft: "-70px",
+          backgroundRepeat: "no-repeat",
+          height: "calc(100vh - 62.8px)",
+          backdropFilter: "blur(10px)", // Add this line
+        }}
+      >
+        {/* <div style={{}}>Get Started with Codex by signing up!</div> */}
+      </div>
       <div
         style={{
-          display: "flex",
-          justifyContent: "center",
+          flex: "0 0 400px",
+          padding: "40px",
+          backgroundColor: "#f1f5fe",
         }}
       >
         <ThemeProvider theme={theme}>
           <Card
             variant={"contained"}
             style={{
-              width: 400,
+              width: 500,
+              marginTop: 20,
               padding: 20,
               backgroundColor: "#f1f5fece",
               // contrastText: "#beb9c3",
@@ -94,7 +114,12 @@ function signup() {
               variant="outlined"
               color="secondary"
               onClick={() => {
-                if (username.length === 0 || password.length === 0 || userhandle.length === 0 || links.length === 0) {
+                if (
+                  username.length === 0 ||
+                  password.length === 0 ||
+                  userhandle.length === 0 ||
+                  links.length === 0
+                ) {
                   alert("All fields are required");
                 } else {
                   const loginEndpoint =

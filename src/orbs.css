@@ -1,0 +1,283 @@
+@keyframes gradient {
+    0% {
+        background-position: 0% 50%;
+    }
+
+    50% {
+        background-position: 100% 50%;
+    }
+
+    100% {
+        background-position: 0% 50%;
+    }
+}
+
+.gradient-background {
+    background: linear-gradient(270deg, #11315c, #622e35);
+    background-size: 200% 200%;
+    animation: gradient 5s ease infinite;
+}
+
+@keyframes zoom-slide {
+    0% {
+        transform: translateX(0);
+    }
+
+    100% {
+        transform: translateX(-50%);
+    }
+}
+
+.zoom-slide {
+    display: flex;
+    animation: zoom-slide 60s linear infinite;
+}
+.header,.main {   
+     background: linear-gradient(270deg, #320c11, #04172f);
+    background-size: 200% 200%;
+    animation: gradient 5s ease infinite;
+    ;
+}
+
+
+@property --scroll-y-position {
+    syntax: "<percentage>";
+    initial-value: -1%;
+    inherits: false;
+}
+
+@property --reflection-y-position {
+    syntax: "<percentage>";
+    initial-value: -50%;
+    inherits: false;
+}
+
+@property --scrollbar-color {
+    syntax: "<color>";
+    inherits: false;
+    initial-value: transparent;
+}
+
+@property --opacity-1 {
+    syntax: "<number>";
+    inherits: false;
+    initial-value: 0.1;
+}
+
+@property --opacity-2 {
+    syntax: "<number>";
+    inherits: false;
+    initial-value: 0.1;
+}
+
+@property --opacity-3 {
+    syntax: "<number>";
+    inherits: false;
+    initial-value: 0.1;
+}
+
+
+
+@property --text-offset-1 {
+    syntax: "<number>";
+    inherits: false;
+    initial-value: 10;
+}
+
+@property --text-offset-2 {
+    syntax: "<number>";
+    inherits: false;
+    initial-value: 10;
+}
+
+@property --text-offset-3 {
+    syntax: "<number>";
+    inherits: false;
+    initial-value: 10;
+}
+
+@property --text-offset-4 {
+    syntax: "<number>";
+    inherits: false;
+    initial-value: 10;
+}
+
+.features , .poly{
+    background: linear-gradient(132deg,
+                rgba(255, 255, 255, 0.116) 0%,
+                rgba(238, 238, 238, 0.097) 20%,
+                rgba(202, 202, 202, 0.04) 70%,
+                rgba(171, 171, 171, 0.053) 100%);
+        border: solid rgba(255, 255, 255, 0.06) 1px;
+        /* margin-left: 15px; */
+        border-radius: 15px;
+}
+
+.text{
+    margin-left: 10vh;
+    padding: 3vh;
+    padding-left: 5vh;
+}
+
+.features {
+    padding: 1vh;
+    width: 90%;
+    height: 23%;
+    /* align-items: center; */
+    /* align-content: center;  */
+    padding-Right: 2vh;
+     text-align: center;
+    display: flex;   
+    flex-direction: row;
+    justify-content: space-between;
+    /* gap: 10vh; */
+}
+
+.container {
+    /* margin-top: 20px; */
+    width:90vw;
+    height: 100%;
+    background: linear-gradient(132deg,
+            rgba(255, 255, 255, 0.116) 0%,
+            rgba(238, 238, 238, 0.097) 20%,
+            rgba(202, 202, 202, 0.04) 70%,
+            rgba(171, 171, 171, 0.053) 100%);
+    border: solid rgba(255, 255, 255, 0.06) 1px;
+    /* margin-left: 15px; */
+    border-radius: 10px;
+    padding: 20px;
+    position: relative;
+    align-items: center;
+    /* align-content: center; */
+    /* text-align: justify; */
+    display: flex;
+    flex-direction: column;
+        margin-top: 10vh;
+    /* padding-bottom: 50px; */
+}
+
+.container::before,
+.container::after {
+    content: "";
+    position: absolute;
+    top: 0;
+    left: 0;
+    display: block;
+    width: 100%;
+    height: 100%;
+    background: linear-gradient(180deg,
+            rgba(10, 76, 242, 0) 0%,
+            rgba(184, 192, 227, 0.752) 38.288288288288285%,
+            rgb(255, 255, 255) 50.9132179054054%,
+            rgba(157, 184, 255, 0.752) 63.06306306306306%,
+            rgba(10, 76, 242, 0) 100%);
+        
+    background-repeat: no-repeat;
+    background-position-y: var(--reflection-y-position);
+    animation: on-scrolling both linear;
+    animation-timeline: scroll();
+    animation-range: 10vh;
+}
+
+.container::before {
+    background-size: 1px 150px;
+    filter: blur(1px);
+}
+
+.container::after {
+    background-size: 10px 150px;
+    filter: blur(10px);
+}
+
+.main {
+    /* width: 100%; */
+    /* height: 100%; */
+    display: flex;
+    flex-direction: column;
+    justify-content: center;
+    align-items: center;
+    /* margin-top: 5vh; */
+    padding: 7vh;
+    /* background-color: #0f1e2b; */
+    font-family:"Poppins", sans-serif;
+    font-weight: "bold";
+    font-size: larger;
+}
+
+
+
+
+@keyframes on-scrolling {
+    0% {
+        --scroll-y-position: -10%;
+        --reflection-y-position: -22%;
+    }
+
+    1% {
+        --scrollbar-color: rgba(255, 255, 255, 0.1);
+    }
+
+    25% {
+        /* --opacity-1: 1;
+        --opacity-2: 0.1;
+        --opacity-3: 0.1;
+        --opacity-4: 0.1; */
+
+        --text-offset-1: 0;
+        --text-offset-2: 10;
+        --text-offset-3: 10;
+        --text-offset-4: 10;
+    }
+
+    50% {
+        --scroll-y-position: 50%;
+        --reflection-y-position: 50%;
+        /* --opacity-1: 0.1;
+        --opacity-2: 1;
+        --opacity-3: 0.1;
+        --opacity-4: 0.1; */
+
+        --text-offset-1: 10;
+        --text-offset-2: 0;
+        --text-offset-3: 10;
+        --text-offset-4: 10;
+    }
+
+    60% {
+        /* --opacity-1: 0.1;
+        --opacity-2: 0.1;
+        --opacity-3: 1;
+        --opacity-4: 0.1; */
+
+        --text-offset-1: 10;
+        --text-offset-2: 10;
+        --text-offset-3: 0;
+        --text-offset-4: 10;
+    }
+
+    90% {
+        /* --opacity-1: 0.1;
+        --opacity-2: 0.1;
+        --opacity-3: 0.1;
+        --opacity-4: 1; */
+
+        --text-offset-1: 10;
+        --text-offset-2: 10;
+        --text-offset-3: 10;
+        --text-offset-4: 0;
+    }
+
+    100% {
+        --text-offset-1: 10;
+        --text-offset-2: 10;
+        --text-offset-3: 10;
+        --text-offset-4: 10;
+        /* --opacity-1: 0.1;
+        --opacity-2: 0.1;
+        --opacity-3: 0.1;
+        --opacity-4: 0.1; */
+        --scroll-y-position: 105%;
+        --reflection-y-position: 115%;
+        --scrollbar-color: rgba(255, 255, 255, 0.1);
+    }
+}

@@ -19,6 +19,7 @@ import {
 } from "recoil";
 import UserProfile from "./User/Profileuser.jsx";
 import AdminProfile from "./Admin/Profileadmin.jsx";
+import Home from "./home.jsx";
 function App() {
   return (
     <>
@@ -27,6 +28,7 @@ function App() {
           <Router>
             <Appbar />
             <Routes>
+              <Route path="/" element={<Home />} />
               <Route path="/addcourse" element={<Addcourse />} />
               <Route path="/course/:courseid" element={<Course />} />
               <Route path="/courses" element={<Courses />} />
