@@ -17,37 +17,37 @@ export function CourseContent() {
   const [value, setValue] = useState(0);
   const [course] = useRecoilState(courseState);
   const [user, setUser] = useRecoilState(UserState);
-  
-    const [isPurchased, setIsPurchased] = useRecoilState(IsPurchasedstate);
+
+  const [isPurchased, setIsPurchased] = useRecoilState(IsPurchasedstate);
 
   const handleChange = (event, newValue) => {
     setValue(newValue);
   };
 
-   useEffect(() => {
-     console.log(localStorage.getItem("token"));
-     fetch(`http://localhost:3000/user/me`, {
-       method: "GET",
-       headers: {
-         Authorization: "Bearer " + localStorage.getItem("token"),
-       },
-     })
-       .then((res) => res.json())
-       .then((data) => {
-         setUser(data);
-         console.log(data);
-       });
-   }, []);
+  useEffect(() => {
+    console.log(localStorage.getItem("token"));
+    fetch(`https://codexbackend.onrender.com/user/me`, {
+      method: "GET",
+      headers: {
+        Authorization: "Bearer " + localStorage.getItem("token"),
+      },
+    })
+      .then((res) => res.json())
+      .then((data) => {
+        setUser(data);
+        console.log(data);
+      });
+  }, []);
 
-   console.log(isPurchased);
-   const PurchasedCourses = user.purchasedCourses;
-   console.log(PurchasedCourses);
+  console.log(isPurchased);
+  const PurchasedCourses = user.purchasedCourses;
+  console.log(PurchasedCourses);
 
-   if (PurchasedCourses != null) {
-     if (PurchasedCourses.includes(course._id)) {
-       setIsPurchased(true);
-     }
-   }
+  if (PurchasedCourses != null) {
+    if (PurchasedCourses.includes(course._id)) {
+      setIsPurchased(true);
+    }
+  }
 
   return (
     <div>
@@ -126,24 +126,37 @@ export function CourseContent() {
   );
 }
 function LivestreamTab() {
-  return <div>
-    <Typography variant="h6" fontFamily={"monospace"} style={{color:"#78B4E3E9"}}>Arriving Soon</Typography>
-  </div>;
+  return (
+    <div>
+      <Typography
+        variant="h6"
+        fontFamily={"monospace"}
+        style={{ color: "#78B4E3E9" }}
+      >
+        Arriving Soon
+      </Typography>
+    </div>
+  );
 }
 function OverviewTab() {
   const [course] = useRecoilState(courseState);
-  return <div>
-    <Typography variant="h6" fontFamily={"monospace"} style={{color:"#78B4E3E9"}}>{course.description}</Typography>
-  </div>;
+  return (
+    <div>
+      <Typography
+        variant="h6"
+        fontFamily={"monospace"}
+        style={{ color: "#78B4E3E9" }}
+      >
+        {course.description}
+      </Typography>
+    </div>
+  );
 }
-
 
 export function VideoTab() {
   const [course] = useRecoilState(courseState);
   const [user, setUser] = useRecoilState(UserState);
   const [isPurchased] = useRecoilState(IsPurchasedstate);
-
- 
 
   const videos = course.videos;
   const className = isPurchased ? "" : "blurred-content";

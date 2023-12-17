@@ -17,7 +17,7 @@ function addcourse() {
   const [tags, setTags] = useState([]); //tags is an array of strings
   const [optiontags, setOptionTags] = useState([]);
   useEffect(() => {
-    fetch("http://localhost:3000/user/tags", {
+    fetch("https://codexbackend.onrender.com/user/tags", {
       method: "GET",
       headers: {
         Authorization: "Bearer " + localStorage.getItem("token"),
@@ -43,7 +43,7 @@ function addcourse() {
             justifyContent: "center",
           }}
         >
-          <Paper 
+          <Paper
             style={{
               marginTop: 30,
               marginBottom: 10,
@@ -52,7 +52,8 @@ function addcourse() {
               height: "auto",
               justifyContent: "center",
               padding: 10,
-              background: "linear-gradient(132deg, rgba(255, 255, 255, 0.206) 0%, rgba(238, 238, 238, 0.168) 20%, rgba(202, 202, 202, 0.148) 70%, rgba(171, 171, 171, 0.024) 100%)",
+              background:
+                "linear-gradient(132deg, rgba(255, 255, 255, 0.206) 0%, rgba(238, 238, 238, 0.168) 20%, rgba(202, 202, 202, 0.148) 70%, rgba(171, 171, 171, 0.024) 100%)",
               border: "solid rgba(255, 255, 255, 0.06) 1px",
               borderRadius: "15px",
             }}
@@ -64,7 +65,7 @@ function addcourse() {
               fontWeight={"300rem"}
               fontFamily={"Poppins"}
             >
-             <b> Add your new course below </b>
+              <b> Add your new course below </b>
             </Typography>
           </Paper>
         </div>
@@ -190,7 +191,7 @@ function addcourse() {
                   ) {
                     alert("all fields are required");
                   } else {
-                    fetch("http://localhost:3000/admin/courses", {
+                    fetch("https://codexbackend.onrender.com/admin/courses", {
                       method: "POST",
 
                       headers: {

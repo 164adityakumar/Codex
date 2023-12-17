@@ -29,7 +29,7 @@ function Explore() {
     function callback1(res) {
       res.json().then(callback2);
     }
-    fetch("http://localhost:3000/user/courses/", {
+    fetch("https://codexbackend.onrender.com/user/courses/", {
       method: "GET",
       headers: {
         Authorization: "Bearer " + localStorage.getItem("token"),
@@ -39,7 +39,9 @@ function Explore() {
 
   const fetchCoursesByTags = async (tags) => {
     const response = await axios.get(
-      `http://localhost:3000/user/courses-by-tags?tags=${tags.join(",")}`
+      `https://codexbackend.onrender.com/user/courses-by-tags?tags=${tags.join(
+        ","
+      )}`
     );
     return response.data;
   };
@@ -265,7 +267,7 @@ function TagsBanner() {
 function Banner() {
   const [, setBannerTags] = useRecoilState(BannertagsState);
   useEffect(() => {
-    fetch("http://localhost:3000/user/tags", {
+    fetch("https://codexbackend.onrender.com/user/tags", {
       method: "GET",
       headers: {
         Authorization: "Bearer " + localStorage.getItem("token"),

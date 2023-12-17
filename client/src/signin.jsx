@@ -11,7 +11,6 @@ import { ThemeProvider } from "@mui/material/styles";
 import { Dialog, DialogTitle, DialogContent } from "@mui/material";
 import { OpenSigninState } from "./Appbar";
 
-
 function Signin() {
   const [username, setUsername] = useState("");
   const [password, setPassword] = useState("");
@@ -23,7 +22,7 @@ function Signin() {
       alert("Username or Password cannot be empty.");
     } else {
       const loginEndpoint = userType === "user" ? "user/login" : "admin/login";
-      fetch(`http://localhost:3000/${loginEndpoint}`, {
+      fetch(`https://codexbackend.onrender.com/${loginEndpoint}`, {
         method: "POST",
         headers: { "Content-Type": "application/json" },
         body: JSON.stringify({
@@ -43,10 +42,9 @@ function Signin() {
     }
   };
 
-
-    const handleClose = () => {
-      setOpen(false);
-    };
+  const handleClose = () => {
+    setOpen(false);
+  };
 
   return (
     <div>

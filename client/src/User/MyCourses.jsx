@@ -27,7 +27,7 @@ function MyCourses() {
     function callback1(res) {
       res.json().then(callback2);
     }
-    fetch("http://localhost:3000/user/courses/", {
+    fetch("https://codexbackend.onrender.com/user/courses/", {
       method: "GET",
       headers: {
         Authorization: "Bearer " + localStorage.getItem("token"),
@@ -35,23 +35,22 @@ function MyCourses() {
     }).then(callback1);
   }, []);
 
-
-useEffect(() => {
-  fetch(`http://localhost:3000/user/me`, {
-    method: "GET",
-    headers: {
-      Authorization: "Bearer " + localStorage.getItem("token"),
-    },
-  })
-    .then((res) => res.json())
-    .then((data) => {
-      setUser(data);
-      setPurchasedCourses(
-        courses.filter((c) => data.purchasedCourses.includes(c._id))
-      );
-      console.log(data);
-    });
-}, [courses]);
+  useEffect(() => {
+    fetch(`https://codexbackend.onrender.com/user/me`, {
+      method: "GET",
+      headers: {
+        Authorization: "Bearer " + localStorage.getItem("token"),
+      },
+    })
+      .then((res) => res.json())
+      .then((data) => {
+        setUser(data);
+        setPurchasedCourses(
+          courses.filter((c) => data.purchasedCourses.includes(c._id))
+        );
+        console.log(data);
+      });
+  }, [courses]);
 
   console.log(PurchasedCourses);
 

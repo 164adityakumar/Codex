@@ -11,7 +11,7 @@ import { theme } from "./Pallete";
 import { assets } from "./assests";
 import { useRecoilState } from "recoil";
 import { atom } from "recoil";
-import  Signin  from "./signin";
+import Signin from "./signin";
 
 export const MinidenticonImg = ({
   username,
@@ -70,11 +70,10 @@ function Appbar() {
     setOpenSignIn(false);
   };
 
-
   useEffect(() => {
     console.log(localStorage.getItem("token"));
     const meEndpoint = usertypetoken === "user" ? "user/me" : "admin/me";
-    fetch(`http://localhost:3000/${meEndpoint}`, {
+    fetch(`https://codexbackend.onrender.com/${meEndpoint}`, {
       method: "GET",
       headers: {
         Authorization: "Bearer " + localStorage.getItem("token"),

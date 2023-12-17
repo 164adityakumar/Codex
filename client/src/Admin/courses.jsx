@@ -15,12 +15,15 @@ function Courses() {
   useEffect(() => {
     console.log("userhandle:", userhandle); // Log the userhandle
 
-    fetch(`http://localhost:3000/admin/courses/author/${userhandle}`, {
-      method: "GET",
-      headers: {
-        Authorization: "Bearer " + localStorage.getItem("token"),
-      },
-    })
+    fetch(
+      `https://codexbackend.onrender.com/admin/courses/author/${userhandle}`,
+      {
+        method: "GET",
+        headers: {
+          Authorization: "Bearer " + localStorage.getItem("token"),
+        },
+      }
+    )
       .then((res) => {
         if (!res.ok) {
           console.log("Error status:", res.status); // Log the status code

@@ -110,28 +110,28 @@ const MinidenticonImg = ({ username, saturation, lightness, ...props }) => {
 function UserProfile() {
   const [isEditing, setIsEditing] = useState(false);
   const [user, setUser] = useRecoilState(UserState);
-  
-     useEffect(() => {
-       console.log(localStorage.getItem("token"));
-       fetch(`http://localhost:3000/user/me`, {
-         method: "GET",
-         headers: {
-           Authorization: "Bearer " + localStorage.getItem("token"),
-         },
-       })
-         .then((res) => res.json())
-         .then((data) => {
-           setUser(data);
-           console.log(data);
-         });
-     }, []);
-     
+
+  useEffect(() => {
+    console.log(localStorage.getItem("token"));
+    fetch(`https://codexbackend.onrender.com/user/me`, {
+      method: "GET",
+      headers: {
+        Authorization: "Bearer " + localStorage.getItem("token"),
+      },
+    })
+      .then((res) => res.json())
+      .then((data) => {
+        setUser(data);
+        console.log(data);
+      });
+  }, []);
+
   console.log(user);
   const handleEdit = () => {
     setIsEditing(!isEditing);
 
     if (isEditing) {
-      fetch(`http://localhost:3000/user/me`, {
+      fetch(`https://codexbackend.onrender.com/user/me`, {
         method: "PUT",
         headers: {
           "Content-Type": "application/json",
@@ -154,7 +154,7 @@ function UserProfile() {
     });
   };
 
-   console.log(user.userhandle);
+  console.log(user.userhandle);
 
   if (user.userhandle == undefined) {
     return (

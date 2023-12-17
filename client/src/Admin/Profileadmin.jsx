@@ -110,7 +110,7 @@ function AdminProfile() {
   const [user, setUser] = useState({});
   useEffect(() => {
     console.log(localStorage.getItem("token"));
-    fetch(`http://localhost:3000/admin/me`, {
+    fetch(`https://codexbackend.onrender.com/admin/me`, {
       method: "GET",
       headers: {
         Authorization: "Bearer " + localStorage.getItem("token"),
@@ -126,7 +126,7 @@ function AdminProfile() {
     setIsEditing(!isEditing);
 
     if (isEditing) {
-      fetch(`http://localhost:3000/admin/me`, {
+      fetch(`https://codexbackend.onrender.com/admin/me`, {
         method: "PUT",
         headers: {
           "Content-Type": "application/json",

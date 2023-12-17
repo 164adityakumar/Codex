@@ -33,8 +33,8 @@ function signup() {
               ? t.palette.grey[50]
               : t.palette.grey[900],
           backgroundSize: "cover",
-backgroundPosition: "center",
-marginLeft: "-70px",
+          backgroundPosition: "center",
+          marginLeft: "-70px",
           backgroundRepeat: "no-repeat",
           height: "calc(100vh - 62.8px)",
           backdropFilter: "blur(10px)", // Add this line
@@ -125,7 +125,7 @@ marginLeft: "-70px",
                   const loginEndpoint =
                     userType === "user" ? "user/signup" : "admin/signup";
                   console.log(loginEndpoint);
-                  fetch(`http://localhost:3000/${loginEndpoint}`, {
+                  fetch(`https://codexbackend.onrender.com/${loginEndpoint}`, {
                     method: "POST",
                     headers: { "Content-Type": "application/json" },
                     body: JSON.stringify({

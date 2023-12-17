@@ -23,7 +23,7 @@ function Course() {
   const [videos, setVideos] = useRecoilState(videoState);
   useEffect(() => {
     axios
-      .get("http://localhost:3000/admin/course/" + courseid, {
+      .get("https://codexbackend.onrender.com/admin/course/" + courseid, {
         method: "GET",
         headers: {
           Authorization: "Bearer " + localStorage.getItem("token"),
@@ -139,7 +139,7 @@ function Updatecourse({ course, setCourse }) {
   const [optiontags, setOptionTags] = useState([]);
 
   useEffect(() => {
-    fetch("http://localhost:3000/user/tags", {
+    fetch("https://codexbackend.onrender.com/user/tags", {
       method: "GET",
       headers: {
         Authorization: "Bearer " + localStorage.getItem("token"),
@@ -263,23 +263,27 @@ function Updatecourse({ course, setCourse }) {
                   if (title.length === 0 || description.length === 0) {
                     alert("Course Title or Description cannot be empty.");
                   } else {
-                    fetch("http://localhost:3000/admin/courses/" + course._id, {
-                      method: "PUT",
-                      headers: {
-                        "Content-Type": "application/json",
-                        Authorization:
-                          "Bearer " + localStorage.getItem("token"), //this header is necessary to be senf using the header for the admin to be authenticated using the token stored in local storage until the admin signs out
-                      },
+                    fetch(
+                      "https://codexbackend.onrender.com/admin/courses/" +
+                        course._id,
+                      {
+                        method: "PUT",
+                        headers: {
+                          "Content-Type": "application/json",
+                          Authorization:
+                            "Bearer " + localStorage.getItem("token"), //this header is necessary to be senf using the header for the admin to be authenticated using the token stored in local storage until the admin signs out
+                        },
 
-                      body: JSON.stringify({
-                        title: title,
-                        description: description,
-                        imageLink: image,
-                        published: true,
-                        price: price,
-                        tags: tags,
-                      }),
-                    }).then((res) =>
+                        body: JSON.stringify({
+                          title: title,
+                          description: description,
+                          imageLink: image,
+                          published: true,
+                          price: price,
+                          tags: tags,
+                        }),
+                      }
+                    ).then((res) =>
                       res.json().then((data) => {
                         let updatedCourse = {
                           _id: course._id,
@@ -330,7 +334,7 @@ function VideoDisplay({ course }) {
     formData.append("name", videoName);
 
     const response = await axios.post(
-      `http://localhost:3000/admin/course/${course._id}/upload`,
+      `https://codexbackend.onrender.com/admin/course/${course._id}/upload`,
       formData,
       {
         headers: {
@@ -353,7 +357,7 @@ function VideoDisplay({ course }) {
   const handleVideoDelete = async (videoId) => {
     try {
       await axios.delete(
-        `http://localhost:3000/admin/course/${course._id}/video/${videoId}`,
+        `https://codexbackend.onrender.com/admin/course/${course._id}/video/${videoId}`,
         {
           headers: {
             Authorization: "Bearer " + localStorage.getItem("token"),

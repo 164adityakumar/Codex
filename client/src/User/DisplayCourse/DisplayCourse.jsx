@@ -22,11 +22,11 @@ import VerifiedTwoToneIcon from "@mui/icons-material/VerifiedTwoTone";
 function Course() {
   const [course, setCourse] = useRecoilState(courseState);
   const { courseid } = useParams();
-  
-    const [isPurchased] = useRecoilState(IsPurchasedstate);
+
+  const [isPurchased] = useRecoilState(IsPurchasedstate);
   useEffect(() => {
     axios
-      .get("http://localhost:3000/user/courses/" + courseid, {
+      .get("https://codexbackend.onrender.com/user/courses/" + courseid, {
         method: "GET",
         headers: {
           Authorization: "Bearer " + localStorage.getItem("token"),
@@ -75,7 +75,7 @@ function Coursettable() {
 
   useEffect(() => {
     console.log(localStorage.getItem("token"));
-    fetch(`http://localhost:3000/user/me`, {
+    fetch(`https://codexbackend.onrender.com/user/me`, {
       method: "GET",
       headers: {
         Authorization: "Bearer " + localStorage.getItem("token"),
@@ -96,7 +96,7 @@ function Coursettable() {
           }
         }
       });
-  }, [course._id,isPurchased]); // Added course._id to the dependency array
+  }, [course._id, isPurchased]); // Added course._id to the dependency array
 
   console.log(isPurchased);
 
@@ -210,7 +210,8 @@ function Coursettable() {
                         setIsPurchased(true);
                         axios
                           .post(
-                            `http://localhost:3000/user/courses/` + course._id,
+                            `https://codexbackend.onrender.com/user/courses/` +
+                              course._id,
                             {},
                             {
                               headers: {
