@@ -1,21 +1,15 @@
-import { useState, useEffect, useRef } from "react";
+import { useState, useEffect } from "react";
 import { useParams } from "react-router-dom";
-import { Card, InputLabel, Typography } from "@mui/material";
+import { Card, Typography } from "@mui/material";
 import TextField from "@mui/material/TextField";
 import Button from "@mui/material/Button";
 import axios from "axios";
 import Grid from "@mui/material/Grid";
 import { Input } from "@mui/material";
-import { Loader } from "../Loader";
+import { Loader } from "../../Loader";
 import { atom, useRecoilState } from "recoil";
 import Autocomplete from "@mui/material/Autocomplete";
-import { Accordion, AccordionSummary, AccordionDetails } from "@mui/material";
-import ExpandMoreIcon from "@mui/icons-material/ExpandMore";
-import Dialog from "@mui/material/Dialog";
-import DialogActions from "@mui/material/DialogActions";
-import DialogContent from "@mui/material/DialogContent";
-import DialogContentText from "@mui/material/DialogContentText";
-import DialogTitle from "@mui/material/DialogTitle";
+import { VideoDisplay } from "./VideoDisplay";
 
 function Course() {
   const [course, setCourse] = useState(null);
@@ -44,17 +38,39 @@ function Course() {
     );
   }
   return (
-    <div style={{ backgroundColor: "#fffeff9b" }}>
+    <div
+      style={
+        {
+          // backgroundColor: "#fffeff9b"
+        }
+      }
+    >
       <GrayTopper title={course.title} />
       <Grid container>
-        <Grid item lg={5} md={6} sm={12}>
-          <Updatecourse course={course} setCourse={setCourse} />
-        </Grid>
-        <Grid item lg={3} md={6} sm={12}>
-          <VideoDisplay course={course} />
-        </Grid>
-        <Grid item lg={4} md={12} sm={12}>
+        <Grid item lg={4} md={5} sm={12}>
           <Coursettable course={course} />
+        </Grid>
+        <Grid item lg={12} md={12} sm={12}>
+          <div
+            style={{
+              // display: "flex",
+              // flexDirection: "row",
+              // justifyContent: "center",
+              // alignItems: "center",
+              borderTop: "solid rgba(255, 255, 255, 0.06) 3px", // width: "100vw",
+              paddingTop: 45,
+              marginTop: 30,
+            }}
+          >
+            <Grid container spacing={0}>
+              <Grid item lg={4} md={7} sm={12}>
+                <Updatecourse course={course} setCourse={setCourse} />
+              </Grid>
+              <Grid item lg={4} md={5} sm={12}>
+                <VideoDisplay course={course} />
+              </Grid>
+            </Grid>
+          </div>
         </Grid>
       </Grid>
     </div>
@@ -65,8 +81,9 @@ function GrayTopper({ title }) {
     <div
       style={{
         height: 250,
-        background: "#131e2a",
-        width: "100vw",
+        background:
+          "linear-gradient(132deg, rgba(255, 255, 255, 0.206) 0%, rgba(238, 238, 238, 0.168) 20%, rgba(202, 202, 202, 0.148) 70%, rgba(171, 171, 171, 0.024) 100%)",
+        border: "solid rgba(255, 255, 255, 0.06) 1px", // width: "100vw",
         zIndex: 0,
         marginBottom: -250,
       }}
@@ -77,6 +94,8 @@ function GrayTopper({ title }) {
           display: "flex",
           justifyContent: "center",
           flexDirection: "column",
+          position: "relative",
+          marginLeft: 90,
         }}
       >
         <div>
@@ -84,6 +103,7 @@ function GrayTopper({ title }) {
             style={{ color: "white", fontWeight: 600 }}
             variant="h3"
             textAlign={"center"}
+            fontFamily={"Poppins"}
           >
             Course Details
           </Typography>
@@ -100,7 +120,7 @@ function Coursettable(props) {
         display: "flex",
         marginTop: 50,
         justifyContent: "center",
-        width: "100%",
+        width: "90%",
       }}
     >
       <Card
@@ -165,14 +185,14 @@ function Updatecourse({ course, setCourse }) {
         <Card
           variant={"outlined"}
           style={{
-            width: 450,
-            marginTop: 200,
+            width: 500,
+            // marginTop: 200,
             // marginLeft: 100,
             // maxHeight: 500,
           }}
         >
           <div style={{ padding: 20 }}>
-            <Typography variant="h6" color="initial" fontFamily={"monospace"}>
+            <Typography variant="h6" color="initial" fontFamily={"Poppins"}>
               Edit your course details below.
             </Typography>
           </div>
@@ -310,222 +330,12 @@ function Updatecourse({ course, setCourse }) {
   );
 }
 
-function VideoDisplay({ course }) {
-  const [selectedVideo, setSelectedVideo] = useRecoilState(selectedVideoState);
-  const videoNameRef = useRef(); // Add this line
-  const [selectedFile, setSelectedFile] = useState(null);
-  const [videos, setVideos] = useRecoilState(videoState);
-  const [open, setOpen] = useState(false);
-  const handleFileChange = (event) => {
-    setSelectedFile(event.target.files[0]);
-  };
-  // console.log(vide);
-  const handleVideoUpload = async () => {
-    if (!selectedFile) {
-      alert("Please select a file");
-      return;
-    }
-
-    const videoFile = selectedFile;
-    const videoName = videoNameRef.current.value;
-
-    const formData = new FormData();
-    formData.append("video", videoFile);
-    formData.append("name", videoName);
-
-    const response = await axios.post(
-      `https://codexbackend.onrender.com/admin/course/${course._id}/upload`,
-      formData,
-      {
-        headers: {
-          "Content-Type": "multipart/form-data",
-          Authorization: "Bearer " + localStorage.getItem("token"),
-        },
-      }
-    );
-    setVideos([
-      ...videos,
-      { name: response.data.videoName, path: response.data.downloadURL },
-    ]);
-
-    console.log(response.data);
-  };
-  const handleVideoSelection = (videoPath) => {
-    setSelectedVideo(videoPath);
-  };
-
-  const handleVideoDelete = async (videoId) => {
-    try {
-      await axios.delete(
-        `https://codexbackend.onrender.com/admin/course/${course._id}/video/${videoId}`,
-        {
-          headers: {
-            Authorization: "Bearer " + localStorage.getItem("token"),
-          },
-        }
-      );
-
-      setVideos(videos.filter((video) => video.id !== videoId));
-    } catch (error) {
-      console.error("Failed to delete video", error);
-    }
-  };
-
-  const handleClickOpen = (videoId) => {
-    setSelectedVideo(videoId);
-    setOpen(true);
-  };
-
-  const handleClose = () => {
-    setOpen(false);
-  };
-
-  const handleConfirmDelete = () => {
-    handleVideoDelete(selectedVideo);
-    setOpen(false);
-  };
-
-  return (
-    <div
-      style={{
-        display: "flex",
-        flexDirection: "column",
-        justifyContent: "center",
-        alignItems: "center",
-        // marginTop: 50,
-      }}
-    >
-      <div>
-        <Card
-          style={{
-            width: 350,
-            marginTop: 200,
-            display: "flex",
-            flexDirection: "column",
-            padding: 20,
-            maxHeight: 500,
-            overflowY: "auto",
-          }}
-        >
-          <TextField inputRef={videoNameRef} label="Video Name" />
-          <div style={{ padding: 10 }}>
-            <input
-              style={{ display: "none" }}
-              id="file-upload"
-              type="file"
-              onChange={handleFileChange}
-              accept="video/*"
-            />
-            <div
-              style={{
-                display: "flex",
-                // justifyContent: "center",
-                flexDirection: "row",
-                gap: 10,
-              }}
-            >
-              <InputLabel
-                htmlFor="file-upload"
-                style={{
-                  padding: 10,
-                  color: "white",
-                  backgroundColor: "#1a73e9",
-                  cursor: "pointer",
-                  borderRadius: 4,
-                  // marginRight: 150,
-                  textAlign: "center",
-                  fontSize: 13,
-                }}
-              >
-                BROWSE
-              </InputLabel>
-              <Button variant={"contained"} onClick={handleVideoUpload}>
-                Upload Video
-              </Button>
-            </div>
-          </div>
-          {videos.map(
-            (video, index) => (
-              console.log(video.path),
-              (
-                <Accordion
-                  variant={"outlined"}
-                  key={index}
-                  style={{
-                    border: "0.05px solid #0513245f",
-                    borderRadius: 2,
-                    width: "100%",
-                    height: "10%",
-                  }}
-                >
-                  <AccordionSummary
-                    expandIcon={<ExpandMoreIcon />}
-                    onClick={() => handleVideoSelection(video.path)}
-                  >
-                    <Typography>{video.name}</Typography>
-                  </AccordionSummary>
-                  <AccordionDetails>
-                    {selectedVideo === video.path && (
-                      <video style={{ width: "100%", height: "auto" }} controls>
-                        <source
-                          src={`${selectedVideo}/preview`}
-                          type="video/mp4"
-                        />
-                      </video>
-                    )}
-
-                    <Button
-                      variant="contained"
-                      color="error"
-                      onClick={() => handleClickOpen(video._id)}
-                    >
-                      Delete Video
-                    </Button>
-
-                    <Dialog
-                      open={open}
-                      onClose={handleClose}
-                      aria-labelledby="alert-dialog-title"
-                      aria-describedby="alert-dialog-description"
-                    >
-                      <DialogTitle id="alert-dialog-title">
-                        {"Delete Video"}
-                      </DialogTitle>
-                      <DialogContent>
-                        <DialogContentText id="alert-dialog-description">
-                          Are you sure you want to delete this video?
-                        </DialogContentText>
-                      </DialogContent>
-                      <DialogActions>
-                        <Button onClick={handleClose} color="primary">
-                          Cancel
-                        </Button>
-                        <Button
-                          onClick={handleConfirmDelete}
-                          color="error"
-                          variant="outlined"
-                          autoFocus
-                        >
-                          Delete
-                        </Button>
-                      </DialogActions>
-                    </Dialog>
-                  </AccordionDetails>
-                </Accordion>
-              )
-            )
-          )}
-        </Card>
-      </div>
-    </div>
-  );
-}
-const selectedVideoState = atom({
+export const selectedVideoState = atom({
   key: "selectedVideoState",
   default: null,
 });
 
-const videoState = atom({
+export const videoState = atom({
   key: "videoState",
   default: [],
 });

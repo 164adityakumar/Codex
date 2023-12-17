@@ -138,12 +138,12 @@ export default function StickyFooter() {
                     </Typography>
                     <Typography variant="body2" color="text.secondary">
                         Contribute to this project on{" "}
-                        <Link
+                        {/* <Link
                             color="inherit"
                             href="https://github.com/164adityakumar/Course-App"
-                        >
+                        > */}
                             GITHUB
-                        </Link>{" "}
+                        {/* </Link>{" "} */}
                         {"."}
                     </Typography>
                 </Container>

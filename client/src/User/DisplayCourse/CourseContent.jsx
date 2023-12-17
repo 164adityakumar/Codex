@@ -143,7 +143,7 @@ function OverviewTab() {
   return (
     <div>
       <Typography
-        variant="h6"
+        variant="body1"
         fontFamily={"monospace"}
         style={{ color: "#78B4E3E9" }}
       >

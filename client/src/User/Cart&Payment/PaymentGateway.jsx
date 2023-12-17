@@ -33,15 +33,26 @@ function CheckoutForm() {
   };
 
   return (
-    <Container maxWidth="sm">
+    <Container
+      maxWidth="sm"
+      style={{
+        alignItems: "center",
+        display: "flex",
+        justifyContent: "center",
+        // height: "100vh",
+      }}
+    >
       <Box
         sx={{
-          marginTop: "15vh",
-          marginBottom: 10,
+          marginTop: "5vh",
+          // marginBottom: 10,
           width: "100%",
           // display: "flex",
           justifyContent: "center",
-          bgcolor: "#2e333986",
+          background:
+            "linear-gradient(132deg, rgba(255, 255, 255, 0.206) 0%, rgba(238, 238, 238, 0.168) 20%, rgba(202, 202, 202, 0.148) 70%, rgba(171, 171, 171, 0.024) 100%)",
+          border: "solid rgba(255, 255, 255, 0.06) 1px",
+          borderRadius: "15px",
           p: 3,
           borderRadius: "10px",
         }}
@@ -89,7 +100,11 @@ function CheckoutForm() {
               <Grid item xs={12}>
                 <CardElement />
                 <br />
-                <Typography variant="subtitle2" color="initial" fontFamily={"sans-serif"}>
+                <Typography
+                  variant="subtitle2"
+                  color="initial"
+                  fontFamily={"sans-serif"}
+                >
                   *Powered by Stripe
                 </Typography>
               </Grid>

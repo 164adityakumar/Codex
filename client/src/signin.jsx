@@ -48,10 +48,16 @@ function Signin() {
 
   return (
     <div>
-      <Dialog open={open} onClose={handleClose}>
-        <DialogTitle>
-          <Typography variant="h5" color="error" fontFamily={"Righteous"}>
-            Enter your credentials
+      <Dialog open={open} onClose={handleClose} style={{}}>
+        <DialogTitle
+          style={{
+            background:
+              "linear-gradient(132deg, rgba(107, 37, 37, 0.206) 0%, rgba(162, 61, 61, 0.168) 20%, rgba(144, 30, 30, 0.148) 70%, rgba(88, 11, 11, 0.024) 100%)",
+            border: "solid rgba(255, 255, 255, 0.06) 1px",
+          }}
+        >
+          <Typography variant="h5" color="error" fontFamily={"Poppins"}>
+            <b>Enter your credentials</b>
           </Typography>
         </DialogTitle>
         <DialogContent
@@ -60,7 +66,7 @@ function Signin() {
             // backgroundColor: "#488de9",
             padding: 30,
             // border: "5px solid #488de9",
-            borderRadius: 15,
+            // borderRadius: 15,
           }}
         >
           <ThemeProvider theme={theme}>

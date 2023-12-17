@@ -100,7 +100,7 @@ export function Course({ course }) {
           margin: 40,
           // marginInline: 40,
           // marginRight: 60,
-          width: 350,
+          width: "25vw",
           minHeight: 200,
           maxHeight: 500,
           borderRadius: 15,
@@ -184,9 +184,11 @@ export function Course({ course }) {
               <div
                 style={{
                   display: "flex",
-                  justifyContent: "flex-end",
+                  // justifyContent: "flex-end",
                   gap: "5px",
                   flexWrap: "wrap",
+                  overflow: "auto",
+                  // maxHeight: "80px",
                 }}
               >
                 {tagsarray.map((tag) => {
@@ -292,8 +294,9 @@ function Banner() {
           marginTop: "20px",
           marginBottom: "20px",
           minheight: "20vh",
-          backgroundColor: "#2e3339b1",
-          border: "solid 3px #1a73e9",
+          background:
+            "linear-gradient(132deg, rgba(255, 255, 255, 0.206) 0%, rgba(238, 238, 238, 0.168) 20%, rgba(202, 202, 202, 0.148) 70%, rgba(171, 171, 171, 0.024) 100%)",
+          border: "solid rgba(137, 155, 203, 0.467) 3px",
         }}
       >
         <div

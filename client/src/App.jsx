@@ -5,7 +5,7 @@ import Signup from "./signup.jsx";
 import Appbar from "./Appbar.jsx";
 import Addcourse from "./Admin/addcourse.jsx";
 import Courses from "./Admin/courses.jsx";
-import Course from "./Admin/Course.jsx";
+import Course from "./Admin/Course Details/Course.jsx";
 import Explore from "./User/Explore.jsx";
 import MyCourses from "./User/MyCourses.jsx";
 import DisplayCourse from "./User/DisplayCourse/DisplayCourse.jsx";

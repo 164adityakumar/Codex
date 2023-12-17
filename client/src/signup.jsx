@@ -23,7 +23,7 @@ function signup() {
         alignItems: "",
         flexWrap: "wrap",
         padding: "2vh",
-        height:"83vh",
+        height: "83vh",
         // alignContent: "center",
         // justifyItems: "between",
         // justifyContent: "between",
@@ -48,7 +48,10 @@ function signup() {
         }}
       >
         <Typography variant="h3" color="white" fontFamily={"Poppins"}>
-          Welcome to Codex
+          Welcome to
+          <span style={{
+            fontFamily: "Righteous",
+          }}>{" "}Codex</span>
           <br />
           Dive in to learn
         </Typography>
@@ -94,12 +97,13 @@ function signup() {
             >
               <Toggle />
 
-              <div style={{
-                display:"flex",
-                flexDirection:"column",
-                gap:10
-
-              }}>
+              <div
+                style={{
+                  display: "flex",
+                  flexDirection: "column",
+                  gap: 10,
+                }}
+              >
                 <TextField
                   fullWidth
                   label="Userhandle"

@@ -113,24 +113,27 @@ function Appbar() {
               marginLeft: "3px",
             }}
           >
-            <img
-              style={{
-                width: "40px", // Adjust as needed
-                height: "40px", // Adjust as needed
-              }}
-              src={assets.logo}
-              alt="logo"
-            />
-
-            <ThemeProvider theme={theme}>
-              <Typography
-                variant="h5"
-                color="primary"
-                style={{ fontWeight: 500, fontSize: "27px" }}
-              >
-                Codex_
-              </Typography>
-            </ThemeProvider>
+            <a href="/">
+              <img
+                style={{
+                  width: "40px", // Adjust as needed
+                  height: "40px", // Adjust as needed
+                }}
+                src={assets.logo}
+                alt="logo"
+              />
+            </a>
+            <a href="/" style={{ textDecoration: "none" }}>
+              <ThemeProvider theme={theme}>
+                <Typography
+                  variant="h5"
+                  color="primary"
+                  style={{ fontWeight: 500, fontSize: "27px" }}
+                >
+                  Codex_
+                </Typography>
+              </ThemeProvider>
+            </a>
           </div>
           <ThemeProvider theme={theme}>
             <div
@@ -231,24 +234,27 @@ function Appbar() {
                 alignItems: "center", // Align items vertically
               }}
             >
-              <img
-                style={{
-                  width: "40px", // Adjust as needed
-                  height: "40px", // Adjust as needed
-                }}
-                src={assets.logo}
-                alt="logo"
-              />
-
-              <ThemeProvider theme={theme}>
-                <Typography
-                  variant="h5"
-                  color="primary"
-                  style={{ fontWeight: 500, fontSize: "27px" }}
-                >
-                  Codex_
-                </Typography>
-              </ThemeProvider>
+              <a href="/">
+                <img
+                  style={{
+                    width: "40px", // Adjust as needed
+                    height: "40px", // Adjust as needed
+                  }}
+                  src={assets.logo}
+                  alt="logo"
+                />
+              </a>
+              <a href="/" style={{ textDecoration: "none" }}>
+                <ThemeProvider theme={theme}>
+                  <Typography
+                    variant="h5"
+                    color="primary"
+                    style={{ fontWeight: 500, fontSize: "27px" }}
+                  >
+                    Codex_
+                  </Typography>
+                </ThemeProvider>
+              </a>
             </div>
           </div>
           <ThemeProvider theme={theme}>
@@ -361,16 +367,17 @@ function Appbar() {
                 alt="logo"
               />
             </a>
-
-            <ThemeProvider theme={theme}>
-              <Typography
-                variant="h5"
-                color="primary"
-                style={{ fontWeight: 500, fontSize: "27px" }}
-              >
-                Codex_
-              </Typography>
-            </ThemeProvider>
+            <a href="/" style={{ textDecoration: "none" }}>
+              <ThemeProvider theme={theme}>
+                <Typography
+                  variant="h5"
+                  color="primary"
+                  style={{ fontWeight: 500, fontSize: "27px" }}
+                >
+                  Codex_
+                </Typography>
+              </ThemeProvider>
+            </a>
           </div>
         </div>
         <div

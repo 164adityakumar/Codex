@@ -130,7 +130,7 @@ function Coursettable() {
           <div>
             <img
               src={course.imageLink}
-              style={{ width: "25vw", borderRadius: 10 }}
+              style={{ width: "35vw", borderRadius: 10 }}
             ></img>
           </div>
           <div
@@ -141,7 +141,7 @@ function Coursettable() {
               gap: 10,
               padding: 10,
               flexGrow: 1,
-              width: "60vw",
+              width: "50vw",
               height: "auto",
             }}
           >
@@ -156,6 +156,8 @@ function Coursettable() {
             <div
               style={{
                 overflow: "auto",
+                height:"20vh",
+                // scrollbarWidth: "none",
               }}
             >
               <Typography

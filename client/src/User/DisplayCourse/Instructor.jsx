@@ -12,7 +12,6 @@ import {
 import { useRecoilState } from "recoil";
 import { courseState } from "./DisplayCourse";
 import { Avatar, Typography } from "@mui/material";
-
 function getSocialMediaIcon(link) {
   if (!link) {
     return null;
@@ -125,16 +124,26 @@ export function Instructor() {
             borderRadius: "65px",
             margin: 30,
             backgroundColor: "#202b39af",
-            padding: 20,
+            padding: 10,
+            justifyContent: "space-between",
+            alignitems: "center",
           }}
         >
-          <div>
+          <div
+            style={{
+              // border: "solid 3px #ff6d7f",
+              padding: 2.7,
+              display: "flex",
+              justifyContent: "center",
+              alignItems: "center",
+            }}
+          >
             <MinidenticonImg
               style={{
                 backgroundColor: "#112450",
                 border: "solid 3px #ff6d7f",
-                width: 80,
-                height: 80,
+                width: 60,
+                height: 60,
               }}
               saturation="85"
               lightness="40"
@@ -142,45 +151,46 @@ export function Instructor() {
             />
           </div>
 
-          <div
+          {/* <div
             style={{
-              marginLeft: 20,
-              flexDirection: "column",
+              // marginLeft: 20,
+              flexDirection: "row",
+              width: "60%",
               display: "flex",
               justifyContent: "space-evenly",
+              textAlign: "left",
+              // border: "solid 2px #488de9",
             }}
-          >
-            <Typography
-              variant="h4"
-              color="initial"
-              fontFamily={"monospace"}
-              style={{
-                color: "#ff6d7f",
-              }}
-            >
-              {Author.userhandle}
-            </Typography>
+          > */}
             <div
               style={{
                 display: "flex",
                 flexDirection: "row",
+                // gap: 2,
+                // alignContent: "center",
+                alignItems: "center",
+                justifyContent: "center",
                 gap: 10,
+                width: "100%",
               }}
             >
-              <a href={Author.Links} target={Author.Links} style={{}}>
-                {getSocialMediaIcon(Author.Links)}
-              </a>
-              <div
+              <Typography
+                variant="h5"
+                color="initial"
+                fontFamily={"monospace"}
                 style={{
-                  padding: 5,
+                  color: "#ff6d7f",
                 }}
               >
-                <Typography variant="subtitle1" color="primary">
-                  {Author.username}
-                </Typography>
+                {Author.userhandle}
+              </Typography>
+              <div>
+                <a href={Author.Links} target={Author.Links} style={{}}>
+                  {getSocialMediaIcon(Author.Links)}
+                </a>
               </div>
             </div>
-          </div>
+          {/* </div> */}
         </Box>
         <div
           className="instruction"
@@ -203,20 +213,35 @@ export function Instructor() {
               overflow: "auto",
             }}
           >
-            <div style={{
-            }}>
+            <div
+            // style={{
+            //   padding: 5,
+            // }}
+            >
               <Typography
-                variant="h6"
-                color="initial"
-                fontFamily={"monospace"}
-                fontStyle={"italic"}
-                style={{
-                  color: "#afc8ea",
-                }}
+                variant="subtitle1"
+                color="#FE94AB"
+                fontFamily={"Poppins"}
               >
-                {Author.bio}
+                {Author.username}
               </Typography>
             </div>
+            <br />
+            {Author.bio && (
+              <div style={{}}>
+                <Typography
+                  variant="body1"
+                  color="initial"
+                  fontFamily={"monospace"}
+                  fontStyle={"italic"}
+                  style={{
+                    color: "#afc8ea",
+                  }}
+                >
+                  {Author.bio}
+                </Typography>
+              </div>
+            )}
           </Box>
         </div>
       </Box>
