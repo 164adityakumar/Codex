@@ -290,7 +290,7 @@ function Appbar() {
                 </Button>
               </div>
               {/* <Typography fontFamily={"monospace"}>{UserHandle}</Typography> */}
-                          <a href="/ProfileAdmin" onClick={() => navigate("/ProfileAdmin")}>
+                          <a href="/Profileuser" onClick={() => navigate("/Profileuser")}>
 
               <MinidenticonImg
                 style={{
