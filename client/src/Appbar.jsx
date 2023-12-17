@@ -34,23 +34,23 @@ export const MinidenticonImg = ({
   // return (<img src={svgURI} alt={username} {...props} />)
   return (
     <ThemeProvider theme={theme}>
-      <Chip
-        style={{
-          marginRight: "10px",
-          fontWeight: "bold",
-          // paddingInline: "5px",
-          // padding: "2px 5px 2px 5px",
-          fontFamily: "Josefin Sans",
-          border: "solid 1.9px #8cbefa85",
-          backgroundColor: "#0073ffdc",
-          // fontSize:"13px"
-        }}
-        avatar={<Avatar alt={username} src={svgURI} {...props} />}
-        label={username}
-        variant="contained"
-        size="medium"
-        color="secondary"
-      />
+        <Chip
+          style={{
+            marginRight: "10px",
+            fontWeight: "bold",
+            // paddingInline: "5px",
+            // padding: "2px 5px 2px 5px",
+            fontFamily: "Josefin Sans",
+            border: "solid 1.9px #8cbefa85",
+            backgroundColor: "#0073ffdc",
+            // fontSize:"13px"
+          }}
+          avatar={<Avatar alt={username} src={svgURI} {...props} />}
+          label={username}
+          variant="contained"
+          size="medium"
+          color="secondary"
+        />
     </ThemeProvider>
   );
 };
@@ -169,6 +169,7 @@ function Appbar() {
                 </Button>
               </div>
               {/* <Typography fontFamily={"monospace"}>{UserHandle}</Typography> */}
+            <a href="/ProfileAdmin" onClick={() => navigate("/ProfileAdmin")}>
               <MinidenticonImg
                 style={{
                   backgroundColor: "#1a326a",
@@ -179,12 +180,9 @@ function Appbar() {
                 username={UserHandle}
                 saturation="85"
                 lightness="40"
-                // width="150"
-                // height="150"
-                onClick={() => {
-                  navigate("/ProfileAdmin");
-                }}
               />
+            </a>
+            
               <div>
                 <Button
                   variant="outlined"
@@ -292,6 +290,8 @@ function Appbar() {
                 </Button>
               </div>
               {/* <Typography fontFamily={"monospace"}>{UserHandle}</Typography> */}
+                          <a href="/ProfileAdmin" onClick={() => navigate("/ProfileAdmin")}>
+
               <MinidenticonImg
                 style={{
                   backgroundColor: "#1a326a",
@@ -305,10 +305,9 @@ function Appbar() {
                 lightness="40"
                 // width="150"
                 // height="150"
-                onClick={() => {
-                  navigate("/Profile");
-                }}
+
               />
+              </a>
               <div>
                 <Button
                   variant="outlined"
