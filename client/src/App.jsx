@@ -30,14 +30,14 @@ function App() {
             <Routes>
               <Route path="/" element={<Home />} />
               <Route path="/addcourse" element={<Addcourse />} />
-              <Route path="/course/content" element={<Course />} />
+              <Route path="/course/:courseid" element={<Course />} />
               <Route path="/courses" element={<Courses />} />
               <Route path="/signup" element={<Signup />} />
               {/* <Route path="/signin" element={<Signin />} /> */}
               <Route path="/Explore" element={<Explore />} />
-              <Route path="/Explore/content" element={<DisplayCourse />} />
+              <Route path="/Explore/:courseid" element={<DisplayCourse />} />
               <Route
-                path="Explore/content/Purchase"
+                path="Explore/:courseid/Purchase"
                 element={<PaymentGateway />}
               />
               <Route path="/Profile" element={<UserProfile />} />
