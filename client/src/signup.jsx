@@ -7,6 +7,7 @@ import { userTypeState } from "./usertype";
 import ToggleButton from "@mui/material/ToggleButton";
 import { theme } from "./Pallete";
 import { ThemeProvider } from "@mui/material/styles";
+import Box from "@mui/material/Box";
 function signup() {
   const [username, setUsername] = useState("");
   const [password, setPassword] = useState("");
@@ -17,139 +18,175 @@ function signup() {
     <div
       style={{
         display: "flex",
-        justifyContent: "flex-end",
-        overflow: "hidden",
+        flexDirection: "row",
+        justifyContent: "space-evenly",
+        alignItems: "",
+        flexWrap: "wrap",
+        padding: "2vh",
+        height:"83vh",
+        // alignContent: "center",
+        // justifyItems: "between",
+        // justifyContent: "between",
+        // alignItems: "center",/
       }}
     >
-      <div
+      <Box
         style={{
-          flex: "1 1 auto",
-          position: "relative", // Add this line
-
-          backgroundImage:
-            "url('https://swall.teahub.io/photos/small/10-101157_1920x1080-keep-calm-and-carry-on-wallpaper-3.jpg')",
-          backgroundColor: (t) =>
-            t.palette.mode === "dark"
-              ? t.palette.grey[50]
-              : t.palette.grey[900],
-          backgroundSize: "cover",
-          backgroundPosition: "center",
-          marginLeft: "-70px",
-          backgroundRepeat: "no-repeat",
-          height: "calc(100vh - 62.8px)",
-          backdropFilter: "blur(10px)", // Add this line
+          marginTop: "2vh",
+          padding: 20,
+          // marginBottom: 10,
+          // display: "flex",
+          paddingTop: "30vh",
+          width: "50%",
+          alignItems: "center",
+          textAlign: "center",
+          background:
+            "linear-gradient(132deg, rgba(255, 255, 255, 0.206) 0%, rgba(238, 238, 238, 0.168) 20%, rgba(202, 202, 202, 0.148) 70%, rgba(171, 171, 171, 0.024) 100%)",
+          border: "solid rgba(255, 255, 255, 0.06) 1px",
+          borderRadius: "15px",
+          // justifyContent: "center",
         }}
       >
-        {/* <div style={{}}>Get Started with Codex by signing up!</div> */}
-      </div>
+        <Typography variant="h3" color="white" fontFamily={"Poppins"}>
+          Welcome to Codex
+          <br />
+          Dive in to learn
+        </Typography>
+      </Box>
+
       <div
         style={{
-          flex: "0 0 400px",
-          padding: "40px",
-          backgroundColor: "#f1f5fe",
+          marginTop: "1vh",
+          // padding: 20,
+          // marginBottom: 10,
+          // display: "flex",
+          // paddingTop: "30vh",
+          width: "40%",
+          alignItems: "center",
+          // border: "solid rgba(255, 255, 255, 0.06) 1px",
         }}
       >
         <ThemeProvider theme={theme}>
-          <Card
-            variant={"contained"}
+          <Box
             style={{
-              width: 500,
-              marginTop: 20,
-              padding: 20,
-              backgroundColor: "#f1f5fece",
-              // contrastText: "#beb9c3",
+              padding: "3vh",
+              background:
+                "linear-gradient(132deg, rgba(255, 255, 255, 0.206) 0%, rgba(238, 238, 238, 0.168) 20%, rgba(202, 202, 202, 0.148) 70%, rgba(171, 171, 171, 0.024) 100%)",
+              border: "solid rgba(255, 255, 255, 0.06) 1px",
+              borderRadius: "15px",
+              alignItems: "center",
+              display: "flex",
+              height: "92%",
+              flexDirection: "column",
             }}
           >
-            <Toggle />
-            <TextField
-              fullWidth
-              label="Userhandle"
-              required={true}
-              variant="filled"
-              // sx={{ input:{color:""}}}
-              onChange={(h) => {
-                setUserhandle(h.target.value);
-              }}
-            />
-            <br />
-            <br />
-            <TextField
-              fullWidth
-              label="Email"
-              required={true}
-              variant="filled"
-              // sx={{ input:{color:""}}}
-              onChange={(u) => {
-                setUsername(u.target.value);
-              }}
-            />
-            <br />
-            <br />
-            <TextField
-              fullWidth
-              label="Password"
-              variant="filled"
-              required={true}
-              onChange={(p) => {
-                console.log(p);
-                setPassword(p.target.value);
-              }}
-            />
-            <br />
-            <br />
-            <TextField
-              fullWidth
-              label="Social Link"
-              variant="filled"
-              required={true}
-              onChange={(q) => {
-                console.log(q);
-                setLinks(q.target.value);
-              }}
-            />
-            <br />
-            <br />
-            <Button
-              size={"large"}
-              variant="outlined"
-              color="secondary"
-              onClick={() => {
-                if (
-                  username.length === 0 ||
-                  password.length === 0 ||
-                  userhandle.length === 0 ||
-                  links.length === 0
-                ) {
-                  alert("All fields are required");
-                } else {
-                  const loginEndpoint =
-                    userType === "user" ? "user/signup" : "admin/signup";
-                  console.log(loginEndpoint);
-                  fetch(`https://codexbackend.onrender.com/${loginEndpoint}`, {
-                    method: "POST",
-                    headers: { "Content-Type": "application/json" },
-                    body: JSON.stringify({
-                      userhandle: userhandle,
-                      username: username,
-                      password: password,
-                      Links: links,
-                    }),
-                  }).then((res) =>
-                    res.json().then((data) => {
-                      localStorage.setItem("token", data.token);
-                      localStorage.setItem("UserType", userType);
-                      console.log(data.token);
+            <Card
+              variant={"contained"}
+              style={{
+                width: "90%",
+                padding: 20,
+                height: "90%",
+                backgroundColor: "#f1f5fece",
+                // contrastText: "#beb9c3",
 
-                      window.location = "/";
-                    })
-                  );
-                  alert("Sign Up Successful!");
-                }
+                // contrastText: "#beb9c3",
               }}
             >
-              Sign Up
-            </Button>
-          </Card>
+              <Toggle />
+
+              <div style={{
+                display:"flex",
+                flexDirection:"column",
+                gap:10
+
+              }}>
+                <TextField
+                  fullWidth
+                  label="Userhandle"
+                  required={true}
+                  variant="filled"
+                  // sx={{ input:{color:""}}}
+                  onChange={(h) => {
+                    setUserhandle(h.target.value);
+                  }}
+                />
+                <TextField
+                  fullWidth
+                  label="Email"
+                  required={true}
+                  variant="filled"
+                  // sx={{ input:{color:""}}}
+                  onChange={(u) => {
+                    setUsername(u.target.value);
+                  }}
+                />
+                <TextField
+                  fullWidth
+                  label="Password"
+                  variant="filled"
+                  required={true}
+                  onChange={(p) => {
+                    console.log(p);
+                    setPassword(p.target.value);
+                  }}
+                />
+                <TextField
+                  fullWidth
+                  label="Social Link"
+                  variant="filled"
+                  required={true}
+                  onChange={(q) => {
+                    console.log(q);
+                    setLinks(q.target.value);
+                  }}
+                />
+              </div>
+              <br />
+              <Button
+                size={"large"}
+                variant="outlined"
+                color="secondary"
+                onClick={() => {
+                  if (
+                    username.length === 0 ||
+                    password.length === 0 ||
+                    userhandle.length === 0 ||
+                    links.length === 0
+                  ) {
+                    alert("All fields are required");
+                  } else {
+                    const loginEndpoint =
+                      userType === "user" ? "user/signup" : "admin/signup";
+                    console.log(loginEndpoint);
+                    fetch(
+                      `https://codexbackend.onrender.com/${loginEndpoint}`,
+                      {
+                        method: "POST",
+                        headers: { "Content-Type": "application/json" },
+                        body: JSON.stringify({
+                          userhandle: userhandle,
+                          username: username,
+                          password: password,
+                          Links: links,
+                        }),
+                      }
+                    ).then((res) =>
+                      res.json().then((data) => {
+                        localStorage.setItem("token", data.token);
+                        localStorage.setItem("UserType", userType);
+                        console.log(data.token);
+
+                        window.location = "/";
+                      })
+                    );
+                    alert("Sign Up Successful!");
+                  }
+                }}
+              >
+                Sign Up
+              </Button>
+            </Card>
+          </Box>
         </ThemeProvider>
       </div>
     </div>
