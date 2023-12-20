@@ -212,25 +212,6 @@ function AdminProfile() {
             }}
           >
             <TextField
-              name="userhandle"
-              label="userhandle"
-              value={user.userhandle}
-              onChange={handleChange}
-              fullWidth
-              variant="filled"
-              InputProps={{
-                style: {
-                  color: "#fff",
-                  backgroundColor: "#04355f6e",
-                },
-              }}
-              InputLabelProps={{
-                style: {
-                  color: "#1e78c7",
-                },
-              }}
-            />
-            <TextField
               name="username"
               label="username"
               value={user.username}

@@ -12,6 +12,7 @@ import { assets } from "./assests";
 import { useRecoilState } from "recoil";
 import { atom } from "recoil";
 import Signin from "./signin";
+import { Loader } from "./Loader";
 
 export const MinidenticonImg = ({
   username,
@@ -59,6 +60,7 @@ function Appbar() {
   const navigate = useNavigate();
   const [UserHandle, setUserHandle] = useRecoilState(UserHandleState);
   // const [userType] = useRecoilState(userTypeState);
+  const [isLoading, setIsLoading] = useState(true); // Add this line
 
   const [openSignIn, setOpenSignIn] = useRecoilState(OpenSigninState);
 
@@ -71,6 +73,8 @@ function Appbar() {
   };
 
   useEffect(() => {
+    setIsLoading(true); // Set loading to true when starting the fetch
+
     console.log(localStorage.getItem("token"));
     const meEndpoint = usertypetoken === "user" ? "user/me" : "admin/me";
     fetch(`https://codexbackend.onrender.com/${meEndpoint}`, {
@@ -83,8 +87,10 @@ function Appbar() {
       .then((data) => {
         setUserHandle(data.userhandle);
         console.log(data.userhandle);
+        setIsLoading(false); // Set loading to false when the fetch is done
       });
-  }, [UserHandle]);
+  }, [UserHandle]);  
+  
 
   if (UserHandle) {
     if (usertypetoken === "admin") {
@@ -169,20 +175,20 @@ function Appbar() {
                 </Button>
               </div>
               {/* <Typography fontFamily={"monospace"}>{UserHandle}</Typography> */}
-            <a href="/ProfileAdmin" onClick={() => navigate("/ProfileAdmin")}>
-              <MinidenticonImg
-                style={{
-                  backgroundColor: "#1a326a",
-                  border: "solid 0px #0b438b",
-                  width: "25px",
-                  height: "23px",
-                }}
-                username={UserHandle}
-                saturation="85"
-                lightness="40"
-              />
-            </a>
-            
+              <a href="/ProfileAdmin" onClick={() => navigate("/ProfileAdmin")}>
+                <MinidenticonImg
+                  style={{
+                    backgroundColor: "#1a326a",
+                    border: "solid 0px #0b438b",
+                    width: "25px",
+                    height: "23px",
+                  }}
+                  username={UserHandle}
+                  saturation="85"
+                  lightness="40"
+                />
+              </a>
+
               <div>
                 <Button
                   variant="outlined"
@@ -291,21 +297,20 @@ function Appbar() {
               </div>
               {/* <Typography fontFamily={"monospace"}>{UserHandle}</Typography> */}
               <a href="/Profile" onClick={() => navigate("/Profile")}>
-              <MinidenticonImg
-                style={{
-                  backgroundColor: "#1a326a",
-                  // border: "solid 1.7px #5394e4ad",
-                  width: "24px",
-                  height: "23px",
-                  // padding:"0.5px"
-                }}
-                username={UserHandle}
-                saturation="85"
-                lightness="40"
-                // width="150"
-                // height="150"
-
-              />
+                <MinidenticonImg
+                  style={{
+                    backgroundColor: "#1a326a",
+                    // border: "solid 1.7px #5394e4ad",
+                    width: "24px",
+                    height: "23px",
+                    // padding:"0.5px"
+                  }}
+                  username={UserHandle}
+                  saturation="85"
+                  lightness="40"
+                  // width="150"
+                  // height="150"
+                />
               </a>
               <div>
                 <Button

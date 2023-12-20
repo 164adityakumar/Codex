@@ -33,11 +33,15 @@ router.put("/me", authenticateJwt, async (req, res) => {
     res.status(403).json({ msg: "User doesn't exist" });
     return;
   }
+  const oldUserhandle = admin.userhandle;
   admin.userhandle = userhandle;
   admin.username = username;
   admin.bio = bio;
   admin.Links = Links;
   await admin.save();
+
+  // Update the author name in the courses
+
   res.json({
     userhandle: admin.userhandle,
     username: admin.username,
@@ -223,6 +227,7 @@ router.get("/courses/author/:userhandle", authenticateJwt, async (req, res) => {
   const courses = await Course.find({ author: req.params.userhandle });
   console.log(courses);
   res.json({ courses });
+  
 });
 
 router.get("/course/:courseid", authenticateJwt, async (req, res) => {
