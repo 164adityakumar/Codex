@@ -61,7 +61,7 @@ Create your env file with by adding all the secrets for MongoDB & Firebase
 ```
 
 
-## FUTURE IDEAS AND CURRENT IMPLEMENTATIONS
+## Future ideas & Current Implementations
 ### Admin
 - [x] Course Creation: Easily add new courses to the platform.
 - [x] Tagging System: Assign relevant multiple tags to each course for better organization and searchability.
