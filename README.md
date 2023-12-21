@@ -61,20 +61,23 @@ Create your env file with by adding all the secrets for MongoDB & Firebase
 ```
 
 
-## Features
+## FUTURE IDEAS AND CURRENT IMPLEMENTATIONS
 ### Admin
-- Course Creation: Easily add new courses to the platform.
-- Tagging System: Assign relevant multiple tags to each course for better organization and searchability.
-- Content Upload: Effortlessly add course content such as documents and multimedia.
-- Profile Management: Seamlessly manage and update user profiles with personalized information.
-- Video Management: Conveniently upload and delete videos, ensuring efficient content control.
+- [x] Course Creation: Easily add new courses to the platform.
+- [x] Tagging System: Assign relevant multiple tags to each course for better organization and searchability.
+- [x] Content Upload: Effortlessly add course content such as documents and multimedia.
+- [x] Profile Management: Seamlessly manage and update user profiles with personalized information.
+- [x] Video Management: Conveniently upload and delete videos, ensuring efficient content control.
+- [ ] Livestream: Livestreaming online lectures
 ### User
-- Course Exploration: Discover a diverse range of courses available on the platform.
-- Profile Management: Efficiently manage and update your user profile with personalized details.
-- Content Viewing: Access course content, including videos, and explore author profiles.
-- Tag-Based Filtering: Easily filter courses using multiple tags for a more tailored exploration.
-- Course Purchase: Securely buy desired courses to gain access to premium content.
-- Purchased Course Viewing: Instantly view and revisit purchased courses for ongoing learning and reference.
+- [x] Course Exploration: Discover a diverse range of courses available on the platform.
+- [x] Profile Management: Efficiently manage and update your user profile with personalized details.
+- [x] Content Viewing: Access course content, including videos, and explore author profiles.
+- [x] Tag-Based Filtering: Easily filter courses using multiple tags for a more tailored exploration.
+- [x] Course Purchase: Securely buy desired courses to gain access to premium content.
+- [x] Purchased Course Viewing: Instantly view and revisit purchased courses for ongoing learning and reference.
+- [ ] Discussion Forum: Discussion forum for other users to know about other courses and chat with others about it.
+- [ ] Rating: Rating courses 
 
 
 
