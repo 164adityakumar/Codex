@@ -13,6 +13,8 @@ app.use(express.json());
 app.use("/admin", adminRouter);
 app.use("/user", userRouter);
 app.get("/", (req, res) => res.json({ msg: "Hello I am the Backend server for Codex" }));
+
+
 const url=process.env.MONGO_URL;
 mongoose.connect(url, {
   useNewUrlParser: true,

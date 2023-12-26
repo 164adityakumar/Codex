@@ -7,7 +7,10 @@ const userSchema = new mongoose.Schema({
   password: String,
   bio: String,
   Links: String,
-  purchasedCourses: [{ type: mongoose.Schema.Types.ObjectId, ref: "Course" }],
+  purchasedCourses: [{
+     type: mongoose.Schema.Types.ObjectId,
+     ref: "Course"
+     }],
 });
 
 const adminSchema = new mongoose.Schema({
@@ -26,13 +29,17 @@ const courseSchema = new mongoose.Schema({
   published: Boolean,
   author: String,
   tags: [String],
-  videos: [{ type: mongoose.Schema.Types.ObjectId, ref: "Video" }], // Add this line
+  videos: [{ 
+    type: mongoose.Schema.Types.ObjectId,
+     ref: "Video"
+     }], // Add this line
 });
 
 const tagsSchema = new mongoose.Schema({
   tags: String,
-  courses_with_tag_id: [
-    { type: mongoose.Schema.Types.ObjectId, ref: "Course" },
+  courses_with_tag_id: [{ 
+    type: mongoose.Schema.Types.ObjectId, 
+    ref: "Course" },
   ],
 });
 

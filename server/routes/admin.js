@@ -65,7 +65,7 @@ router.post("/signup", (req, res) => {
       const newAdmin = new Admin(obj);
       newAdmin.save();
 
-      const token = jwt.sign({ username, role: "admin" }, SECRET, {
+      const token = jwt.sign({ id:newAdmin._id, role: "admin" }, SECRET, {
         expiresIn: "1h",
       });
       res.json({ message: "Admin created successfully", token });
@@ -79,7 +79,7 @@ router.post("/login", async (req, res) => {
   const { username, password } = req.body;
   const admin = await Admin.findOne({ username, password });
   if (admin) {
-    const token = jwt.sign({ username, role: "admin" }, SECRET, {
+    const token = jwt.sign({ id:admin._id, role: "admin" }, SECRET, {
       expiresIn: "1h",
     });
     res.json({ message: "Logged in successfully", token,userhandle:admin.userhandle });
