@@ -63,10 +63,10 @@ function Course() {
             }}
           >
             <Grid container spacing={0}>
-              <Grid item lg={4} md={7} sm={12}>
+              <Grid item lg={7} md={7} sm={12}>
                 <Updatecourse course={course} setCourse={setCourse} />
               </Grid>
-              <Grid item lg={4} md={5} sm={12}>
+              <Grid item lg={5} md={5} sm={12}>
                 <VideoDisplay course={course} />
               </Grid>
             </Grid>
