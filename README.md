@@ -1,7 +1,8 @@
+![Codex_](https://github.com/164adityakumar/Codex/assets/98655260/bd083c11-e34f-44ab-aaf6-e2fb807690f0)
 
 # Codex
 
-Codex is a user-friendly full stack web app , both users and tutors/admin facing. It's packed with features for easy use and management. It's flexible, scalable, and ready to meet your needs.
+Codex is a user-friendly course selling and management web app, both users and tutors/admin facing. It's packed with features for easy use and management. It's flexible, scalable, and ready to meet your needs.
 
 ## Tech stack
 Server: Node.js, Express.js
@@ -9,13 +10,6 @@ Server: Node.js, Express.js
 Client: React, Recoil, Material UI, Vite
 
 Databases: MongoDB, Firebase (Video Storage)
-
-## Usage/Examples
-
-```javascript
-
-```
-
 
 ## Setup Locally
 
