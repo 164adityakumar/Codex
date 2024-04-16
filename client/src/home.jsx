@@ -117,16 +117,18 @@ export default function Home() {
                   }}
                 >
                   {" "}
-                  with
+                  with{" "}
                 </span>
                 <span
                   style={{
                     fontFamily: "Righteous",
                     fontSize: "3.5rem",
-                    color: "#73b0ff",
+                    color: "#7bb4ff",
+                    textDecoration: "underline",
+                    textDecorationThickness:"0.15em",
+                    lineHeight:"0.1em"
                   }}
                 >
-                  {" "}
                   Codex
                 </span>
               </Typography>
@@ -204,13 +206,13 @@ export default function Home() {
               className="poly"
               style={{
                 padding: "10vh",
-                width: "84vw",
+                border: "3px dashed #79d5ff49",
               }}
             >
               <Typography
                 variant="h3"
                 style={{
-                  color: "#ffffffc0",
+                  color: "rgba(114, 182, 255, 0.973)",
                   fontFamily: "Poppins",
                   textAlign: "center",
                   // marginTop: "10vh",
@@ -236,7 +238,7 @@ export default function Home() {
                   // marginBottom: "1.3vh",
                 }}
               >
-                Choose the tech stack you want to learn
+                Choose the tech stack you want to master
               </Typography>
               <Box
                 style={{
@@ -385,7 +387,7 @@ export default function Home() {
                   textAlign: "center",
                   gap: "2vh",
                   // padding: "10vh",
-                  width: "40%",
+                  width: "60%",
                   // paddingRight: "15vh",
                   border: "2px solid #ffffff4f",
                   borderRadius: "15px",
@@ -395,8 +397,11 @@ export default function Home() {
                   <Typography
                     className="text"
                     variant="h5"
+                    textAlign={"left"}
                     color="white"
                     fontFamily={"Poppins"}
+                    style={{
+                    }}
                   >
                     Create your Courses
                   </Typography>
@@ -407,11 +412,13 @@ export default function Home() {
                     }}
                   />
                 </Box>
-                <Box className="features">
+                <Box className="features" style={{
+                }}>
                   <Typography
                     className="text"
                     variant="h5"
                     color="white"
+                    textAlign={"left"}
                     fontFamily={"Poppins"}
                   >
                     Add tags to your courses
@@ -427,6 +434,7 @@ export default function Home() {
                   <Typography
                     className="text"
                     variant="h5"
+                    textAlign={"left"}
                     color="white"
                     fontFamily={"Poppins"}
                   >
@@ -443,8 +451,9 @@ export default function Home() {
             </div>
           </div>
         </div>
+        <StickyFooter/>
+
       </div>
-      <StickyFooter/>
     </>
   );
 }

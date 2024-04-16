@@ -1,16 +1,15 @@
 const express = require("express");
-const { User, Course, Admin, Tags,Video} = require("../db");
+const { User, Course, Admin, Tags, Video } = require("../db");
 const jwt = require("jsonwebtoken");
 const { SECRET } = require("../middleware/auth");
 const { authenticateJwt } = require("../middleware/auth");
 const path = require("path");
 const { ref, uploadBytes, getDownloadURL } = require("firebase/storage");
-const firebaseStorage = require('./firebase'); 
-const multer = require('multer');
+const firebaseStorage = require("./firebase");
+const multer = require("multer");
 const upload = multer({ storage: multer.memoryStorage() });
 const router = express.Router();
 const admin = require("firebase-admin");
-
 
 router.get("/me", authenticateJwt, async (req, res) => {
   const admin = await Admin.findOne({ username: req.user.username });
@@ -51,7 +50,7 @@ router.put("/me", authenticateJwt, async (req, res) => {
 });
 
 router.post("/signup", (req, res) => {
-  const { userhandle, username, password ,Links} = req.body;
+  const { userhandle, username, password, Links } = req.body;
   function callback(admin) {
     if (admin) {
       res.status(403).json({ message: "Admin already exists" });
@@ -82,15 +81,18 @@ router.post("/login", async (req, res) => {
     const token = jwt.sign({ username, role: "admin" }, SECRET, {
       expiresIn: "1h",
     });
-    res.json({ message: "Logged in successfully", token,userhandle:admin.userhandle });
+    res.json({
+      message: "Logged in successfully",
+      token,
+      userhandle: admin.userhandle,
+    });
   } else {
     res.status(403).json({ message: "Invalid username or password" });
   }
 });
 
 router.post("/courses", authenticateJwt, async (req, res) => {
-
-    let author=await Admin.findOne({username:req.user.username})
+  let author = await Admin.findOne({ username: req.user.username });
 
   let course = new Course({
     title: req.body.title,
@@ -102,8 +104,7 @@ router.post("/courses", authenticateJwt, async (req, res) => {
     author: author.userhandle,
   });
 
-  console.log(author
-    );
+  console.log(author);
   await course.save();
 
   for (let i = 0; i < req.body.tags.length; i++) {
@@ -129,18 +130,16 @@ router.post("/courses", authenticateJwt, async (req, res) => {
   res.json({ message: "Course created successfully", courseId: course._id });
 });
 
-  router.put("/courses/:courseId", authenticateJwt, async (req, res) => {
-    const course = await Course.findByIdAndUpdate(
-      req.params.courseId,
-      req.body,
-      { new: true }
-    );
-    if (course) {
-      res.json({ message: "Course updated successfully" });
-    } else {
-      res.status(404).json({ message: "Course not found" });
-    }
+router.put("/courses/:courseId", authenticateJwt, async (req, res) => {
+  const course = await Course.findByIdAndUpdate(req.params.courseId, req.body, {
+    new: true,
   });
+  if (course) {
+    res.json({ message: "Course updated successfully" });
+  } else {
+    res.status(404).json({ message: "Course not found" });
+  }
+});
 
 router.post(
   "/course/:courseid/upload",
@@ -171,11 +170,12 @@ router.post(
               }
               course.videos.push(video);
               await course.save();
-res.json({
-  message: "Video uploaded successfully",
-  videoName: videoName,
-  downloadURL: downloadURL,
-});            } catch (err) {
+              res.json({
+                message: "Video uploaded successfully",
+                videoName: videoName,
+                downloadURL: downloadURL,
+              });
+            } catch (err) {
               res.status(500).json({ error: err.message });
             }
           })
@@ -188,7 +188,6 @@ res.json({
       });
   }
 );
-
 
 router.delete(
   "/course/:courseid/video/:videoid",
@@ -227,7 +226,6 @@ router.get("/courses/author/:userhandle", authenticateJwt, async (req, res) => {
   const courses = await Course.find({ author: req.params.userhandle });
   console.log(courses);
   res.json({ courses });
-  
 });
 
 router.get("/course/:courseid", authenticateJwt, async (req, res) => {
