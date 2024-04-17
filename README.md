@@ -35,11 +35,6 @@ Databases: MongoDB, Firebase (Video Storage)
 
 ```bash
   cd server
-```
-#### Start the server
-
-Create your env file with by adding all the secrets for MongoDB & Firebase
-```bash
   node index.js
 ```
 ### Client
@@ -47,10 +42,6 @@ Create your env file with by adding all the secrets for MongoDB & Firebase
 
 ```bash
   cd client
-```
-#### Start the Frontend
-
-```bash
   npm run dev
 ```
 
