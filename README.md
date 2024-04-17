@@ -1,5 +1,5 @@
 
-<img src="https://github.com/164adityakumar/Codex/assets/98655260/ad1da33d-d455-49ea-8de3-e192b565927c" alt="my banner" style="width:100%;">
+<img src="https://github.com/164adityakumar/Codex/assets/98655260/e86c5fe6-494b-4769-abd1-0e701850e390" alt="my banner" style="width:100%;">
 
 ##
 Codex is a user-friendly course selling and management web app, both users and tutors/admin facing. It's packed with features for easy use and management. It's flexible, scalable, and ready to meet your needs.
