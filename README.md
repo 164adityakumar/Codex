@@ -1,4 +1,5 @@
-![Codex_](https://github.com/164adityakumar/Codex/assets/98655260/bd083c11-e34f-44ab-aaf6-e2fb807690f0)
+
+<img src="https://github.com/164adityakumar/Codex/assets/98655260/bd083c11-e34f-44ab-aaf6-e2fb807690f0" alt="my banner" style="width:100%;">
 
 # Codex
 
